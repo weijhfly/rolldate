@@ -64,9 +64,26 @@
 	</div>
 </div>
 <script>
-	window.onload = function(){
-		new rolldate.Date();
-	}
+window.onload = function(){
+	new rolldate.Date({
+		el:'#date',
+		format:'YYYY-MM-DD',
+		beginYear:2000,
+		endYear:2100,
+		tapBefore:function(el){
+			
+		},
+		moveEnd:function(el,target){
+			
+		},
+		confirmBefore:function(el,date){
+			
+		},
+		confirmEnd:function(el,date){
+			
+		}
+	});
+}
 </script>
 <script type="text/javascript" src="rolldate.js"></script></body>
 </html>
