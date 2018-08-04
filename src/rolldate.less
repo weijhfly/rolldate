@@ -30,7 +30,7 @@ li {
 		width: 80%;
 		top: 50%;
 		left: 10%;
-		margin-top: -150px;
+		margin-top: -118px;
 		z-index: 101;
 		border-radius: 3px;
 		overflow: hidden;
@@ -68,7 +68,7 @@ li {
 	}
 	}
 	footer{
-		overflow-x: hidden;
+		overflow: hidden;
 		padding:10px 20px;
 	}
 	.rolldate-btn{
@@ -84,4 +84,28 @@ li {
     	outline: none;
 	}
 	.rolldate-confirm{float: right;background: #79c12f;color: #fff;}
+	&.rolldate-two{
+		.rolldate-frame>div{
+			width: 50%;
+		}
+	}
+	&.rolldate-five{
+		.rolldate-frame>div{
+			width: 20%;
+		}
+	}
+	&.rolldate-six{
+		.rolldate-wrapper{
+			width: 90%;
+			left: 5%;
+		}
+		.rolldate-frame>div{
+			width: 16.6666666%;
+		}
+	}
+}
+@media screen and (max-width: 320px) {
+    .rolldate-container{font-size: 13px;}
+    .rolldate-container footer{padding:10px;}
+    .rolldate-container .rolldate-btn{width: 100px;}
 }

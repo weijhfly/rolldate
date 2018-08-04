@@ -1,9 +1,9 @@
 /*!
- * Rolldate 0.0.1
+ * Rolldate 1.0.0
  * Copyright 2018 雾空
  * https://github.com/weijhfly/rolldate
  * Licensed under MIT
- * Released on: unknown
+ * Released on: aug 4, 2018
  */
 ul {
   margin: 0;
@@ -38,7 +38,7 @@ li {
   width: 80%;
   top: 50%;
   left: 10%;
-  margin-top: -150px;
+  margin-top: -118px;
   z-index: 101;
   border-radius: 3px;
   overflow: hidden;
@@ -78,7 +78,7 @@ li {
   z-index: 1;
 }
 .rolldate-container footer {
-  overflow-x: hidden;
+  overflow: hidden;
   padding: 10px 20px;
 }
 .rolldate-container .rolldate-btn {
@@ -97,4 +97,28 @@ li {
   float: right;
   background: #79c12f;
   color: #fff;
+}
+.rolldate-container.rolldate-two .rolldate-frame > div {
+  width: 50%;
+}
+.rolldate-container.rolldate-five .rolldate-frame > div {
+  width: 20%;
+}
+.rolldate-container.rolldate-six .rolldate-wrapper {
+  width: 90%;
+  left: 5%;
+}
+.rolldate-container.rolldate-six .rolldate-frame > div {
+  width: 16.6666666%;
+}
+@media screen and (max-width: 320px) {
+  .rolldate-container {
+    font-size: 13px;
+  }
+  .rolldate-container footer {
+    padding: 10px;
+  }
+  .rolldate-container .rolldate-btn {
+    width: 100px;
+  }
 }

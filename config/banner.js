@@ -6,7 +6,7 @@ var pkg = require('../package.json'),
 	released = 'Licensed under MIT',
 	repository = pkg.repository.url,
 	author = 'Copyright ' + (new Date()).getFullYear() + ' 雾空',
-	date = 'Released on: unknown';
+	date = 'Released on: aug 4, 2018';
 
 module.exports = {
 	'info': [

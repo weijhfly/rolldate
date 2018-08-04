@@ -4,85 +4,140 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<title>rolldate demo</title>
+	<style type="text/css">
+		h1{font-size: 22px;}
+		input+input{margin-left: 10px;}
+	</style>
 </head>
+<h1>rolldate 移动端时间选择插件</h1>
+<div>支持格式：<br>YYYY-MM、YYYY-MM-DD、YYYY-MM-DD hh:mm、YYYY-MM-DD hh:mm:ss</div>
+<input type="text" id="date" placeholder="YYYY-MM"><input type="text" id="date2" placeholder="YYYY-MM-DD">
+<br>
+<input type="text" id="date3" placeholder="YYYY-MM-DD hh:mm"><input type="text" id="date4" placeholder="YYYY-MM-DD hh:mm:ss">
+<hr>
+<div>主题风格：<br>blue、red、green、black、支持自定义</div>
+<input type="text" id="date5" placeholder="blue"><input type="text" id="date6" placeholder="red">
+<br>
+<input type="text" id="date7" placeholder="green"><input type="text" id="date8" placeholder="black">
+<br>
+<input type="text" id="date9" placeholder="自定义风格">	
+<hr>
+<div>回调函数：<br>tapBefore、moveEnd、confirmBefore、confirmEnd</div>
+<input type="text" id="date10" placeholder="完整实例"><br><br>	
+<div>tapBefore return false可阻止插件运行</div>
+<input type="text" id="date11" placeholder="tapBefore"><br><br>
+<div>confirmBefore return false阻止插件运行,return其他值可以修改日期展示</div>
+<input type="text" id="date12" placeholder="confirmBefore修改日期"><br>
 <body>
-<input type="text" class="dateText">
-<div class="rolldate-container">
-	<div class="rolldate-mask"></div>
-	<div class="rolldate-wrapper">
-		<header>选择日期</header>
-		<section class="rolldate-content">
-			<div class="rolldate-frame">
-				<div class="rolldate-year">
-					<ul>
-						<li>2018年</li>
-						<li>2018年</li>
-						<li>2018年</li>
-						<li>2018年</li>
-						<li>2018年</li>
-						<li>2018年</li>
-						<li>2018年</li>
-						<li>2018年</li>
-						<li>2018年</li>
-						<li>2018年</li>
-					</ul>	
-				</div>
-				<div class="rolldate-month">
-					<ul>
-						<li>1月</li>
-						<li>1月</li>
-						<li>1月</li>
-						<li>1月</li>
-						<li>1月</li>
-						<li>1月</li>
-						<li>1月</li>
-						<li>1月</li>
-						<li>1月</li>
-						<li>1月</li>
-					</ul>
-				</div>
-				<div class="rolldate-day">
-					<ul>
-						<li>5日</li>
-						<li>5日</li>
-						<li>5日</li>
-						<li>5日</li>
-						<li>5日</li>
-						<li>5日</li>
-						<li>5日</li>
-						<li>5日</li>
-						<li>5日</li>
-						<li>5日</li>
-					</ul>
-				</div>
-			</div>
-		</section>
-		<footer>
-			<button class="rolldate-btn rolldate-cancel">取消</button>
-			<button class="rolldate-btn rolldate-confirm">确定</button>
-		</footer>
-	</div>
-</div>
 <script>
 window.onload = function(){
-	new rolldate.Date({
-		el:'#date',
+ /*
+  *欢迎关注https://github.com/weijhfly/rolldate，并给个star，此插件会持续完善。
+ */
+ // 格式
+ new rolldate.Date({
+ 	el:'#date',
+		format:'YYYY-MM',
+		beginYear:2000,
+		endYear:2100
+ })
+ new rolldate.Date({
+ 	el:'#date2',
+		format:'YYYY-MM-DD',
+		beginYear:2000,
+		endYear:2100
+ })
+ new rolldate.Date({
+ 	el:'#date3',
+		format:'YYYY-MM-DD hh:mm',
+		beginYear:2000,
+		endYear:2100
+ })
+ new rolldate.Date({
+ 	el:'#date4',
+		format:'YYYY-MM-DD hh:mm:ss',
+		beginYear:2000,
+		endYear:2100
+ })
+ // 主题
+ new rolldate.Date({
+ 	el:'#date5',
 		format:'YYYY-MM-DD',
 		beginYear:2000,
 		endYear:2100,
+		theme:'blue'
+ })
+ new rolldate.Date({
+ 	el:'#date6',
+		format:'YYYY-MM-DD',
+		beginYear:2000,
+		endYear:2100,
+		theme:'red'
+ })
+ new rolldate.Date({
+ 	el:'#date7',
+		format:'YYYY-MM-DD',
+		beginYear:2000,
+		endYear:2100,
+		theme:'green'
+ })
+ new rolldate.Date({
+ 	el:'#date8',
+		format:'YYYY-MM-DD',
+		beginYear:2000,
+		endYear:2100,
+		theme:'black'
+ })
+  new rolldate.Date({
+ 	el:'#date9',
+		format:'YYYY-MM-DD',
+		beginYear:2000,
+		endYear:2100,
+		theme:'#f90'
+ })
+  // 回调
+  new rolldate.Date({
+ 	el:'#date10',
+		format:'YYYY-MM-DD',
+		beginYear:2000,
+		endYear:2100,
+		theme:'blue',
 		tapBefore:function(el){
-			
+			console.log('插件开始触发');
 		},
-		moveEnd:function(el,target){
-			
+		moveEnd:function(el,iscroll){
+			console.log('滚动结束');
 		},
 		confirmBefore:function(el,date){
-			
+			console.log('确定按钮触发');
 		},
 		confirmEnd:function(el,date){
-			
+			console.log('插件运行结束');
 		}
-	});
+ })
+  new rolldate.Date({
+ 	el:'#date11',
+		format:'YYYY-MM-DD',
+		beginYear:2000,
+		endYear:2100,
+		theme:'blue',
+		tapBefore:function(el){
+			if(1 == 1){
+				console.log('阻止插件继续执行');
+				return false;
+			}
+		}
+ })
+    new rolldate.Date({
+ 	el:'#date12',
+		format:'YYYY-MM-DD',
+		beginYear:2000,
+		endYear:2100,
+		theme:'blue',
+		confirmBefore:function(el,date){
+			return date.replace(/-/g,'/');
+		}
+ })
 }
 </script>
 </body>
