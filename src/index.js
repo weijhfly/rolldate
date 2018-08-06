@@ -5,10 +5,11 @@ let pkg = require('../package.json');
 
 export class Date{
 	constructor(config){
+        if(!config || !config.el){return;}
         let _this = this,
             el = _this.$(config.el)[0];
 
-		if(!config || !el){return;}
+		if(!el){return;}
 		_this.extend(config);
         el.addEventListener('click', function() {
             if(el.nodeName == 'INPUT'){el.blur();}
