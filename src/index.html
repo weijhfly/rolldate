@@ -43,8 +43,8 @@ window.onload = function(){
  new rolldate.Date({
  	el:'#date',
 		format:'YYYY-MM',
-		beginYear:2000,
-		endYear:2100
+		//beginYear:2000,
+		//endYear:2100
  })
  new rolldate.Date({
  	el:'#date2',
@@ -161,7 +161,7 @@ window.onload = function(){
 			}
 		}
   })
- window.vue = new Vue({
+ var vue = new Vue({
 	el:"#app",
 	data:{
 		date:''

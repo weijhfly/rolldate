@@ -43,7 +43,7 @@ export class Date{
     	for(let key in opts){
     		opts[key] = config[key] || opts[key];
     	}
-    	this.config = config;
+    	this.config = opts;
     }
     createUi(){
         let _this = this,   
