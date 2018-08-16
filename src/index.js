@@ -1,5 +1,5 @@
 import './rolldate.less';
-// 从npm下载的iscroll发现无法滑动bug，这里用github上的v5.2.0-snapshot版本
+// 这里用的是github上的v5.2.0-snapshot版本
 import IScroll from './iscroll/iscroll';
 let pkg = require('../package.json');
 
@@ -13,7 +13,7 @@ export class Date{
 		_this.extend(config);
         el.addEventListener('click', function() {
             if(el.nodeName == 'INPUT'){el.blur();}
-            if(_this.config.tapBefore && _this.config.tapBefore(el) === false){return false;}
+            if(_this.config.tapBefore && _this.config.tapBefore.call(_this,el) === false){return false;}
             _this.createUi();
         })
     }
@@ -38,12 +38,13 @@ export class Date{
     	};
     }
     extend(config){
-    	let opts = this.baseData().opts;
+        let _this = this,
+    	    opts = _this.baseData().opts;
     		
     	for(let key in opts){
     		opts[key] = config[key] || opts[key];
     	}
-    	this.config = opts;
+    	_this.config = opts;
     }
     createUi(){
         let _this = this,   
@@ -108,13 +109,13 @@ export class Date{
         for(let i=0; i<len; i++){
             _this.iscroll[i] = new IScroll('.'+$class[i], {
                snap: 'li',
-               checkDOMChanges:i==2?true:false
+               checkDOMChanges:i==2
             });
             let li = _this.$('.'+$class[i]+' .active')[0].previousSibling;
             _this.iscroll[i].scrollToElement(li);
             _this.iscroll[i].on('scrollEnd', function(){
                 if(_this.config.moveEnd){
-                    _this.config.moveEnd(_this.$(_this.config.el)[0],this);
+                    _this.config.moveEnd.call(_this,_this.$(_this.config.el)[0],this);
                 }
                 if(data.domClass.slice(0,2).indexOf(this.wrapper.className) != -1 && _this.iscroll[2]){
                     let prevDay = _this.getIscrollDay(_this.iscroll[2]),
@@ -159,9 +160,9 @@ export class Date{
                 date = date.replace(str,d);
             })
             if(_this.config.confirmBefore){
-                var flag = _this.config.confirmBefore(el,date);
+                var flag = _this.config.confirmBefore.call(_this,el,date);
                 if(flag === false){
-                    if(_this.config.confirmEnd){_this.config.confirmEnd();}
+                    if(_this.config.confirmEnd){_this.config.confirmEnd.call(_this);}
                     return false
                 }else if(flag){
                     date = flag;
@@ -193,17 +194,20 @@ export class Date{
         return day;
     }
     destroy(){
-        this.iscroll.forEach(function(v,i){v.destroy();})
-        document.body.removeChild(this.$('.rolldate-container')[0]);
+        let _this = this;
+
+        _this.iscroll.forEach(function(v,i){v.destroy();})
+        document.body.removeChild(_this.$('.rolldate-container')[0]);
     }
     getIscrollDay(iscroll){
         return this.$('.'+iscroll.wrapper.className+' li')[Math.abs(iscroll.y)/40+1].innerText.replace(/\D/g,'');
     }
     setTheme(){
-        let theme = this.config.theme,
+        let _this = this,
+            theme = _this.config.theme,
             defaultTheme = {blue:'#16a1d3',red:'#d91600',green:'#009688',black:'#393D49'},
-            header = this.$('.rolldate-container header')[0],
-            btn = this.$('.rolldate-container .rolldate-confirm')[0];
+            header = _this.$('.rolldate-container header')[0],
+            btn = _this.$('.rolldate-container .rolldate-confirm')[0];
 
         if(theme){
             if(defaultTheme[theme]){

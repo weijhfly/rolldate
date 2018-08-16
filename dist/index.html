@@ -12,27 +12,27 @@
 <body>
 <h1>rolldate 移动端时间选择插件</h1>
 <div>支持格式：<br>YYYY-MM、YYYY-MM-DD、YYYY-MM-DD hh:mm、YYYY-MM-DD hh:mm:ss</div>
-<input type="text" id="date" placeholder="YYYY-MM"><input type="text" id="date2" placeholder="YYYY-MM-DD">
+<input readonly type="text" id="date" placeholder="YYYY-MM"><input readonly type="text" id="date2" placeholder="YYYY-MM-DD">
 <br>
-<input type="text" id="date3" placeholder="YYYY-MM-DD hh:mm"><input type="text" id="date4" placeholder="YYYY-MM-DD hh:mm:ss">
+<input readonly type="text" id="date3" placeholder="YYYY-MM-DD hh:mm"><input readonly type="text" id="date4" placeholder="YYYY-MM-DD hh:mm:ss">
 <hr>
 <div>主题风格：<br>blue、red、green、black、支持自定义</div>
-<input type="text" id="date5" placeholder="blue"><input type="text" id="date6" placeholder="red">
+<input readonly type="text" id="date5" placeholder="blue"><input readonly type="text" id="date6" placeholder="red">
 <br>
-<input type="text" id="date7" placeholder="green"><input type="text" id="date8" placeholder="black">
+<input readonly type="text" id="date7" placeholder="green"><input readonly type="text" id="date8" placeholder="black">
 <br>
-<input type="text" id="date9" placeholder="自定义风格">	
+<input readonly type="text" id="date9" placeholder="自定义风格">	
 <hr>
 <div>回调函数：<br>tapBefore、moveEnd、confirmBefore、confirmEnd</div>
-<input type="text" id="date10" placeholder="完整实例"><br><br>	
+<input readonly type="text" id="date10" placeholder="完整实例"><br><br>	
 <div>tapBefore return false可阻止插件运行</div>
-<input type="text" id="date11" placeholder="tapBefore"><br><br>
+<input readonly type="text" id="date11" placeholder="tapBefore"><br><br>
 <div>confirmBefore return false阻止插件运行,return其他值可以修改日期展示</div>
-<input type="text" id="date12" placeholder="confirmBefore修改日期"><br>
+<input readonly type="text" id="date12" placeholder="confirmBefore修改日期"><br>
 <h4>其他示例</h4>
-<input type="text" id="date13" placeholder="不能小于当前的日期"><hr>
+<input readonly type="text" id="date13" placeholder="不能小于当前的日期"><hr>
 <div id="app">
-	<input type="text" id="date14" placeholder="设置vue model" v-model="date"><button>model:{{date}}</button><br>
+	<input readonly type="text" id="date14" placeholder="设置vue model" v-model="date"><button>model:{{date}}</button><br>
 </div>
 <script>
 window.onload = function(){
@@ -43,8 +43,8 @@ window.onload = function(){
  new rolldate.Date({
  	el:'#date',
 		format:'YYYY-MM',
-		//beginYear:2000,
-		//endYear:2100
+		beginYear:2000,
+		endYear:2100
  })
  new rolldate.Date({
  	el:'#date2',
@@ -114,6 +114,7 @@ window.onload = function(){
 			console.log('滚动结束');
 		},
 		confirmBefore:function(el,date){
+			//console.log(this,el,date)
 			console.log('确定按钮触发');
 		},
 		confirmEnd:function(el,date){
@@ -128,6 +129,7 @@ window.onload = function(){
 		theme:'blue',
 		tapBefore:function(el){
 			if(1 == 1){
+				//console.log(this);
 				console.log('阻止插件继续执行');
 				return false;
 			}
