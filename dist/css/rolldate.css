@@ -1,5 +1,5 @@
 /*!
- * Rolldate 1.0.3
+ * Rolldate 1.0.4
  * Copyright 2018 雾空
  * https://github.com/weijhfly/rolldate
  * Licensed under MIT
@@ -110,6 +110,16 @@ li {
 }
 .rolldate-container.rolldate-six .rolldate-frame > div {
   width: 16.6666666%;
+}
+.rolldate-container.rolldate-one .rolldate-wrapper {
+  width: 60%;
+  left: 20%;
+}
+.rolldate-container.rolldate-one .rolldate-frame > div {
+  width: 100%;
+}
+.rolldate-container.rolldate-one .rolldate-btn {
+  width: 80px;
 }
 @media screen and (max-width: 320px) {
   .rolldate-container {

@@ -1,6 +1,5 @@
 import './rolldate.less';
-// 这里用的是github上的v5.2.0-snapshot版本
-import IScroll from './iscroll/iscroll';
+import IScroll from './iscroll/iscroll5';
 let pkg = require('../package.json');
 
 export class Date{
@@ -22,7 +21,7 @@ export class Date{
     	return {
     		date:new window.Date(),
     		emptyli:'<li>&nbsp;</li>',
-    		dateFormat:['YYYY-MM','YYYY-MM-DD','YYYY-MM-DD hh:mm','YYYY-MM-DD hh:mm:ss'],//支持的日期格式
+    		dateFormat:['YYYY-MM','YYYY-MM-DD','YYYY-MM-DD hh:mm','YYYY-MM-DD hh:mm:ss','YYYY'],//支持的日期格式
             domClass:['rolldate-year','rolldate-month','rolldate-day','rolldate-hour','rolldate-min','rolldate-sec'],
     		opts:{//插件默认配置
     			el:'',
@@ -52,36 +51,39 @@ export class Date{
             index = data.dateFormat.indexOf(_this.config.format);
 
         index = index > 1? index+1 : index;
-        let $class = data.domClass.slice(0,index + 2),
+        let $class = index == 5? [data.domClass[0]]:data.domClass.slice(0,index + 2),
             len = $class.length,
-            ul = '';
-
+            ul = '',
+            el = _this.$(_this.config.el)[0],
+            hasDate = !!el.date,
+            date = hasDate? new window.Date(el.date):data.date;
+ 
         for(let i=0; i<len; i++){
             ul += '<div class="'+ $class[i]+'"><ul>' + data.emptyli;
             if(i == 0){
                 for(let j=_this.config.beginYear; j<=_this.config.endYear; j++){
-                    ul += '<li'+(j==data.date.getFullYear()?' class="active"':'')+'>'+ j +'年</li>';
+                    ul += '<li'+(j==date.getFullYear()?' class="active"':'')+'>'+ j +'年</li>';
                 }
             }else if(i == 1){
                 for(let k=1; k<=12; k++){
-                    ul += '<li'+(k==data.date.getMonth() + 1?' class="active"':'')+'>'+ (k<10? '0'+k : k) +'月</li>';
+                    ul += '<li'+(k==date.getMonth() + 1?' class="active"':'')+'>'+ (k<10? '0'+k : k) +'月</li>';
                 }
             }else if(i == 2){
-                let day = _this.bissextile(data.date.getFullYear(),data.date.getMonth() + 1);
+                let day = _this.bissextile(date.getFullYear(),date.getMonth() + 1);
                 for(let l=1; l<=day; l++){
-                    ul += '<li'+(l==data.date.getDate()?' class="active"':'')+'>'+ (l<10? '0'+l : l) +'日</li>';
+                    ul += '<li'+(l==date.getDate()?' class="active"':'')+'>'+ (l<10? '0'+l : l) +'日</li>';
                 }
             }else if(i == 3){
                 for(let m=0; m<=23; m++){
-                    ul += '<li'+(m==data.date.getHours()?' class="active"':'')+'>'+ (m<10? '0'+m : m) +'时</li>';
+                    ul += '<li'+(m==date.getHours()?' class="active"':'')+'>'+ (m<10? '0'+m : m) +'时</li>';
                 }
             }else if(i == 4){
                 for(let n=0; n<=59; n++){
-                    ul += '<li'+(n==data.date.getMinutes()?' class="active"':'')+'>'+ (n<10? '0'+n : n) +'分</li>';
+                    ul += '<li'+(n==date.getMinutes()?' class="active"':'')+'>'+ (n<10? '0'+n : n) +'分</li>';
                 }
             }else if(i == 5){
                 for(let o=0; o<=59; o++){
-                    ul += '<li'+(o==data.date.getSeconds()?' class="active"':'')+'>'+ (o<10? '0'+o : o) +'秒</li>';
+                    ul += '<li'+(o==date.getSeconds()?' class="active"':'')+'>'+ (o<10? '0'+o : o) +'秒</li>';
                 }
             }
             ul += data.emptyli +'</ul></div>'
@@ -98,7 +100,7 @@ export class Date{
 				</footer>
 			</div>`,
             box = document.createElement("div"),
-            className = index == 0? 'rolldate-two':index == 3? 'rolldate-five':index == 4? 'rolldate-six':'';
+            className = index == 0? 'rolldate-two':index == 3? 'rolldate-five':index == 4? 'rolldate-six':index == 5? 'rolldate-one':'';
 
             box.className = 'rolldate-container ' + className;
             box.innerHTML = $html;
@@ -159,6 +161,7 @@ export class Date{
 
                 date = date.replace(str,d);
             })
+            el.date = date;
             if(_this.config.confirmBefore){
                 var flag = _this.config.confirmBefore.call(_this,el,date);
                 if(flag === false){
