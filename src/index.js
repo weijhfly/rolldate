@@ -1,15 +1,17 @@
 import './rolldate.less';
-import IScroll from './iscroll/iscroll5';
-let pkg = require('../package.json');
+// 更换为iscroll4
+import IScroll from './iscroll/iscroll';
+let pkg = require('../package.json'),
+    iScroll = IScroll.iScroll;
 
 export class Date{
-	constructor(config){
+    constructor(config){
         if(!config || !config.el){return;}
         let _this = this,
             el = _this.$(config.el)[0];
 
-		if(!el){return;}
-		_this.extend(config);
+        if(!el){return;}
+        _this.extend(config);
         el.addEventListener('click', function() {
             if(el.nodeName == 'INPUT'){el.blur();}
             if(_this.config.tapBefore && _this.config.tapBefore.call(_this,el) === false){return false;}
@@ -18,32 +20,32 @@ export class Date{
     }
     baseData(){
 
-    	return {
-    		date:new window.Date(),
-    		emptyli:'<li>&nbsp;</li>',
-    		dateFormat:['YYYY-MM','YYYY-MM-DD','YYYY-MM-DD hh:mm','YYYY-MM-DD hh:mm:ss','YYYY'],//支持的日期格式
+        return {
+            date:new window.Date(),
+            emptyli:'<li>&nbsp;</li>',
+            dateFormat:['YYYY-MM','YYYY-MM-DD','YYYY-MM-DD hh:mm','YYYY-MM-DD hh:mm:ss','YYYY'],//支持的日期格式
             domClass:['rolldate-year','rolldate-month','rolldate-day','rolldate-hour','rolldate-min','rolldate-sec'],
-    		opts:{//插件默认配置
-    			el:'',
-				format:'YYYY-MM-DD',
-				beginYear:2000,
-				endYear:2100,
-				theme:'',
-				tapBefore:null,
-				moveEnd:null,
-				confirmBefore:null,
-				confirmEnd:null
-    		}
-    	};
+            opts:{//插件默认配置
+                el:'',
+                format:'YYYY-MM-DD',
+                beginYear:2000,
+                endYear:2100,
+                theme:'',
+                tapBefore:null,
+                moveEnd:null,
+                confirmBefore:null,
+                confirmEnd:null
+            }
+        };
     }
     extend(config){
         let _this = this,
-    	    opts = _this.baseData().opts;
-    		
-    	for(let key in opts){
-    		opts[key] = config[key] || opts[key];
-    	}
-    	_this.config = opts;
+            opts = _this.baseData().opts;
+            
+        for(let key in opts){
+            opts[key] = config[key] || opts[key];
+        }
+        _this.config = opts;
     }
     createUi(){
         let _this = this,   
@@ -59,7 +61,7 @@ export class Date{
             date = hasDate? new window.Date(el.date.replace(/-/g,'/')):data.date;
  
         for(let i=0; i<len; i++){
-            ul += '<div class="'+ $class[i]+'"><ul>' + data.emptyli;
+            ul += '<div id="'+ $class[i]+'"><ul>' + data.emptyli;
             if(i == 0){
                 for(let j=_this.config.beginYear; j<=_this.config.endYear; j++){
                     ul += '<li'+(j==date.getFullYear()?' class="active"':'')+'>'+ j +'年</li>';
@@ -88,19 +90,20 @@ export class Date{
             }
             ul += data.emptyli +'</ul></div>'
         }
-    	let $html = `<div class="rolldate-mask"></div>
-			<div class="rolldate-wrapper">
-				<header>选择日期</header>
-				<section class="rolldate-content">
-					<div class="rolldate-frame">${ul}</div>
-				</section>
-				<footer>
-					<button class="rolldate-btn rolldate-cancel">取消</button>
-					<button class="rolldate-btn rolldate-confirm">确定</button>
-				</footer>
-			</div>`,
+        let $html = `<div class="rolldate-mask"></div>
+            <div class="rolldate-wrapper">
+                <header>选择日期</header>
+                <section class="rolldate-content">
+                    <div class="rolldate-frame">${ul}</div>
+                </section>
+                <footer>
+                    <button class="rolldate-btn rolldate-cancel">取消</button>
+                    <button class="rolldate-btn rolldate-confirm">确定</button>
+                </footer>
+            </div>`,
             box = document.createElement("div"),
-            className = index == 0? 'rolldate-two':index == 3? 'rolldate-five':index == 4? 'rolldate-six':index == 5? 'rolldate-one':'';
+            className = index == 0? 'rolldate-two':index == 3? 'rolldate-five':index == 4? 'rolldate-six':index == 5? 'rolldate-one':'',
+            scrollEnd = false;
 
             box.className = 'rolldate-container ' + className;
             box.innerHTML = $html;
@@ -109,39 +112,43 @@ export class Date{
             
         _this.iscroll = [];
         for(let i=0; i<len; i++){
-            _this.iscroll[i] = new IScroll('.'+$class[i], {
+            _this.iscroll[i] = new iScroll($class[i], {
                snap: 'li',
-               checkDOMChanges:i==2
-            });
-            let li = _this.$('.'+$class[i]+' .active')[0].previousSibling;
-            _this.iscroll[i].scrollToElement(li);
-            _this.iscroll[i].on('scrollEnd', function(){
-                if(_this.config.moveEnd){
-                    _this.config.moveEnd.call(_this,_this.$(_this.config.el)[0],this);
-                }
-                if(data.domClass.slice(0,2).indexOf(this.wrapper.className) != -1 && _this.iscroll[2]){
-                    let prevDay = _this.getIscrollDay(_this.iscroll[2]),
+               vScrollbar:false,
+               hScroll:false,
+               checkDOMChanges:i==2,
+               onScrollEnd:function(){
+                    if(data.domClass.indexOf(this.wrapper.id) == 2 ){scrollEnd = true;}
+                    if(!scrollEnd){return;}
+
+                    if(_this.config.moveEnd){
+                        _this.config.moveEnd.call(_this,_this.$(_this.config.el)[0],this);
+                    }
+                    if(data.domClass.slice(0,2).indexOf(this.wrapper.id) != -1 && _this.iscroll[2]){
+                        let prevDay = _this.getIscrollDay(_this.iscroll[2]),
                         day = _this.bissextile(_this.getIscrollDay(_this.iscroll[0]),_this.getIscrollDay(_this.iscroll[1])),
                         li = '';
+                        if(day+2 != _this.$('#'+data.domClass[2]+' li').length){
 
-                    if(day+2 != _this.$('.'+data.domClass[2]+' li').length){
-
-                        for(let l=1; l<=day; l++){
-                            li += '<li>'+ (l<10? '0'+l : l) +'日</li>';
-                        }
-                        li = data.emptyli + li + data.emptyli;
-                        _this.$('.'+data.domClass[2]+' ul')[0].innerHTML = li;
-                        if(prevDay > day){
-                            _this.iscroll[2].scrollToElement(_this.$('.'+data.domClass[2]+' li')[day-1]);
+                            for(let l=1; l<=day; l++){
+                                li += '<li>'+ (l<10? '0'+l : l) +'日</li>';
+                            }
+                            li = data.emptyli + li + data.emptyli;
+                            _this.$('#'+data.domClass[2]+' ul')[0].innerHTML = li;
+                            if(prevDay > day){
+                                _this.iscroll[2].scrollToElement(_this.$('#'+data.domClass[2]+' li')[day-1]);
+                            }
                         }
                     }
                 }
             });
+            let li = _this.$('#'+$class[i]+' .active')[0].previousSibling;
+            _this.iscroll[i].scrollToElement(li);
         }
         _this.event();
     }
     $(selector){
-    	return document.querySelectorAll(selector);
+        return document.querySelectorAll(selector);
     }
     event(){
         let _this = this,
@@ -203,7 +210,7 @@ export class Date{
         document.body.removeChild(_this.$('.rolldate-container')[0]);
     }
     getIscrollDay(iscroll){
-        return this.$('.'+iscroll.wrapper.className+' li')[Math.abs(iscroll.y)/40+1].innerText.replace(/\D/g,'');
+        return this.$('#'+iscroll.wrapper.id+' li')[Math.abs(iscroll.y)/40+1].innerText.replace(/\D/g,'');
     }
     setTheme(){
         let _this = this,
