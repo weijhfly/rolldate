@@ -107,7 +107,7 @@ export class Date{
 
             box.className = 'rolldate-container ' + className;
             box.innerHTML = $html;
-            document.body.append(box);
+            document.body.appendChild(box);
             _this.setTheme();
             
         _this.iscroll = [];
