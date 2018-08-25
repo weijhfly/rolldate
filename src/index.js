@@ -156,8 +156,8 @@ export class Date{
              cancel = _this.$('.rolldate-cancel')[0],
              confirm = _this.$('.rolldate-confirm')[0];
 
-        mask.addEventListener('click', function(){_this.destroy();})
-        cancel.addEventListener('click', function(){_this.destroy();})
+        mask.addEventListener('click', function(){_this.destroy(true);})
+        cancel.addEventListener('click', function(){_this.destroy(true);})
         confirm.addEventListener('click', function(){
             let el = _this.$(_this.config.el)[0],
                 date = _this.config.format;
@@ -172,7 +172,7 @@ export class Date{
             if(_this.config.confirmBefore){
                 var flag = _this.config.confirmBefore.call(_this,el,date);
                 if(flag === false){
-                    if(_this.config.confirmEnd){_this.config.confirmEnd.call(_this);}
+                    if(_this.config.confirmEnd){_this.config.confirmEnd.call(_this,el,date);}
                     return false
                 }else if(flag){
                     date = flag;
@@ -183,7 +183,7 @@ export class Date{
             }else{
                 el.innerText = date;
             }
-            if(_this.config.confirmEnd){_this.config.confirmEnd();}
+            if(_this.config.confirmEnd){_this.config.confirmEnd.call(_this,el,date);}
             _this.destroy();
         })
     }
@@ -203,11 +203,16 @@ export class Date{
         }
         return day;
     }
-    destroy(){
+    destroy(cancel){
         let _this = this;
 
         _this.iscroll.forEach(function(v,i){v.destroy();})
         document.body.removeChild(_this.$('.rolldate-container')[0]);
+        if(cancel&&_this.config.confirmEnd){
+            let el = _this.$(_this.config.el)[0];
+            
+            _this.config.confirmEnd.call(_this,el);
+        }
     }
     getIscrollDay(iscroll){
         return this.$('#'+iscroll.wrapper.id+' li')[Math.abs(iscroll.y)/40+1].innerText.replace(/\D/g,'');
