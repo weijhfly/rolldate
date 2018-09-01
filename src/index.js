@@ -44,7 +44,11 @@ export class Date{
             opts = _this.baseData().opts;
             
         for(let key in opts){
-            opts[key] = config[key] || opts[key];
+            if(config[key] === 0){
+                opts[key] = 0;
+            }else{
+                 opts[key] = config[key] || opts[key];
+            }
         }
         _this.config = opts;
     }
