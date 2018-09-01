@@ -31,6 +31,7 @@ export class Date{
                 beginYear:2000,
                 endYear:2100,
                 theme:'',
+                scrollTime:200,
                 tapBefore:null,
                 moveEnd:null,
                 confirmBefore:null,
@@ -118,7 +119,6 @@ export class Date{
                hScroll:false,
                checkDOMChanges:i==2,
                onScrollEnd:function(){
-                    if(data.domClass.indexOf(this.wrapper.id) == 2 ){scrollEnd = true;}
                     if(!scrollEnd){return;}
 
                     if(_this.config.moveEnd){
@@ -143,9 +143,13 @@ export class Date{
                 }
             });
             let li = _this.$('#'+$class[i]+' .active')[0].previousSibling;
-            _this.iscroll[i].scrollToElement(li);
+            _this.iscroll[i].scrollToElement(li,_this.config.scrollTime);
         }
         _this.event();
+
+        setTimeout(function() {
+            scrollEnd = true;
+        }, 1000);
     }
     $(selector){
         return document.querySelectorAll(selector);

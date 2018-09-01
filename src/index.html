@@ -11,7 +11,7 @@
 </head>
 <body>
 <h1>rolldate 移动端时间选择插件</h1>
-<div>支持格式：<br>YYYY-MM、YYYY-MM-DD、YYYY-MM-DD hh:mm、YYYY-MM-DD hh:mm:ss</div>
+<div>支持格式：<br>YYYY-MM、YYYY-MM-DD、YYYY-MM-DD hh:mm、YYYY-MM-DD hh:mm:ss、YYYY</div>
 <input readonly type="text" id="date" placeholder="YYYY-MM"><input readonly type="text" id="date2" placeholder="YYYY-MM-DD">
 <br>
 <input readonly type="text" id="date3" placeholder="YYYY-MM-DD hh:mm"><input readonly type="text" id="date4" placeholder="YYYY-MM-DD hh:mm:ss">
@@ -36,6 +36,11 @@
 <div id="app">
 	<input readonly type="text" id="date14" placeholder="设置vue model" v-model="date"><button>model:{{date}}</button><br>
 </div>
+<hr>
+<div>设置iscroll移动时间</div>
+<input readonly type="text" id="date16" placeholder="scrollTime:500，默认200">
+<br>
+<br>
 <script>
 window.onload = function(){
  /*
@@ -73,7 +78,7 @@ window.onload = function(){
 		endYear:2100
  })
  // 主题
- new rolldate.Date({
+new rolldate.Date({
  	el:'#date5',
 		format:'YYYY-MM-DD',
 		beginYear:2000,
@@ -187,6 +192,15 @@ window.onload = function(){
 			vue.date = date;
 		}
   })
+ // scrollTime
+ new rolldate.Date({
+ 	el:'#date16',
+		format:'YYYY-MM-DD',
+		beginYear:2000,
+		endYear:2100,
+		theme:'blue',
+		scrollTime:500
+ })
 }
 </script>
 <script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.min.js"></script>
