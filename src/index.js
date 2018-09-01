@@ -63,8 +63,9 @@ export class Date{
             ul = '',
             el = _this.$(_this.config.el)[0],
             hasDate = !!el.date,
-            date = hasDate? new window.Date(el.date.replace(/-/g,'/')):data.date;
- 
+            str = hasDate? el.date.replace(/-/g,'/') : '',
+            date = hasDate? new window.Date(index==0? str+'/01':str):data.date;
+  
         for(let i=0; i<len; i++){
             ul += '<div id="'+ $class[i]+'"><ul>' + data.emptyli;
             if(i == 0){
