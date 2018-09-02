@@ -23,7 +23,7 @@ export class Date{
         return {
             date:new window.Date(),
             emptyli:'<li>&nbsp;</li>',
-            dateFormat:['YYYY-MM','YYYY-MM-DD','YYYY-MM-DD hh:mm','YYYY-MM-DD hh:mm:ss','YYYY'],//支持的日期格式
+            dateFormat:['YYYY-MM','YYYY-MM-DD','YYYY-MM-DD hh:mm','YYYY-MM-DD hh:mm:ss','YYYY','MM','DD','hh:mm','hh:mm:ss'],//支持的日期格式
             domClass:['rolldate-year','rolldate-month','rolldate-day','rolldate-hour','rolldate-min','rolldate-sec'],
             opts:{//插件默认配置
                 el:'',
@@ -44,11 +44,7 @@ export class Date{
             opts = _this.baseData().opts;
             
         for(let key in opts){
-            if(config[key] === 0){
-                opts[key] = 0;
-            }else{
-                 opts[key] = config[key] || opts[key];
-            }
+            opts[key] = config[key] === 0? 0 : config[key] || opts[key];
         }
         _this.config = opts;
     }
@@ -58,38 +54,36 @@ export class Date{
             index = data.dateFormat.indexOf(_this.config.format);
 
         index = index > 1? index+1 : index;
-        let $class = index == 5? [data.domClass[0]]:data.domClass.slice(0,index + 2),
+        let $class = index == 5? [data.domClass[0]]: index ==6? [data.domClass[1]]: index ==7? [data.domClass[2]]: index ==8? data.domClass.slice(3,5): index ==9? data.domClass.slice(3):data.domClass.slice(0,index + 2),
             len = $class.length,
             ul = '',
             el = _this.$(_this.config.el)[0],
-            hasDate = !!el.date,
-            str = hasDate? el.date.replace(/-/g,'/') : '',
-            date = hasDate? new window.Date(index==0? str+'/01':str):data.date;
+            date = el.date? el.date:data.date;
   
         for(let i=0; i<len; i++){
             ul += '<div id="'+ $class[i]+'"><ul>' + data.emptyli;
-            if(i == 0){
+            if(i == 0 && index < 6){
                 for(let j=_this.config.beginYear; j<=_this.config.endYear; j++){
                     ul += '<li'+(j==date.getFullYear()?' class="active"':'')+'>'+ j +'年</li>';
                 }
-            }else if(i == 1){
+            }else if((i == 1 || index == 6) && index < 7){
                 for(let k=1; k<=12; k++){
                     ul += '<li'+(k==date.getMonth() + 1?' class="active"':'')+'>'+ (k<10? '0'+k : k) +'月</li>';
                 }
-            }else if(i == 2){
+            }else if((i == 2 || index == 7) && index <= 7){
                 let day = _this.bissextile(date.getFullYear(),date.getMonth() + 1);
                 for(let l=1; l<=day; l++){
                     ul += '<li'+(l==date.getDate()?' class="active"':'')+'>'+ (l<10? '0'+l : l) +'日</li>';
                 }
-            }else if(i == 3){
+            }else if(i == 3 || (index > 7 && i == 0)){
                 for(let m=0; m<=23; m++){
                     ul += '<li'+(m==date.getHours()?' class="active"':'')+'>'+ (m<10? '0'+m : m) +'时</li>';
                 }
-            }else if(i == 4){
+            }else if(i == 4 || (index > 7 && i == 1)){
                 for(let n=0; n<=59; n++){
                     ul += '<li'+(n==date.getMinutes()?' class="active"':'')+'>'+ (n<10? '0'+n : n) +'分</li>';
                 }
-            }else if(i == 5){
+            }else if(i == 5 || (index > 7 && i == 2)){
                 for(let o=0; o<=59; o++){
                     ul += '<li'+(o==date.getSeconds()?' class="active"':'')+'>'+ (o<10? '0'+o : o) +'秒</li>';
                 }
@@ -108,7 +102,7 @@ export class Date{
                 </footer>
             </div>`,
             box = document.createElement("div"),
-            className = index == 0? 'rolldate-two':index == 3? 'rolldate-five':index == 4? 'rolldate-six':index == 5? 'rolldate-one':'',
+            className = index == 0 || index == 8? 'rolldate-two':index == 3? 'rolldate-five':index == 4? 'rolldate-six':index >= 5 && index <= 7? 'rolldate-one':'',
             scrollEnd = false;
 
             box.className = 'rolldate-container ' + className;
@@ -169,15 +163,44 @@ export class Date{
         cancel.addEventListener('click', function(){_this.destroy(true);})
         confirm.addEventListener('click', function(){
             let el = _this.$(_this.config.el)[0],
-                date = _this.config.format;
+                data = _this.baseData(),
+                date = _this.config.format,
+                nativeDate = new window.Date(),
+                index = data.dateFormat.indexOf(date);
 
             _this.iscroll.forEach(function(v,i){
                 let d = _this.getIscrollDay(v),
-                    str = i == 0? 'YYYY':i == 1? 'MM':i == 2? 'DD':i == 3? 'hh':i == 4? 'mm':'ss';
+                    str;
+
+                    if(index <=4){
+                        str = i == 0? 'YYYY':i == 1? 'MM':i == 2? 'DD':i == 3? 'hh':i == 4? 'mm':'ss';
+                    }else if(index == 5){
+                        str = 'MM';
+                    }else if(index == 6){
+                        str = 'DD';
+                    }else if(index == 7){
+                        str = i == 0? 'hh':i == 1? 'mm':'';
+                    }else if(index == 8){
+                         str = i == 0? 'hh':i == 1? 'mm':'ss';
+                    }
 
                 date = date.replace(str,d);
+
+                if(str == 'YYYY'){
+                    nativeDate.setFullYear(d);
+                }else if(str == 'MM'){
+                    nativeDate.setMonth(d-1);
+                }else if(str == 'DD'){
+                    nativeDate.setDate(d);   
+                }else if(str == 'hh'){
+                    nativeDate.setHours(d);
+                }else if(str == 'mm'){
+                    nativeDate.setMinutes(d);
+                }else if(str == 'ss'){
+                    nativeDate.setSeconds(d);
+                }
             })
-            el.date = date;
+            el.date = nativeDate;
             if(_this.config.confirmBefore){
                 var flag = _this.config.confirmBefore.call(_this,el,date);
                 if(flag === false){

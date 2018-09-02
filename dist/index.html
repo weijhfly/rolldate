@@ -11,12 +11,16 @@
 <link href="css/rolldate.css" rel="stylesheet"></head>
 <body>
 <h1>rolldate 移动端时间选择插件</h1>
-<div>支持格式：<br>YYYY-MM、YYYY-MM-DD、YYYY-MM-DD hh:mm、YYYY-MM-DD hh:mm:ss、YYYY</div>
+<div>支持格式：<br>YYYY-MM、YYYY-MM-DD、YYYY-MM-DD hh:mm、YYYY-MM-DD hh:mm:ss、YYYY、MM、DD、hh:mm、hh:mm:ss</div>
 <input readonly type="text" id="date" placeholder="YYYY-MM"><input readonly type="text" id="date2" placeholder="YYYY-MM-DD">
 <br>
 <input readonly type="text" id="date3" placeholder="YYYY-MM-DD hh:mm"><input readonly type="text" id="date4" placeholder="YYYY-MM-DD hh:mm:ss">
 <br>
-<input readonly type="text" id="date15" placeholder="YYYY">
+<input readonly type="text" id="date15" placeholder="YYYY"><input readonly type="text" id="date17" placeholder="MM">
+<br>
+<input readonly type="text" id="date18" placeholder="DD"><input readonly type="text" id="date19" placeholder="hh:mm">
+<br>
+<input readonly type="text" id="date20" placeholder="hh:mm:ss">
 <hr>
 <div>主题风格：<br>blue、red、green、black、支持自定义</div>
 <input readonly type="text" id="date5" placeholder="blue"><input readonly type="text" id="date6" placeholder="red">
@@ -76,6 +80,22 @@ window.onload = function(){
 	format:'YYYY-MM-DD hh:mm:ss',
 	beginYear:2000,
 	endYear:2100
+ })
+  new rolldate.Date({
+ 	el:'#date17',
+	format:'MM'
+ })
+   new rolldate.Date({
+ 	el:'#date18',
+	format:'DD'
+ })
+    new rolldate.Date({
+ 	el:'#date19',
+	format:'hh:mm'
+ })
+ new rolldate.Date({
+ 	el:'#date20',
+	format:'hh:mm:ss'
  })
  // 主题
 new rolldate.Date({
