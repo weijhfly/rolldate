@@ -119,7 +119,11 @@ export class Date{
                checkDOMChanges:i==2,
                onScrollEnd:function(){
                     if(!scrollEnd){return;}
-
+  
+                    if(Math.abs(this.y%40) !== 0){
+                        this.scrollTo(0, -Math.round(Math.abs(this.y)/40)*40, 0, false);
+                        return false;
+                    }
                     if(_this.config.moveEnd){
                         _this.config.moveEnd.call(_this,_this.$(_this.config.el)[0],this);
                     }
@@ -247,7 +251,9 @@ export class Date{
         }
     }
     getIscrollDay(iscroll){
-        return this.$('#'+iscroll.wrapper.id+' li')[Math.abs(iscroll.y)/40+1].innerText.replace(/\D/g,'');
+        let index = Math.abs(iscroll.y%40) !== 0?Math.round(Math.abs(iscroll.y)/40)+1:Math.abs(iscroll.y)/40+1;
+     
+        return this.$('#'+iscroll.wrapper.id+' li')[index].innerText.replace(/\D/g,'');
     }
     setTheme(){
         let _this = this,
