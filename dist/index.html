@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>rolldate demo</title>
+	<style type="text/css">
+		h1{font-size: 22px;}
+		input+input{margin-left: 10px;}
+	</style>
+<link href="css/rolldate.css" rel="stylesheet"></head>
+<body>
+<h1>rolldate 移动端时间选择插件</h1>
+<div>支持格式：<br>YYYY-MM、YYYY-MM-DD、YYYY-MM-DD hh:mm、YYYY-MM-DD hh:mm:ss、YYYY、MM、DD、hh:mm、hh:mm:ss</div>
+<input readonly type="text" id="date" placeholder="YYYY-MM"><input readonly type="text" id="date2" placeholder="YYYY-MM-DD">
+<br>
+<input readonly type="text" id="date3" placeholder="YYYY-MM-DD hh:mm"><input readonly type="text" id="date4" placeholder="YYYY-MM-DD hh:mm:ss">
+<br>
+<input readonly type="text" id="date15" placeholder="YYYY"><input readonly type="text" id="date17" placeholder="MM">
+<br>
+<input readonly type="text" id="date18" placeholder="DD"><input readonly type="text" id="date19" placeholder="hh:mm">
+<br>
+<input readonly type="text" id="date20" placeholder="hh:mm:ss">
+<hr>
+<div>主题风格：<br>blue、red、green、black、支持自定义</div>
+<input readonly type="text" id="date5" placeholder="blue"><input readonly type="text" id="date6" placeholder="red">
+<br>
+<input readonly type="text" id="date7" placeholder="green"><input readonly type="text" id="date8" placeholder="black">
+<br>
+<input readonly type="text" id="date9" placeholder="自定义风格">	
+<hr>
+<div>回调函数：<br>tapBefore、moveEnd、confirmBefore、confirmEnd</div>
+<input readonly type="text" id="date10" placeholder="完整实例"><br><br>	
+<div>tapBefore return false可阻止插件运行</div>
+<input readonly type="text" id="date11" placeholder="tapBefore"><br><br>
+<div>confirmBefore return false阻止插件运行,return其他值可以修改日期展示</div>
+<input readonly type="text" id="date12" placeholder="confirmBefore修改日期"><br>
+<h4>其他示例</h4>
+<input readonly type="text" id="date13" placeholder="不能小于当前的日期"><hr>
+<div id="app">
+	<input readonly type="text" id="date14" placeholder="设置vue model" v-model="date"><button>model:{{date}}</button><br>
+</div>
+<hr>
+<div>设置iscroll移动时间，默认200</div>
+<input readonly type="text" id="date16" placeholder="scrollTime:0">
+<br>
+<br>
+<script>
+window.onload = function(){
+ /*
+  *欢迎关注https://github.com/weijhfly/rolldate，并给个star，此插件会持续完善。
+ */
+ // 格式
+  new rolldate.Date({
+	el:'#date15',
+	format:'YYYY',
+	beginYear:2000,
+	endYear:2100
+ })
+ new rolldate.Date({
+	el:'#date',
+	format:'YYYY-MM',
+	beginYear:2000,
+	endYear:2100
+ })
+ new rolldate.Date({
+ 	el:'#date2',
+	format:'YYYY-MM-DD',
+	beginYear:2000,
+	endYear:2100
+ })
+ new rolldate.Date({
+ 	el:'#date3',
+	format:'YYYY-MM-DD hh:mm',
+	beginYear:2000,
+	endYear:2100
+ })
+ new rolldate.Date({
+ 	el:'#date4',
+	format:'YYYY-MM-DD hh:mm:ss',
+	beginYear:2000,
+	endYear:2100
+ })
+  new rolldate.Date({
+ 	el:'#date17',
+	format:'MM'
+ })
+   new rolldate.Date({
+ 	el:'#date18',
+	format:'DD'
+ })
+    new rolldate.Date({
+ 	el:'#date19',
+	format:'hh:mm'
+ })
+ new rolldate.Date({
+ 	el:'#date20',
+	format:'hh:mm:ss'
+ })
+ // 主题
+new rolldate.Date({
+ 	el:'#date5',
+	format:'YYYY-MM-DD',
+	beginYear:2000,
+	endYear:2100,
+	theme:'blue'
+ })
+ new rolldate.Date({
+ 	el:'#date6',
+	format:'YYYY-MM-DD',
+	beginYear:2000,
+	endYear:2100,
+	theme:'red'
+ })
+ new rolldate.Date({
+ 	el:'#date7',
+	format:'YYYY-MM-DD',
+	beginYear:2000,
+	endYear:2100,
+	theme:'green'
+ })
+ new rolldate.Date({
+ 	el:'#date8',
+	format:'YYYY-MM-DD',
+	beginYear:2000,
+	endYear:2100,
+	theme:'black'
+ })
+  new rolldate.Date({
+ 	el:'#date9',
+	format:'YYYY-MM-DD',
+	beginYear:2000,
+	endYear:2100,
+	theme:'#f90'
+ })
+  // 回调
+  new rolldate.Date({
+ 	el:'#date10',
+	format:'YYYY-MM-DD',
+	beginYear:2000,
+	endYear:2100,
+	theme:'blue',
+	tapBefore:function(el){
+		console.log('插件开始触发');
+	},
+	moveEnd:function(el,iscroll){
+		console.log('滚动结束');
+	},
+	confirmBefore:function(el,date){
+		//console.log(this,el,date)
+		console.log('确定按钮触发');
+	},
+	confirmEnd:function(el,date){
+		console.log('插件运行结束');
+	}
+ })
+  new rolldate.Date({
+ 	el:'#date11',
+	format:'YYYY-MM-DD',
+	beginYear:2000,
+	endYear:2100,
+	theme:'blue',
+	tapBefore:function(el){
+		if(1 == 1){
+			//console.log(this);
+			console.log('阻止插件继续执行');
+			return false;
+		}
+	}
+ })
+ new rolldate.Date({
+ 	el:'#date12',
+	format:'YYYY-MM-DD',
+	beginYear:2000,
+	endYear:2100,
+	theme:'blue',
+	confirmBefore:function(el,date){
+		return date.replace(/-/g,'/');
+	}
+ })
+  // 其他示例
+  new rolldate.Date({//日期判断
+ 	el:'#date13',
+	format:'YYYY-MM-DD',
+	beginYear:2000,
+	endYear:2100,
+	theme:'blue',
+	confirmBefore:function(el,date){
+		var d = new Date(),
+			d1 = new Date(date.replace(/\-/g, "\/")),
+			d2 = new Date(d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate());//如果非'YYYY-MM-DD'格式，需要另做调整
+
+		if(d1 < d2){
+			alert('不能小于当前的日期');
+			return false;
+		}
+	}
+  })
+ var vue = new Vue({
+	el:"#app",
+	data:{
+		date:''
+	}
+ })
+ new rolldate.Date({//设置model
+ 	el:'#date14',
+	format:'YYYY-MM-DD',
+	beginYear:2000,
+	endYear:2100,
+	theme:'blue',
+	confirmBefore:function(el,date){
+		vue.date = date;
+	}
+  })
+ // scrollTime
+  new rolldate.Date({
+ 	el:'#date16',
+	format:'YYYY-MM-DD',
+	beginYear:2000,
+	endYear:2100,
+	theme:'blue',
+	scrollTime:0
+ })
+}
+</script>
+<script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.min.js"></script>
+<script type="text/javascript" src="rolldate.js"></script></body>
+</html>
