@@ -10,9 +10,12 @@ export class Date{
         let _this = this,
             el = _this.$(config.el)[0];
 
-        if(!el){return;}
+        if(!el || el.rolldate){return;}
+        el.rolldate = true;
         _this.extend(config);
         el.addEventListener('click', function() {
+            let dom = _this.$('.rolldate-container')[0];
+            if(dom){return;}
             if(el.nodeName == 'INPUT'){el.blur();}
             if(_this.config.tapBefore && _this.config.tapBefore.call(_this,el) === false){return false;}
             _this.createUi();
