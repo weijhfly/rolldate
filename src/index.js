@@ -158,6 +158,9 @@ export class Date{
         }, 1000);
     }
     $(selector){
+        if(typeof selector != 'string' && selector.nodeType){
+            return [selector];
+        }
         return document.querySelectorAll(selector);
     }
     event(){
@@ -207,7 +210,6 @@ export class Date{
                     nativeDate.setSeconds(d);
                 }
             })
-            el.date = nativeDate;
             if(_this.config.confirmBefore){
                 var flag = _this.config.confirmBefore.call(_this,el,date);
                 if(flag === false){
@@ -224,6 +226,7 @@ export class Date{
             }
             if(_this.config.confirmEnd){_this.config.confirmEnd.call(_this,el,date);}
             _this.destroy();
+            el.date = nativeDate;
         })
     }
     bissextile(year,month){

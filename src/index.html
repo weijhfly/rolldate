@@ -10,7 +10,7 @@
 	</style>
 </head>
 <body>
-<h1>rolldate 移动端时间选择插件</h1>
+<h1>rolldate 移动端日期选择插件</h1>
 <div>支持格式：<br>YYYY-MM、YYYY-MM-DD、YYYY-MM-DD hh:mm、YYYY-MM-DD hh:mm:ss、YYYY、MM、DD、hh:mm、hh:mm:ss</div>
 <input readonly type="text" id="date" placeholder="YYYY-MM"><input readonly type="text" id="date2" placeholder="YYYY-MM-DD">
 <br>
@@ -41,8 +41,9 @@
 	<input readonly type="text" id="date14" placeholder="设置vue model" v-model="date"><button>model:{{date}}</button><br>
 </div>
 <hr>
-<div>设置iscroll移动时间，默认200</div>
-<input readonly type="text" id="date16" placeholder="scrollTime:0">
+<input readonly type="text" id="date16" placeholder="设置iscroll滑动时间，默认200" style="width: 200px;">
+<hr>
+<input readonly type="text" id="date21" placeholder="el传dom对象">
 <br>
 <br>
 <script>
@@ -220,6 +221,14 @@ new rolldate.Date({
 	endYear:2100,
 	theme:'blue',
 	scrollTime:0
+ })
+   // el传dom对象，只支持单个
+  new rolldate.Date({
+ 	el:document.getElementById('date21'),
+	format:'YYYY-MM-DD',
+	beginYear:2000,
+	endYear:2100,
+	theme:'blue'
  })
 }
 </script>
