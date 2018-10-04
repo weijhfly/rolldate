@@ -38,7 +38,8 @@ export class Date{
                 tapBefore:null,
                 moveEnd:null,
                 confirmBefore:null,
-                confirmEnd:null
+                confirmEnd:null,
+                liHeight:40
             }
         };
     }
@@ -114,6 +115,8 @@ export class Date{
             _this.setTheme();
             
         _this.iscroll = [];
+        _this.config.liHeight = document.querySelector('.rolldate-frame li').offsetHeight;
+        
         for(let i=0; i<len; i++){
             _this.iscroll[i] = new iScroll($class[i], {
                snap: 'li',
@@ -122,9 +125,10 @@ export class Date{
                checkDOMChanges:i==2,
                onScrollEnd:function(){
                     if(!scrollEnd){return;}
-  
-                    if(Math.abs(this.y%40) !== 0){
-                        this.scrollTo(0, -Math.round(Math.abs(this.y)/40)*40, 0, false);
+                    
+                    let liHeight =  _this.config.liHeight;
+                    if(Math.abs(this.y%liHeight) !== 0){
+                        this.scrollTo(0, -Math.round(Math.abs(this.y)/liHeight)*liHeight, 0, false);
                         return false;
                     }
                     if(_this.config.moveEnd){
@@ -228,6 +232,19 @@ export class Date{
             _this.destroy();
             el.date = nativeDate;
         })
+
+        let liHeight = _this.config.liHeight;
+
+            _this.config.queryStyle = function(){
+
+                window.removeEventListener('resize',_this.config.queryStyle);
+                setTimeout(function() {
+                    if(_this.$('.rolldate-container')[0] && liHeight != document.querySelector('.rolldate-frame li').offsetHeight){
+                         _this.destroy(true);
+                    }
+                }, 0);
+            };
+        window.addEventListener("resize", _this.config.queryStyle, false);
     }
     bissextile(year,month){
         let day;
@@ -255,9 +272,15 @@ export class Date{
             
             _this.config.confirmEnd.call(_this,el);
         }
+        
+        if(_this.config.queryStyle){
+            window.removeEventListener("resize", _this.config.queryStyle, false);
+        }
     }
     getIscrollDay(iscroll){
-        let index = Math.abs(iscroll.y%40) !== 0?Math.round(Math.abs(iscroll.y)/40)+1:Math.abs(iscroll.y)/40+1;
+        let _this = this,
+            liHeight =  _this.config.liHeight,
+            index = Math.abs(iscroll.y%liHeight) !== 0?Math.round(Math.abs(iscroll.y)/liHeight)+1:Math.abs(iscroll.y)/liHeight+1;
      
         return this.$('#'+iscroll.wrapper.id+' li')[index].innerText.replace(/\D/g,'');
     }
