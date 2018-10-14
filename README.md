@@ -3,8 +3,17 @@
 ## rolldate的整体设计如下
 ![rolldate](https://weijhfly.github.io/images/rolldate.png)
 ## 使用方式
+### es6
+```js
+import '../node_modules/rolldate/dist/css/rolldate.css'
+import {Date as rolldate} from 'rolldate'
+new rolldate({
+  el:'#date'
+})
+```
 ### commonJS
 ```js
+require('../node_modules/rolldate/dist/css/rolldate.css');
 var rolldate = require('rolldate');
 new rolldate.Date({
   el:'#date'
