@@ -47,6 +47,8 @@
 <input readonly type="text" id="date21" placeholder="el传dom对象">
 <hr>
 <input readonly type="text" id="date22" placeholder="rem布局">
+<hr>
+<input readonly type="text" id="date23" placeholder="设置默认日期">
 <br>
 <br>
 <script>
@@ -248,6 +250,15 @@ new rolldate.Date({
 	confirmEnd:function(el,date){
 		document.body.className = '';
 	}
+ })
+ // 设置默认日期 2017/10/17 23:52:50
+document.getElementById('date23').date = new Date('2017/10/17');
+  new rolldate.Date({
+ 	el:'#date23',
+	format:'YYYY-MM-DD',
+	beginYear:2000,
+	endYear:2100,
+	theme:'blue'
  })
 }
 </script>
