@@ -35,3 +35,5 @@ new rolldate.Date({
 ```
 ## 演示
 [rolldate](https://weijhfly.github.io/rolldate-index.html "rolldate")(pc端建议使用浏览器的手机模式打开)
+
+![rolldate](https://weijhfly.github.io/images/rolldate-demo.jpg)

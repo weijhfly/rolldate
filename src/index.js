@@ -172,6 +172,7 @@ export class Date{
         }
         _this.event();
 
+        document.body.style.overflow = 'hidden';
         setTimeout(function() {
             scrollEnd = true;
         }, 1000);
@@ -291,6 +292,7 @@ export class Date{
         if(_this.config.queryStyle){
             window.removeEventListener("resize", _this.config.queryStyle, false);
         }
+        document.body.style.overflow = 'visible';
     }
     getIscrollDay(iscroll){
         let _this = this,
