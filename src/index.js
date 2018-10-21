@@ -20,6 +20,17 @@ export class Date{
             if(_this.config.tapBefore && _this.config.tapBefore.call(_this,el) === false){return false;}
             _this.createUi();
         })
+        // 设置默认日期
+        if(config.value){
+            if(el.nodeName == 'INPUT'){
+                el.value = config.value;
+            }else{
+                el.innerText = config.value;
+            }
+            let date = config.value.replace(/-/g,'/').replace(/[^\d/:]/g,'');
+
+            el.date = new window.Date(date);
+        }
     }
     baseData(){
 
@@ -39,7 +50,8 @@ export class Date{
                 moveEnd:null,
                 confirmBefore:null,
                 confirmEnd:null,
-                liHeight:40
+                liHeight:40,
+                minStep:1
             }
         };
     }
@@ -84,7 +96,7 @@ export class Date{
                     ul += '<li'+(m==date.getHours()?' class="active"':'')+'>'+ (m<10? '0'+m : m) +'时</li>';
                 }
             }else if(i == 4 || (index > 7 && i == 1)){
-                for(let n=0; n<=59; n++){
+                for(let n=0; n<=59; n+=_this.config.minStep){
                     ul += '<li'+(n==date.getMinutes()?' class="active"':'')+'>'+ (n<10? '0'+n : n) +'分</li>';
                 }
             }else if(i == 5 || (index > 7 && i == 2)){
@@ -152,8 +164,11 @@ export class Date{
                     }
                 }
             });
-            let li = _this.$('#'+$class[i]+' .active')[0].previousSibling;
-            _this.iscroll[i].scrollToElement(li,_this.config.scrollTime);
+            let active = _this.$('#'+$class[i]+' .active')[0];
+            if(active){
+                _this.iscroll[i].scrollToElement(active.previousSibling,_this.config.scrollTime);
+            }
+            
         }
         _this.event();
 

@@ -48,7 +48,9 @@
 <hr>
 <input readonly type="text" id="date22" placeholder="rem布局">
 <hr>
-<input readonly type="text" id="date23" placeholder="设置默认日期">
+<input readonly type="text" id="date23" placeholder="设置默认日期">设置默认日期
+<hr>
+<input readonly type="text" id="date24" placeholder="分钟相隔5">
 <br>
 <br>
 <script>
@@ -251,14 +253,23 @@ new rolldate.Date({
 		document.body.className = '';
 	}
  })
- // 设置默认日期 2017/10/17 23:52:50
-document.getElementById('date23').date = new Date('2017/10/17');
+ // 设置默认日期
+ //方式一  
+//document.getElementById('date23').date = new Date('2017/10/17'); //时分秒2017/10/17 23:52:50
   new rolldate.Date({
  	el:'#date23',
 	format:'YYYY-MM-DD',
 	beginYear:2000,
 	endYear:2100,
-	theme:'blue'
+	theme:'blue',
+	value:'2017-10-21'//方式二 时分秒2017-10-21 23:52:50
+ })
+ // 分钟按指定数分隔
+  new rolldate.Date({
+ 	el:'#date24',
+	format:'hh:mm',
+	theme:'blue',
+	minStep:5
  })
 }
 </script>
