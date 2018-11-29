@@ -1,11 +1,13 @@
 {
   "name": "rolldate",
-  "version": "1.4.9",
+  "version": "1.5.0",
   "description": "rolldate 移动端日期选择插件",
-  "main": "dist/rolldate.js",
+  "main": "dist/rolldate.min.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --config config/rolldate.config.js --mode production",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --config config/rolldate.config.js --mode development"
+    "build-common": "cross-env NODE_ENV=production webpack --config config/common.config.js --mode production",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --config config/rolldate.config.js --mode development",
+    "start": "npm run build-common && npm run build"
   },
   "keywords": [
     "date",

@@ -8,7 +8,7 @@ let banner = require('./banner').info;
 module.exports = {
     entry:'./src/index.js',
     output: {
-        filename: 'rolldate.js',   
+        filename: 'rolldate.min.js',   
         path: path.resolve('dist'),
         library      : 'rolldate',
         libraryTarget: 'umd'
@@ -39,10 +39,6 @@ module.exports = {
         ]
     },
 	plugins: [
-        new CleanWebpackPlugin(path.resolve(__dirname, '../dist'), {
-            root: path.resolve(__dirname, '../'),
-            verbose: true
-        }),
 		new HtmlWebpackPlugin({
             template: './src/index.html',
             hash: false, 
