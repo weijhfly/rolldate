@@ -27,9 +27,14 @@ export class Date{
             }else{
                 el.innerText = config.value;
             }
-            let date = config.value.replace(/-/g,'/').replace(/[^\d/:]/g,'');
+            let str = config.value.replace(/-/g,'/').replace(/[^\d/:\s]/g,''),
+                date = new window.Date(str);
 
-            el.date = new window.Date(date);
+            if(date == 'Invalid Date'){
+                console.error('无效的日期：'+str);
+            }else{
+                el.date = date;
+            }
         }
     }
     baseData(){

@@ -1,6 +1,6 @@
 {
   "name": "rolldate",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "rolldate 移动端日期选择插件",
   "main": "dist/rolldate.min.js",
   "scripts": {
