@@ -1,6 +1,6 @@
 {
   "name": "rolldate",
-  "version": "1.5.1",
+  "version": "2.0.0",
   "description": "rolldate 移动端日期选择插件",
   "main": "dist/rolldate.min.js",
   "scripts": {
@@ -11,7 +11,7 @@
   },
   "keywords": [
     "date",
-    "iscroll-date"
+    "js-date"
   ],
   "repository": {
     "type": "git",

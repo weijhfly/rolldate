@@ -8,11 +8,12 @@
 		body{font-size: 16px;}
 		h1{font-size: 22px;}
 		input+input{margin-left: 10px;}
+		h4{margin:10px 0;}
 	</style>
-<link href="css/rolldate.css" rel="stylesheet"></head>
+</head>
 <body>
 <h1>rolldate 移动端日期选择插件</h1>
-<div>支持格式：<br>YYYY-MM、YYYY-MM-DD、YYYY-MM-DD hh:mm、YYYY-MM-DD hh:mm:ss、YYYY、MM、DD、hh:mm、hh:mm:ss</div>
+<div><h4>支持格式：</h4>YYYY-MM、YYYY-MM-DD、YYYY-MM-DD hh:mm、YYYY-MM-DD hh:mm:ss、YYYY、MM、DD、hh:mm、hh:mm:ss</div>
 <input readonly type="text" id="date" placeholder="YYYY-MM"><input readonly type="text" id="date2" placeholder="YYYY-MM-DD">
 <br>
 <input readonly type="text" id="date3" placeholder="YYYY-MM-DD hh:mm"><input readonly type="text" id="date4" placeholder="YYYY-MM-DD hh:mm:ss">
@@ -23,14 +24,7 @@
 <br>
 <input readonly type="text" id="date20" placeholder="hh:mm:ss">
 <hr>
-<div>主题风格：<br>blue、red、green、black、支持自定义</div>
-<input readonly type="text" id="date5" placeholder="blue"><input readonly type="text" id="date6" placeholder="red">
-<br>
-<input readonly type="text" id="date7" placeholder="green"><input readonly type="text" id="date8" placeholder="black">
-<br>
-<input readonly type="text" id="date9" placeholder="自定义风格">	
-<hr>
-<div>回调函数：<br>tapBefore、moveEnd、confirmBefore、confirmEnd</div>
+<div><h4>回调函数：</h4>tapBefore、moveEnd、confirmBefore、confirmEnd</div>
 <input readonly type="text" id="date10" placeholder="完整实例"><br><br>	
 <div>tapBefore return false可阻止插件运行</div>
 <input readonly type="text" id="date11" placeholder="tapBefore"><br><br>
@@ -38,15 +32,8 @@
 <input readonly type="text" id="date12" placeholder="confirmBefore修改日期"><br>
 <h4>其他示例</h4>
 <input readonly type="text" id="date13" placeholder="不能小于当前的日期"><hr>
-<div id="app">
-	<input readonly type="text" id="date14" placeholder="设置vue model" v-model="date"><button>model:{{date}}</button><br>
-</div>
-<hr>
-<input readonly type="text" id="date16" placeholder="设置iscroll滑动时间，默认200" style="width: 200px;">
 <hr>
 <input readonly type="text" id="date21" placeholder="el传dom对象">
-<hr>
-<input readonly type="text" id="date22" placeholder="rem布局">
 <hr>
 <input readonly type="text" id="date23" placeholder="设置默认日期">设置默认日期
 <hr>
@@ -55,9 +42,7 @@
 <br>
 <script>
 window.onload = function(){
- /*
-  *欢迎关注https://github.com/weijhfly/rolldate，并给个star，此插件会持续完善。
- */
+
  // 格式
   new rolldate.Date({
 	el:'#date15',
@@ -65,6 +50,7 @@ window.onload = function(){
 	beginYear:2000,
 	endYear:2100
  })
+  
  new rolldate.Date({
 	el:'#date',
 	format:'YYYY-MM',
@@ -105,57 +91,19 @@ window.onload = function(){
  	el:'#date20',
 	format:'hh:mm:ss'
  })
- // 主题
-new rolldate.Date({
- 	el:'#date5',
-	format:'YYYY-MM-DD',
-	beginYear:2000,
-	endYear:2100,
-	theme:'blue'
- })
- new rolldate.Date({
- 	el:'#date6',
-	format:'YYYY-MM-DD',
-	beginYear:2000,
-	endYear:2100,
-	theme:'red'
- })
- new rolldate.Date({
- 	el:'#date7',
-	format:'YYYY-MM-DD',
-	beginYear:2000,
-	endYear:2100,
-	theme:'green'
- })
- new rolldate.Date({
- 	el:'#date8',
-	format:'YYYY-MM-DD',
-	beginYear:2000,
-	endYear:2100,
-	theme:'black'
- })
-  new rolldate.Date({
- 	el:'#date9',
-	format:'YYYY-MM-DD',
-	beginYear:2000,
-	endYear:2100,
-	theme:'#f90'
- })
   // 回调
   new rolldate.Date({
  	el:'#date10',
 	format:'YYYY-MM-DD',
 	beginYear:2000,
 	endYear:2100,
-	theme:'blue',
 	tapBefore:function(el){
 		console.log('插件开始触发');
 	},
-	moveEnd:function(el,iscroll){
+	moveEnd:function(el,scroll){
 		console.log('滚动结束');
 	},
 	confirmBefore:function(el,date){
-		//console.log(this,el,date)
 		console.log('确定按钮触发');
 	},
 	confirmEnd:function(el,date){
@@ -167,10 +115,8 @@ new rolldate.Date({
 	format:'YYYY-MM-DD',
 	beginYear:2000,
 	endYear:2100,
-	theme:'blue',
 	tapBefore:function(el){
 		if(1 == 1){
-			//console.log(this);
 			console.log('阻止插件继续执行');
 			return false;
 		}
@@ -181,7 +127,6 @@ new rolldate.Date({
 	format:'YYYY-MM-DD',
 	beginYear:2000,
 	endYear:2100,
-	theme:'blue',
 	confirmBefore:function(el,date){
 		return date.replace(/-/g,'/');
 	}
@@ -192,7 +137,6 @@ new rolldate.Date({
 	format:'YYYY-MM-DD',
 	beginYear:2000,
 	endYear:2100,
-	theme:'blue',
 	confirmBefore:function(el,date){
 		var d = new Date(),
 			d1 = new Date(date.replace(/\-/g, "\/")),
@@ -204,31 +148,6 @@ new rolldate.Date({
 		}
 	}
   })
- var vue = new Vue({
-	el:"#app",
-	data:{
-		date:''
-	}
- })
- new rolldate.Date({//设置model
- 	el:'#date14',
-	format:'YYYY-MM-DD',
-	beginYear:2000,
-	endYear:2100,
-	theme:'blue',
-	confirmBefore:function(el,date){
-		vue.date = date;
-	}
-  })
- // scrollTime
-  new rolldate.Date({
- 	el:'#date16',
-	format:'YYYY-MM-DD',
-	beginYear:2000,
-	endYear:2100,
-	theme:'blue',
-	scrollTime:0
- })
    // el传dom对象，只支持单个
   new rolldate.Date({
  	el:document.getElementById('date21'),
@@ -237,172 +156,21 @@ new rolldate.Date({
 	endYear:2100,
 	theme:'blue'
  })
- // rem布局，需要自行转换rolldate.css中的px单位,
- //注意由于rem计算会产生小数，暂不确定是否会产生日期不准确bug,更建议使用css媒体查询修改样式
+// 设置默认日期
   new rolldate.Date({
- 	el:'#date22',
+ 	el:'#date23',
 	format:'YYYY-MM-DD',
 	beginYear:2000,
 	endYear:2100,
-	theme:'blue',
-	//默认不支持rem，以下回调函数只是为了避免影响
-	tapBefore:function(el,date){
-		document.body.className = 'rem-test';
-	},
-	confirmEnd:function(el,date){
-		document.body.className = '';
-	}
- })
- // 设置默认日期
- //方式一  
-//document.getElementById('date23').date = new Date('2017/10/17'); //时分秒2017/10/17 23:52:50
-  new rolldate.Date({
- 	el:'#date23',
-	format:'YYYY-MM-DD hh:mm:ss',
-	beginYear:2000,
-	endYear:2100,
-	theme:'blue',
-	value:'2017-10-21 23:52:50'//方式二 时分秒2017-10-21 23:52:50
+	value:'2017-10-21'//或2017-10-21 23:52:50
  })
  // 分钟按指定数分隔
   new rolldate.Date({
  	el:'#date24',
 	format:'hh:mm',
-	theme:'blue',
 	minStep:5
  })
 }
 </script>
-<script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.min.js"></script>
-<!-- rem兼容测试 以下是rem实现的一种方式 start -->
-<script>
-	function rem(){
-		var deviceWidth = document.documentElement.clientWidth,
-			html = document.documentElement;
-
-		if(deviceWidth > 1024){
-			deviceWidth = 1024;
-			html.style.maxWidth = '1024px';
-			html.style.margin = '0 auto';
-		}
-		html.style.fontSize = deviceWidth / 7.5 + 'px';
-	}
-	rem();
-	window.addEventListener("resize", function() {
-	  rem();
-	}, false);
-</script>
-<style type="text/css">
-	.rem-test .rolldate-container {
-	  font-size: 0.28rem;
-	  text-align: center;
-	}
-	.rem-test .rolldate-container header {
-	  background: #79c12f;
-	  line-height: 0.9rem;
-	  font-size: 0.36rem;
-	  color: #fff;
-	  font-weight: bold;
-	}
-	.rem-test .rolldate-container .rolldate-mask {
-	  position: fixed;
-	  width: 100%;
-	  height: 100%;
-	  top: 0;
-	  left: 0;
-	  background: #000;
-	  opacity: .5;
-	  z-index: 100;
-	}
-	.rem-test .rolldate-container .rolldate-wrapper {
-	  position: fixed;
-	  width: 80%;
-	  top: 50%;
-	  left: 10%;
-	  margin-top: -2.36rem;
-	  z-index: 101;
-	  border-radius: 0.06rem;
-	  overflow: hidden;
-	  background: #fff;
-	}
-	.rem-test .rolldate-container .rolldate-content {
-	  padding: 0.2rem;
-	}
-	.rem-test .rolldate-container .rolldate-frame {
-	  position: relative;
-	  height: 2.4rem;
-	  overflow: hidden;
-	  background: #f5f5f5;
-	  border: 1px solid #e0e0e0;
-	  border-radius: 0.1rem;
-	}
-	.rem-test .rolldate-container .rolldate-frame > div {
-	  position: relative;
-	  left: 0;
-	  top: 0;
-	  height: 2.4rem;
-	  float: left;
-	  width: 33.3333333%;
-	  z-index: 2;
-	}
-	.rem-test .rolldate-container .rolldate-frame li {
-	  line-height: 0.8rem;
-	}
-	.rem-test .rolldate-container .rolldate-frame:after {
-	  content: '';
-	  height: 0.8rem;
-	  background: #ddd;
-	  position: absolute;
-	  top: 0.8rem;
-	  left: 0;
-	  width: 100%;
-	  z-index: 1;
-	}
-	.rem-test .rolldate-container footer {
-	  overflow: hidden;
-	  padding: 0.2rem 0.4rem;
-	}
-	.rem-test .rolldate-container .rolldate-btn {
-	  float: left;
-	  background: #dcdddd;
-	  color: #666;
-	  font-size: 0.3rem;
-	  line-height: 0.6rem;
-	  padding: 0;
-	  border: none;
-	  width: 2.4rem;
-	  border-radius: 0.1rem;
-	  outline: none;
-	}
-	.rem-test .rolldate-container .rolldate-confirm {
-	  float: right;
-	  background: #79c12f;
-	  color: #fff;
-	}
-	.rem-test .rolldate-container.rolldate-two .rolldate-frame > div {
-	  width: 50%;
-	}
-	.rem-test .rolldate-container.rolldate-five .rolldate-frame > div {
-	  width: 20%;
-	}
-	.rem-test .rolldate-container.rolldate-six .rolldate-wrapper {
-	  width: 90%;
-	  left: 5%;
-	}
-	.rem-test .rolldate-container.rolldate-six .rolldate-frame > div {
-	  width: 16.6666666%;
-	}
-	.rem-test .rolldate-container.rolldate-one .rolldate-wrapper {
-	  width: 60%;
-	  left: 20%;
-	}
-	.rem-test .rolldate-container.rolldate-one .rolldate-frame > div {
-	  width: 100%;
-	}
-	.rem-test .rolldate-container.rolldate-one .rolldate-btn {
-	  width: 1.6rem;
-	}
-</style>
-<!-- rem兼容测试 end -->
 <script type="text/javascript" src="rolldate.min.js"></script></body>
 </html>

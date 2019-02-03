@@ -24,10 +24,8 @@ module.exports = {
                 }
             },
 			{
-                test: /\.(less|css)$/i,
-                use: ExtractTextWebpackPlugin.extract({
-                    use: ['css-loader', 'postcss-loader', 'less-loader']       
-                })
+                test:/\.less$/,
+                use: ['style-loader', 'css-loader', 'postcss-loader', 'less-loader']  
             }
         ]
     },
@@ -36,7 +34,6 @@ module.exports = {
             template: './src/index.html',
             hash: false, 
         }),
-        new ExtractTextWebpackPlugin('css/rolldate.css'),
         new webpack.BannerPlugin(banner)  
 	],
     optimization: {
