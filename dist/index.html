@@ -13,7 +13,14 @@
 </head>
 <body>
 <h1>rolldate 移动端日期选择插件</h1>
-<div><h4>支持格式：</h4>YYYY-MM、YYYY-MM-DD、YYYY-MM-DD hh:mm、YYYY-MM-DD hh:mm:ss、YYYY、MM、DD、hh:mm、hh:mm:ss</div>
+
+<h3 style="background: #2892ff;color: #fff;padding: 10px;">此为rolldate 2.0新版，使用better-scroll替换了iscroll,旧版请点击
+	<a href="https://weijhfly.github.io/rolldate-index2.html">返回旧版</a>
+</h3>
+
+<h4>支持格式：</h4>
+YYYY-MM、YYYY-MM-DD、YYYY-MM-DD hh:mm、YYYY-MM-DD hh:mm:ss、YYYY、MM、DD、hh:mm、hh:mm:ss、YYYY-MM-DD hh
+<br>
 <input readonly type="text" id="date" placeholder="YYYY-MM"><input readonly type="text" id="date2" placeholder="YYYY-MM-DD">
 <br>
 <input readonly type="text" id="date3" placeholder="YYYY-MM-DD hh:mm"><input readonly type="text" id="date4" placeholder="YYYY-MM-DD hh:mm:ss">
@@ -22,16 +29,27 @@
 <br>
 <input readonly type="text" id="date18" placeholder="DD"><input readonly type="text" id="date19" placeholder="hh:mm">
 <br>
-<input readonly type="text" id="date20" placeholder="hh:mm:ss">
+<input readonly type="text" id="date20" placeholder="hh:mm:ss"><input readonly type="text" id="date26" placeholder="YYYY-MM-DD hh">
 <hr>
-<div><h4>回调函数：</h4>tapBefore、moveEnd、confirmBefore、confirmEnd</div>
+
+<h4>回调函数：</h4>
+tapBefore、moveEnd、confirmBefore、confirmEnd
+<br>
 <input readonly type="text" id="date10" placeholder="完整实例"><br><br>	
 <div>tapBefore return false可阻止插件运行</div>
 <input readonly type="text" id="date11" placeholder="tapBefore"><br><br>
 <div>confirmBefore return false阻止插件运行,return其他值可以修改日期展示</div>
 <input readonly type="text" id="date12" placeholder="confirmBefore修改日期"><br>
+<hr>
+
+<h4>自定义语言</h4>
+lang
+<br>
+<input readonly type="text" id="date25" placeholder="lang">
+<hr>
+
 <h4>其他示例</h4>
-<input readonly type="text" id="date13" placeholder="不能小于当前的日期"><hr>
+<input readonly type="text" id="date13" placeholder="不能小于当前的日期">
 <hr>
 <input readonly type="text" id="date21" placeholder="el传dom对象">
 <hr>
@@ -91,6 +109,10 @@ window.onload = function(){
  	el:'#date20',
 	format:'hh:mm:ss'
  })
+  new rolldate.Date({
+ 	el:'#date26',
+	format:'YYYY-MM-DD hh'
+ })
   // 回调
   new rolldate.Date({
  	el:'#date10',
@@ -130,6 +152,16 @@ window.onload = function(){
 	confirmBefore:function(el,date){
 		return date.replace(/-/g,'/');
 	}
+ })
+ // 自定义语言
+ var lang = {title:'自定义标题',cancel:'取消',confirm:'确认',year:'年',month:'月',day:'日',hour:'时',min:'分',sec:'秒'};
+ // 如果某个值未修改可不传 以上同 var lang = {title:'自定义标题'} 允许传空串
+ new rolldate.Date({
+ 	el:'#date25',
+	format:'YYYY-MM-DD',
+	beginYear:2000,
+	endYear:2100,
+	lang:lang
  })
   // 其他示例
   new rolldate.Date({//日期判断

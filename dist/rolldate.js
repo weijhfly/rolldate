@@ -1,5 +1,5 @@
 /*!
- * Rolldate 2.0.0
+ * Rolldate 2.1.0
  * Copyright 2019 雾空
  * https://github.com/weijhfly/rolldate
  * Licensed under MIT
@@ -113,6 +113,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.version = exports.Date = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 __webpack_require__(1);
@@ -179,7 +181,7 @@ var Date = exports.Date = function () {
 
             return {
                 date: new window.Date(),
-                dateFormat: ['YYYY-MM', 'YYYY-MM-DD', 'YYYY-MM-DD hh:mm', 'YYYY-MM-DD hh:mm:ss', 'YYYY', 'MM', 'DD', 'hh:mm', 'hh:mm:ss'], //支持的日期格式
+                dateFormat: ['YYYY-MM', 'YYYY-MM-DD', 'YYYY-MM-DD hh:mm', 'YYYY-MM-DD hh:mm:ss', 'YYYY', 'MM', 'DD', 'hh:mm', 'hh:mm:ss', 'YYYY-MM-DD hh'], //支持的日期格式
                 domClass: ['rolldate-year', 'rolldate-month', 'rolldate-day', 'rolldate-hour', 'rolldate-min', 'rolldate-sec'],
                 opts: { //插件默认配置
                     el: '',
@@ -190,7 +192,8 @@ var Date = exports.Date = function () {
                     moveEnd: null,
                     confirmBefore: null,
                     confirmEnd: null,
-                    minStep: 1
+                    minStep: 1,
+                    lang: { title: '选择日期', cancel: '取消', confirm: '确认', year: '年', month: '月', day: '日', hour: '时', min: '分', sec: '秒' }
                 }
             };
         }
@@ -201,7 +204,13 @@ var Date = exports.Date = function () {
                 opts = _this.baseData().opts;
 
             for (var key in opts) {
-                opts[key] = config[key] === 0 ? 0 : config[key] || opts[key];
+                if (_typeof(opts[key]) == 'object') {
+                    for (var key2 in config[key]) {
+                        opts[key][key2] = config[key][key2] == undefined ? opts[key][key2] : config[key][key2];
+                    }
+                } else {
+                    opts[key] = config[key] === 0 ? 0 : config[key] || opts[key];
+                }
             }
             _this.config = opts;
         }
@@ -213,64 +222,65 @@ var Date = exports.Date = function () {
                 index = data.dateFormat.indexOf(_this.config.format);
 
             index = index > 1 ? index + 1 : index;
-            var $class = index == 5 ? [data.domClass[0]] : index == 6 ? [data.domClass[1]] : index == 7 ? [data.domClass[2]] : index == 8 ? data.domClass.slice(3, 5) : index == 9 ? data.domClass.slice(3) : data.domClass.slice(0, index + 2),
+            var $class = index == 5 ? [data.domClass[0]] : index == 6 ? [data.domClass[1]] : index == 7 ? [data.domClass[2]] : index == 8 ? data.domClass.slice(3, 5) : index == 9 ? data.domClass.slice(3) : index == 10 ? data.domClass.slice(0, 4) : data.domClass.slice(0, index + 2),
                 len = $class.length,
                 ul = '',
                 el = _this.$(_this.config.el),
                 date = el.date ? el.date : data.date,
-                itemClass = '';
+                itemClass = '',
+                lang = _this.config.lang;
 
             for (var i = 0; i < len; i++) {
                 ul += '<div id="' + $class[i] + '"><ul class="wheel-scroll">';
 
                 var domMndex = 0;
-                if (i == 0 && index < 6) {
+                if (i == 0 && (index < 6 || index == 10)) {
                     for (var j = _this.config.beginYear; j <= _this.config.endYear; j++) {
                         itemClass = j == date.getFullYear() ? 'active' : '';
 
-                        ul += '<li class="wheel-item ' + itemClass + '" data-index="' + domMndex + '">' + j + '\u5E74</li>';
+                        ul += '<li class="wheel-item ' + itemClass + '" data-index="' + domMndex + '">' + j + lang.year + '</li>';
                         domMndex++;
                     }
-                } else if ((i == 1 || index == 6) && index < 7) {
+                } else if ((i == 1 || index == 6) && (index < 7 || index == 10)) {
                     for (var k = 1; k <= 12; k++) {
                         itemClass = k == date.getMonth() + 1 ? 'active' : '';
 
-                        ul += '<li class="wheel-item ' + itemClass + '" data-index="' + domMndex + '">' + (k < 10 ? '0' + k : k) + '\u6708</li>';
+                        ul += '<li class="wheel-item ' + itemClass + '" data-index="' + domMndex + '">' + (k < 10 ? '0' + k : k) + lang.month + '</li>';
                         domMndex++;
                     }
-                } else if ((i == 2 || index == 7) && index <= 7) {
+                } else if ((i == 2 || index == 7) && (index <= 7 || index == 10)) {
                     var day = _this.bissextile(date.getFullYear(), date.getMonth() + 1);
                     for (var l = 1; l <= day; l++) {
                         itemClass = l == date.getDate() ? 'active' : '';
 
-                        ul += '<li class="wheel-item ' + itemClass + '" data-index="' + domMndex + '">' + (l < 10 ? '0' + l : l) + '\u65E5</li>';
+                        ul += '<li class="wheel-item ' + itemClass + '" data-index="' + domMndex + '">' + (l < 10 ? '0' + l : l) + lang.day + '</li>';
                         domMndex++;
                     }
                 } else if (i == 3 || index > 7 && i == 0) {
                     for (var m = 0; m <= 23; m++) {
                         itemClass = m == date.getHours() ? 'active' : '';
 
-                        ul += '<li class="wheel-item ' + itemClass + '" data-index="' + domMndex + '">' + (m < 10 ? '0' + m : m) + '\u65F6</li>';
+                        ul += '<li class="wheel-item ' + itemClass + '" data-index="' + domMndex + '">' + (m < 10 ? '0' + m : m) + lang.hour + '</li>';
                         domMndex++;
                     }
                 } else if (i == 4 || index > 7 && i == 1) {
                     for (var n = 0; n <= 59; n += _this.config.minStep) {
                         itemClass = n == date.getMinutes() ? 'active' : '';
 
-                        ul += '<li class="wheel-item ' + itemClass + '" data-index="' + domMndex + '">' + (n < 10 ? '0' + n : n) + '\u5206</li>';
+                        ul += '<li class="wheel-item ' + itemClass + '" data-index="' + domMndex + '">' + (n < 10 ? '0' + n : n) + lang.min + '</li>';
                         domMndex++;
                     }
                 } else if (i == 5 || index > 7 && i == 2) {
                     for (var o = 0; o <= 59; o++) {
                         itemClass = o == date.getSeconds() ? 'active' : '';
 
-                        ul += '<li class="wheel-item ' + itemClass + '" data-index="' + domMndex + '">' + (o < 10 ? '0' + o : o) + '\u79D2</li>';
+                        ul += '<li class="wheel-item ' + itemClass + '" data-index="' + domMndex + '">' + (o < 10 ? '0' + o : o) + lang.sec + '</li>';
                         domMndex++;
                     }
                 }
                 ul += '</ul></div>';
             }
-            var $html = '<div class="rolldate-mask"></div>\n            <div class="rolldate-panel fadeIn">\n                <header>\n                    <button class="rolldate-btn rolldate-cancel" type="button">\u53D6\u6D88</button>\n                    \u9009\u62E9\u65E5\u671F\n                    <button class="rolldate-btn rolldate-confirm" type="button">\u786E\u5B9A</button>\n                </header>\n                <section class="rolldate-content">\n                    <div class="rolldate-dim mask-top"></div>\n                    <div class="rolldate-dim mask-bottom"></div>\n                    <div class="rolldate-wrapper">\n                        ' + ul + '\n                    </div>\n                </section>\n            </div>',
+            var $html = '<div class="rolldate-mask"></div>\n            <div class="rolldate-panel fadeIn">\n                <header>\n                    <button class="rolldate-btn rolldate-cancel" type="button">' + lang.cancel + '</button>\n                    ' + lang.title + '\n                    <button class="rolldate-btn rolldate-confirm" type="button">' + lang.confirm + '</button>\n                </header>\n                <section class="rolldate-content">\n                    <div class="rolldate-dim mask-top"></div>\n                    <div class="rolldate-dim mask-bottom"></div>\n                    <div class="rolldate-wrapper">\n                        ' + ul + '\n                    </div>\n                </section>\n            </div>',
                 box = document.createElement("div");
 
             box.className = 'rolldate-container';
@@ -356,7 +366,7 @@ var Date = exports.Date = function () {
                     var d = _this.getscrollDay(v),
                         str = void 0;
 
-                    if (index <= 4) {
+                    if (index <= 4 || index == 9) {
                         str = i == 0 ? 'YYYY' : i == 1 ? 'MM' : i == 2 ? 'DD' : i == 3 ? 'hh' : i == 4 ? 'mm' : 'ss';
                     } else if (index == 5) {
                         str = 'MM';
@@ -489,7 +499,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "ul {\n  margin: 0;\n  padding: 0;\n}\nli {\n  list-style-type: none;\n}\n.rolldate-container {\n  font-size: 20px;\n  color: #333;\n  text-align: center;\n}\n.rolldate-container header {\n  position: relative;\n  line-height: 60px;\n  font-size: 18px;\n  border-bottom: 1px solid #e0e0e0;\n}\n.rolldate-container .rolldate-mask {\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  top: 0;\n  left: 0;\n  background: #000;\n  opacity: 0.5;\n  z-index: 100;\n}\n.rolldate-container .rolldate-panel {\n  position: fixed;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: 273px;\n  z-index: 101;\n  background: #fff;\n  -webkit-animation-duration: 300ms;\n          animation-duration: 300ms;\n  -webkit-animation-delay: 0s;\n          animation-delay: 0s;\n  -webkit-animation-iteration-count: 1;\n          animation-iteration-count: 1;\n}\n.rolldate-container .rolldate-btn {\n  position: absolute;\n  left: 0;\n  top: 0;\n  height: 100%;\n  padding: 0 15px;\n  background: none;\n  border: none;\n  outline: none;\n  color: #666;\n  font-size: 16px;\n  -webkit-tap-highlight-color: #fff;\n}\n.rolldate-container .rolldate-confirm {\n  left: auto;\n  right: 0;\n  color: #007bff;\n}\n.rolldate-container .rolldate-content {\n  position: relative;\n  top: 20px;\n}\n.rolldate-container .rolldate-wrapper {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n}\n.rolldate-container .rolldate-wrapper > div {\n  -webkit-box-flex: 1;\n  -webkit-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  height: 173px;\n  line-height: 36px;\n  overflow: hidden;\n  -webkit-flex-basis: -8e;\n      -ms-flex-preferred-size: -8e;\n          flex-basis: -8e;\n  width: 1%;\n}\n.rolldate-container .rolldate-wrapper ul {\n  margin-top: 68px;\n}\n.rolldate-container .rolldate-wrapper li {\n  height: 36px;\n}\n.rolldate-container .rolldate-dim {\n  position: absolute;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 68px;\n  background: -webkit-gradient(linear, left bottom, left top, from(hsla(0, 0%, 100%, 0.4)), to(hsla(0, 0%, 100%, 0.8)));\n  background: -webkit-linear-gradient(bottom, hsla(0, 0%, 100%, 0.4), hsla(0, 0%, 100%, 0.8));\n  background: -o-linear-gradient(bottom, hsla(0, 0%, 100%, 0.4), hsla(0, 0%, 100%, 0.8));\n  background: linear-gradient(0deg, hsla(0, 0%, 100%, 0.4), hsla(0, 0%, 100%, 0.8));\n  pointer-events: none;\n  -webkit-transform: translateZ(0);\n  transform: translateZ(0);\n  z-index: 10;\n}\n.rolldate-container .mask-top {\n  border-bottom: 1px solid #ebebeb;\n}\n.rolldate-container .mask-bottom {\n  top: auto;\n  bottom: 1px;\n  border-top: 1px solid #ebebeb;\n}\n.rolldate-container .fadeIn {\n  -webkit-animation-name: fadeIn;\n          animation-name: fadeIn;\n}\n.rolldate-container .fadeOut {\n  -webkit-animation-name: fadeOut;\n          animation-name: fadeOut;\n}\n@-webkit-keyframes fadeIn {\n  from {\n    bottom: -273px;\n  }\n  to {\n    bottom: 0;\n  }\n}\n@keyframes fadeIn {\n  from {\n    bottom: -273px;\n  }\n  to {\n    bottom: 0;\n  }\n}\n@-webkit-keyframes fadeOut {\n  from {\n    bottom: 0;\n  }\n  to {\n    bottom: -273px;\n    display: none;\n  }\n}\n@keyframes fadeOut {\n  from {\n    bottom: 0;\n  }\n  to {\n    bottom: -273px;\n    display: none;\n  }\n}\n@media screen and (max-width: 414px) {\n  .rolldate-container {\n    font-size: 18px;\n  }\n}\n@media screen and (max-width: 320px) {\n  .rolldate-container {\n    font-size: 15px;\n  }\n}\n", ""]);
+exports.push([module.i, "ul {\n  margin: 0;\n  padding: 0;\n}\nli {\n  list-style-type: none;\n}\n.rolldate-container {\n  font-size: 20px;\n  color: #333;\n  text-align: center;\n}\n.rolldate-container header {\n  position: relative;\n  line-height: 60px;\n  font-size: 18px;\n  border-bottom: 1px solid #e0e0e0;\n}\n.rolldate-container .rolldate-mask {\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  top: 0;\n  left: 0;\n  background: #000;\n  opacity: 0.5;\n  z-index: 100;\n}\n.rolldate-container .rolldate-panel {\n  position: fixed;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: 273px;\n  z-index: 101;\n  background: #fff;\n  -webkit-animation-duration: 300ms;\n          animation-duration: 300ms;\n  -webkit-animation-delay: 0s;\n          animation-delay: 0s;\n  -webkit-animation-iteration-count: 1;\n          animation-iteration-count: 1;\n}\n.rolldate-container .rolldate-btn {\n  position: absolute;\n  left: 0;\n  top: 0;\n  height: 100%;\n  padding: 0 15px;\n  background: none;\n  border: none;\n  outline: none;\n  color: #666;\n  font-size: 16px;\n  -webkit-tap-highlight-color: transparent;\n}\n.rolldate-container .rolldate-confirm {\n  left: auto;\n  right: 0;\n  color: #007bff;\n}\n.rolldate-container .rolldate-content {\n  position: relative;\n  top: 20px;\n}\n.rolldate-container .rolldate-wrapper {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n}\n.rolldate-container .rolldate-wrapper > div {\n  -webkit-box-flex: 1;\n  -webkit-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  height: 173px;\n  line-height: 36px;\n  overflow: hidden;\n  -webkit-flex-basis: -8e;\n      -ms-flex-preferred-size: -8e;\n          flex-basis: -8e;\n  width: 1%;\n}\n.rolldate-container .rolldate-wrapper ul {\n  margin-top: 68px;\n}\n.rolldate-container .rolldate-wrapper li {\n  height: 36px;\n}\n.rolldate-container .rolldate-dim {\n  position: absolute;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 68px;\n  background: -webkit-gradient(linear, left bottom, left top, from(hsla(0, 0%, 100%, 0.4)), to(hsla(0, 0%, 100%, 0.8)));\n  background: -webkit-linear-gradient(bottom, hsla(0, 0%, 100%, 0.4), hsla(0, 0%, 100%, 0.8));\n  background: -o-linear-gradient(bottom, hsla(0, 0%, 100%, 0.4), hsla(0, 0%, 100%, 0.8));\n  background: linear-gradient(0deg, hsla(0, 0%, 100%, 0.4), hsla(0, 0%, 100%, 0.8));\n  pointer-events: none;\n  -webkit-transform: translateZ(0);\n  transform: translateZ(0);\n  z-index: 10;\n}\n.rolldate-container .mask-top {\n  border-bottom: 1px solid #ebebeb;\n}\n.rolldate-container .mask-bottom {\n  top: auto;\n  bottom: 1px;\n  border-top: 1px solid #ebebeb;\n}\n.rolldate-container .fadeIn {\n  -webkit-animation-name: fadeIn;\n          animation-name: fadeIn;\n}\n.rolldate-container .fadeOut {\n  -webkit-animation-name: fadeOut;\n          animation-name: fadeOut;\n}\n@-webkit-keyframes fadeIn {\n  from {\n    bottom: -273px;\n  }\n  to {\n    bottom: 0;\n  }\n}\n@keyframes fadeIn {\n  from {\n    bottom: -273px;\n  }\n  to {\n    bottom: 0;\n  }\n}\n@-webkit-keyframes fadeOut {\n  from {\n    bottom: 0;\n  }\n  to {\n    bottom: -273px;\n    display: none;\n  }\n}\n@keyframes fadeOut {\n  from {\n    bottom: 0;\n  }\n  to {\n    bottom: -273px;\n    display: none;\n  }\n}\n@media screen and (max-width: 414px) {\n  .rolldate-container {\n    font-size: 18px;\n  }\n}\n@media screen and (max-width: 320px) {\n  .rolldate-container {\n    font-size: 15px;\n  }\n}\n", ""]);
 
 // exports
 
@@ -1467,7 +1477,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 /* 7 */
 /***/ (function(module) {
 
-module.exports = {"name":"rolldate","version":"2.0.0","description":"rolldate 移动端日期选择插件","main":"dist/rolldate.min.js","scripts":{"build":"cross-env NODE_ENV=production webpack --config config/rolldate.config.js --mode production","build-common":"cross-env NODE_ENV=production webpack --config config/common.config.js --mode production","dev":"cross-env NODE_ENV=development webpack-dev-server --config config/rolldate.config.js --mode development","start":"npm run build-common && npm run build"},"keywords":["date","js-date"],"repository":{"type":"git","url":"https://github.com/weijhfly/rolldate"},"author":"雾空","license":"MIT","dependencies":{},"devDependencies":{"autoprefixer":"^9.0.1","babel-core":"^6.26.3","babel-loader":"^7.1.5","babel-preset-es2015":"^6.24.1","clean-webpack-plugin":"^0.1.19","cross-env":"^5.2.0","css-loader":"^1.0.0","extract-text-webpack-plugin":"^4.0.0-beta.0","html-webpack-plugin":"^3.2.0","less":"^3.8.0","less-loader":"^4.1.0","postcss-loader":"^2.1.6","style-loader":"^0.21.0","webpack":"^4.16.2","webpack-cli":"^3.1.0","webpack-dev-server":"^3.1.5"}};
+module.exports = {"name":"rolldate","version":"2.1.0","description":"rolldate 移动端日期选择插件","main":"dist/rolldate.min.js","scripts":{"build":"cross-env NODE_ENV=production webpack --config config/rolldate.config.js --mode production","build-common":"cross-env NODE_ENV=production webpack --config config/common.config.js --mode production","dev":"cross-env NODE_ENV=development webpack-dev-server --config config/rolldate.config.js --mode development","start":"npm run build-common && npm run build"},"keywords":["date","js-date"],"repository":{"type":"git","url":"https://github.com/weijhfly/rolldate"},"author":"雾空","license":"MIT","dependencies":{},"devDependencies":{"autoprefixer":"^9.0.1","babel-core":"^6.26.3","babel-loader":"^7.1.5","babel-preset-es2015":"^6.24.1","clean-webpack-plugin":"^0.1.19","cross-env":"^5.2.0","css-loader":"^1.0.0","extract-text-webpack-plugin":"^4.0.0-beta.0","html-webpack-plugin":"^3.2.0","less":"^3.8.0","less-loader":"^4.1.0","postcss-loader":"^2.1.6","style-loader":"^0.21.0","webpack":"^4.16.2","webpack-cli":"^3.1.0","webpack-dev-server":"^3.1.5"}};
 
 /***/ })
 /******/ ]);

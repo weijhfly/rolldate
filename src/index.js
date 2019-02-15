@@ -40,7 +40,7 @@ export class Date{
 
         return {
             date:new window.Date(),
-            dateFormat:['YYYY-MM','YYYY-MM-DD','YYYY-MM-DD hh:mm','YYYY-MM-DD hh:mm:ss','YYYY','MM','DD','hh:mm','hh:mm:ss'],//支持的日期格式
+            dateFormat:['YYYY-MM','YYYY-MM-DD','YYYY-MM-DD hh:mm','YYYY-MM-DD hh:mm:ss','YYYY','MM','DD','hh:mm','hh:mm:ss','YYYY-MM-DD hh'],//支持的日期格式
             domClass:['rolldate-year','rolldate-month','rolldate-day','rolldate-hour','rolldate-min','rolldate-sec'],
             opts:{//插件默认配置
                 el:'',
@@ -52,6 +52,7 @@ export class Date{
                 confirmBefore:null,
                 confirmEnd:null,
                 minStep:1,
+                lang:{title:'选择日期',cancel:'取消',confirm:'确认',year:'年',month:'月',day:'日',hour:'时',min:'分',sec:'秒'}
             }
         };
     }
@@ -60,7 +61,13 @@ export class Date{
             opts = _this.baseData().opts;
             
         for(let key in opts){
-            opts[key] = config[key] === 0? 0 : config[key] || opts[key];
+            if(typeof opts[key] == 'object'){
+                for(let key2 in config[key]){
+                    opts[key][key2] = config[key][key2] == undefined? opts[key][key2]:config[key][key2];
+                }
+            }else{
+                opts[key] = config[key] === 0? 0 : config[key] || opts[key];
+            }
         }
         _this.config = opts;
     }
@@ -70,58 +77,59 @@ export class Date{
             index = data.dateFormat.indexOf(_this.config.format);
 
         index = index > 1? index+1 : index;
-        let $class = index == 5? [data.domClass[0]]: index ==6? [data.domClass[1]]: index ==7? [data.domClass[2]]: index ==8? data.domClass.slice(3,5): index ==9? data.domClass.slice(3):data.domClass.slice(0,index + 2),
+        let $class = index == 5? [data.domClass[0]]: index ==6? [data.domClass[1]]: index ==7? [data.domClass[2]]: index ==8? data.domClass.slice(3,5): index ==9? data.domClass.slice(3):index ==10? data.domClass.slice(0,4):data.domClass.slice(0,index + 2),
             len = $class.length,
             ul = '',
             el = _this.$(_this.config.el),
             date = el.date? el.date:data.date,
-            itemClass = '';
+            itemClass = '',
+            lang = _this.config.lang;
 
         for(let i=0; i<len; i++){
             ul += '<div id="'+ $class[i]+'"><ul class="wheel-scroll">';
 
             let domMndex = 0;
-            if(i == 0 && index < 6){
+            if(i == 0 && (index < 6 || index == 10)){
                 for(let j=_this.config.beginYear; j<=_this.config.endYear; j++){
                     itemClass = j == date.getFullYear()? 'active':'';
 
-                    ul += `<li class="wheel-item ${itemClass}" data-index="${domMndex}">${j}年</li>`;
+                    ul += `<li class="wheel-item ${itemClass}" data-index="${domMndex}">${j}${lang.year}</li>`;
                     domMndex ++;
                 }
-            }else if((i == 1 || index == 6) && index < 7){
+            }else if((i == 1 || index == 6) && (index < 7 || index == 10)){
                 for(let k=1; k<=12; k++){
                     itemClass = k == date.getMonth() + 1? 'active':'';
 
-                    ul += `<li class="wheel-item ${itemClass}" data-index="${domMndex}">${k<10? '0'+k : k}月</li>`;
+                    ul += `<li class="wheel-item ${itemClass}" data-index="${domMndex}">${k<10? '0'+k : k}${lang.month}</li>`;
                     domMndex ++;
                 }
-            }else if((i == 2 || index == 7) && index <= 7){
+            }else if((i == 2 || index == 7) && (index <= 7 || index == 10)){
                 let day = _this.bissextile(date.getFullYear(),date.getMonth() + 1);
                 for(let l=1; l<=day; l++){
                     itemClass = l == date.getDate()? 'active':'';
 
-                    ul += `<li class="wheel-item ${itemClass}" data-index="${domMndex}">${l<10? '0'+l : l}日</li>`;
+                    ul += `<li class="wheel-item ${itemClass}" data-index="${domMndex}">${l<10? '0'+l : l}${lang.day}</li>`;
                     domMndex ++;
                 }
             }else if(i == 3 || (index > 7 && i == 0)){
                 for(let m=0; m<=23; m++){
                     itemClass = m == date.getHours()? 'active':'';
 
-                    ul += `<li class="wheel-item ${itemClass}" data-index="${domMndex}">${m<10? '0'+m : m}时</li>`;
+                    ul += `<li class="wheel-item ${itemClass}" data-index="${domMndex}">${m<10? '0'+m : m}${lang.hour}</li>`;
                     domMndex ++;
                 }
             }else if(i == 4 || (index > 7 && i == 1)){
                 for(let n=0; n<=59; n+=_this.config.minStep){
                     itemClass = n == date.getMinutes()? 'active':'';
 
-                    ul += `<li class="wheel-item ${itemClass}" data-index="${domMndex}">${n<10? '0'+n : n}分</li>`;
+                    ul += `<li class="wheel-item ${itemClass}" data-index="${domMndex}">${n<10? '0'+n : n}${lang.min}</li>`;
                     domMndex ++;
                 }
             }else if(i == 5 || (index > 7 && i == 2)){
                 for(let o=0; o<=59; o++){
                     itemClass = o == date.getSeconds()? 'active':'';
 
-                    ul += `<li class="wheel-item ${itemClass}" data-index="${domMndex}">${o<10? '0'+o : o}秒</li>`;
+                    ul += `<li class="wheel-item ${itemClass}" data-index="${domMndex}">${o<10? '0'+o : o}${lang.sec}</li>`;
                     domMndex ++;
                 }
             }
@@ -130,9 +138,9 @@ export class Date{
         let $html = `<div class="rolldate-mask"></div>
             <div class="rolldate-panel fadeIn">
                 <header>
-                    <button class="rolldate-btn rolldate-cancel" type="button">取消</button>
-                    选择日期
-                    <button class="rolldate-btn rolldate-confirm" type="button">确定</button>
+                    <button class="rolldate-btn rolldate-cancel" type="button">${lang.cancel}</button>
+                    ${lang.title}
+                    <button class="rolldate-btn rolldate-confirm" type="button">${lang.confirm}</button>
                 </header>
                 <section class="rolldate-content">
                     <div class="rolldate-dim mask-top"></div>
@@ -216,7 +224,7 @@ export class Date{
                 let d = _this.getscrollDay(v),
                     str;
 
-                    if(index <=4){
+                    if(index <=4 || index == 9){
                         str = i == 0? 'YYYY':i == 1? 'MM':i == 2? 'DD':i == 3? 'hh':i == 4? 'mm':'ss';
                     }else if(index == 5){
                         str = 'MM';

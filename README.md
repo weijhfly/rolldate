@@ -17,7 +17,6 @@
 ## 使用方式
 ### es6
 ```js
-import '../node_modules/rolldate/dist/css/rolldate.css'
 import {Date as rolldate} from 'rolldate'
 new rolldate({
   el:'#date'
@@ -25,7 +24,6 @@ new rolldate({
 ```
 ### commonJS
 ```js
-require('../node_modules/rolldate/dist/css/rolldate.css');
 var rolldate = require('rolldate');
 new rolldate.Date({
   el:'#date'
@@ -46,4 +44,26 @@ new rolldate.Date({
 })
 ```
 ## 参数及方法
-演示或dist/index.html中有完整示例，请查阅。
+```js
+//完整示例
+new rolldate.Date({
+  el:'#date',
+  format:'YYYY-MM-DD',
+  beginYear:2000,
+  endYear:2100,
+  value:'2018-02-15',
+  tapBefore:function(el){
+    console.log('插件开始触发');
+  },
+  moveEnd:function(el,scroll){
+    console.log('滚动结束');
+  },
+  confirmBefore:function(el,date){
+    console.log('确定按钮触发');
+  },
+  confirmEnd:function(el,date){
+    console.log('插件运行结束');
+  }
+ })
+```
+更多请查阅演示或dist/index.html
