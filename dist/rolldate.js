@@ -1,5 +1,5 @@
 /*!
- * Rolldate 2.1.0
+ * Rolldate 2.1.1
  * Copyright 2019 雾空
  * https://github.com/weijhfly/rolldate
  * Licensed under MIT
@@ -204,7 +204,7 @@ var Date = exports.Date = function () {
                 opts = _this.baseData().opts;
 
             for (var key in opts) {
-                if (_typeof(opts[key]) == 'object') {
+                if (opts[key] && _typeof(opts[key]) == 'object') {
                     for (var key2 in config[key]) {
                         opts[key][key2] = config[key][key2] == undefined ? opts[key][key2] : config[key][key2];
                     }
@@ -1477,7 +1477,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 /* 7 */
 /***/ (function(module) {
 
-module.exports = {"name":"rolldate","version":"2.1.0","description":"rolldate 移动端日期选择插件","main":"dist/rolldate.min.js","scripts":{"build":"cross-env NODE_ENV=production webpack --config config/rolldate.config.js --mode production","build-common":"cross-env NODE_ENV=production webpack --config config/common.config.js --mode production","dev":"cross-env NODE_ENV=development webpack-dev-server --config config/rolldate.config.js --mode development","start":"npm run build-common && npm run build"},"keywords":["date","js-date"],"repository":{"type":"git","url":"https://github.com/weijhfly/rolldate"},"author":"雾空","license":"MIT","dependencies":{},"devDependencies":{"autoprefixer":"^9.0.1","babel-core":"^6.26.3","babel-loader":"^7.1.5","babel-preset-es2015":"^6.24.1","clean-webpack-plugin":"^0.1.19","cross-env":"^5.2.0","css-loader":"^1.0.0","extract-text-webpack-plugin":"^4.0.0-beta.0","html-webpack-plugin":"^3.2.0","less":"^3.8.0","less-loader":"^4.1.0","postcss-loader":"^2.1.6","style-loader":"^0.21.0","webpack":"^4.16.2","webpack-cli":"^3.1.0","webpack-dev-server":"^3.1.5"}};
+module.exports = {"name":"rolldate","version":"2.1.1","description":"rolldate 移动端日期选择插件","main":"dist/rolldate.min.js","scripts":{"build":"cross-env NODE_ENV=production webpack --config config/rolldate.config.js --mode production","build-common":"cross-env NODE_ENV=production webpack --config config/common.config.js --mode production","dev":"cross-env NODE_ENV=development webpack-dev-server --config config/rolldate.config.js --mode development","start":"npm run build-common && npm run build"},"keywords":["date","js-date"],"repository":{"type":"git","url":"https://github.com/weijhfly/rolldate"},"author":"雾空","license":"MIT","dependencies":{},"devDependencies":{"autoprefixer":"^9.0.1","babel-core":"^6.26.3","babel-loader":"^7.1.5","babel-preset-es2015":"^6.24.1","clean-webpack-plugin":"^0.1.19","cross-env":"^5.2.0","css-loader":"^1.0.0","extract-text-webpack-plugin":"^4.0.0-beta.0","html-webpack-plugin":"^3.2.0","less":"^3.8.0","less-loader":"^4.1.0","postcss-loader":"^2.1.6","style-loader":"^0.21.0","webpack":"^4.16.2","webpack-cli":"^3.1.0","webpack-dev-server":"^3.1.5"}};
 
 /***/ })
 /******/ ]);

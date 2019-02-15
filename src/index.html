@@ -170,6 +170,7 @@ window.onload = function(){
 	beginYear:2000,
 	endYear:2100,
 	confirmBefore:function(el,date){
+		console.log(el,date)
 		var d = new Date(),
 			d1 = new Date(date.replace(/\-/g, "\/")),
 			d2 = new Date(d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate());//如果非'YYYY-MM-DD'格式，需要另做调整

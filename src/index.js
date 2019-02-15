@@ -61,7 +61,7 @@ export class Date{
             opts = _this.baseData().opts;
             
         for(let key in opts){
-            if(typeof opts[key] == 'object'){
+            if(opts[key] && typeof opts[key] == 'object'){
                 for(let key2 in config[key]){
                     opts[key][key2] = config[key][key2] == undefined? opts[key][key2]:config[key][key2];
                 }
