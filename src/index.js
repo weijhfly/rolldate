@@ -40,7 +40,7 @@ export class Date{
 
         return {
             date:new window.Date(),
-            dateFormat:['YYYY-MM','YYYY-MM-DD','YYYY-MM-DD hh:mm','YYYY-MM-DD hh:mm:ss','YYYY','MM','DD','hh:mm','hh:mm:ss','YYYY-MM-DD hh'],//支持的日期格式
+            dateFormat:['YYYY-MM','YYYY-MM-DD','YYYY-MM-DD hh:mm','YYYY-MM-DD hh:mm:ss','YYYY','MM','DD','hh:mm','hh:mm:ss','YYYY-MM-DD hh','hh','mm','ss'],//支持的日期格式
             domClass:['rolldate-year','rolldate-month','rolldate-day','rolldate-hour','rolldate-min','rolldate-sec'],
             opts:{//插件默认配置
                 el:'',
@@ -77,7 +77,7 @@ export class Date{
             index = data.dateFormat.indexOf(_this.config.format);
 
         index = index > 1? index+1 : index;
-        let $class = index == 5? [data.domClass[0]]: index ==6? [data.domClass[1]]: index ==7? [data.domClass[2]]: index ==8? data.domClass.slice(3,5): index ==9? data.domClass.slice(3):index ==10? data.domClass.slice(0,4):data.domClass.slice(0,index + 2),
+        let $class = index == 5? [data.domClass[0]]: index ==6? [data.domClass[1]]: index ==7? [data.domClass[2]]: index ==8? data.domClass.slice(3,5): index ==9? data.domClass.slice(3):index ==10? data.domClass.slice(0,4):index ==11? data.domClass.slice(3,4):index ==12? data.domClass.slice(4,5):index ==13? data.domClass.slice(5,6):data.domClass.slice(0,index + 2),
             len = $class.length,
             ul = '',
             el = _this.$(_this.config.el),
@@ -111,21 +111,21 @@ export class Date{
                     ul += `<li class="wheel-item ${itemClass}" data-index="${domMndex}">${l<10? '0'+l : l}${lang.day}</li>`;
                     domMndex ++;
                 }
-            }else if(i == 3 || (index > 7 && i == 0)){
+            }else if(i == 3 || (index > 7 && index < 12  && i == 0)){
                 for(let m=0; m<=23; m++){
                     itemClass = m == date.getHours()? 'active':'';
 
                     ul += `<li class="wheel-item ${itemClass}" data-index="${domMndex}">${m<10? '0'+m : m}${lang.hour}</li>`;
                     domMndex ++;
                 }
-            }else if(i == 4 || (index > 7 && i == 1)){
+            }else if(i == 4 || (index > 7 && i == 1) || index == 12){
                 for(let n=0; n<=59; n+=_this.config.minStep){
                     itemClass = n == date.getMinutes()? 'active':'';
 
                     ul += `<li class="wheel-item ${itemClass}" data-index="${domMndex}">${n<10? '0'+n : n}${lang.min}</li>`;
                     domMndex ++;
                 }
-            }else if(i == 5 || (index > 7 && i == 2)){
+            }else if(i == 5 || (index > 7 && i == 2) || index == 13){
                 for(let o=0; o<=59; o++){
                     itemClass = o == date.getSeconds()? 'active':'';
 
@@ -152,7 +152,8 @@ export class Date{
             </div>`,
             box = document.createElement("div");
 
-            box.className = 'rolldate-container';
+            // 在微信中输入框在底部时，偶现按钮点击范围被挤压，暂定增加按钮高度
+            box.className = `rolldate-container${!!navigator.userAgent.match(/MicroMessenger/i)?' wx':''}`;
             box.innerHTML = $html;
             document.body.appendChild(box);
             
@@ -234,6 +235,12 @@ export class Date{
                         str = i == 0? 'hh':i == 1? 'mm':'';
                     }else if(index == 8){
                          str = i == 0? 'hh':i == 1? 'mm':'ss';
+                    }else if(index == 10){
+                        str = 'hh';
+                    }else if(index == 11){
+                        str = 'mm';
+                    }else if(index == 12){
+                        str = 'ss';
                     }
 
                 date = date.replace(str,d);

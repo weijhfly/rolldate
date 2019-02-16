@@ -18,8 +18,8 @@
 	<a href="https://weijhfly.github.io/rolldate-index2.html">返回旧版</a>
 </h3>
 
-<h4>支持格式：</h4>
-YYYY-MM、YYYY-MM-DD、YYYY-MM-DD hh:mm、YYYY-MM-DD hh:mm:ss、YYYY、MM、DD、hh:mm、hh:mm:ss、YYYY-MM-DD hh
+<h4>支持格式：(13种)</h4>
+YYYY-MM、YYYY-MM-DD、YYYY-MM-DD hh:mm、YYYY-MM-DD hh:mm:ss、YYYY、MM、DD、hh:mm、hh:mm:ss、YYYY-MM-DD hh、hh、mm、ss
 <br>
 <input readonly type="text" id="date" placeholder="YYYY-MM"><input readonly type="text" id="date2" placeholder="YYYY-MM-DD">
 <br>
@@ -30,6 +30,10 @@ YYYY-MM、YYYY-MM-DD、YYYY-MM-DD hh:mm、YYYY-MM-DD hh:mm:ss、YYYY、MM、DD�
 <input readonly type="text" id="date18" placeholder="DD"><input readonly type="text" id="date19" placeholder="hh:mm">
 <br>
 <input readonly type="text" id="date20" placeholder="hh:mm:ss"><input readonly type="text" id="date26" placeholder="YYYY-MM-DD hh">
+<br>
+<input readonly type="text" id="date27" placeholder="hh"><input readonly type="text" id="date28" placeholder="mm">
+<br>
+<input readonly type="text" id="date29" placeholder="ss">
 <hr>
 
 <h4>回调函数：</h4>
@@ -109,9 +113,21 @@ window.onload = function(){
  	el:'#date20',
 	format:'hh:mm:ss'
  })
-  new rolldate.Date({
+ new rolldate.Date({
  	el:'#date26',
 	format:'YYYY-MM-DD hh'
+ })
+ new rolldate.Date({
+ 	el:'#date27',
+	format:'hh'
+ })
+ new rolldate.Date({
+ 	el:'#date28',
+	format:'mm'
+ })
+ new rolldate.Date({
+ 	el:'#date29',
+	format:'ss'
  })
   // 回调
   new rolldate.Date({
