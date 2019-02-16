@@ -138,9 +138,9 @@ export class Date{
         let $html = `<div class="rolldate-mask"></div>
             <div class="rolldate-panel fadeIn">
                 <header>
-                    <button class="rolldate-btn rolldate-cancel" type="button">${lang.cancel}</button>
+                    <span class="rolldate-btn rolldate-cancel">${lang.cancel}</span>
                     ${lang.title}
-                    <button class="rolldate-btn rolldate-confirm" type="button">${lang.confirm}</button>
+                    <span class="rolldate-btn rolldate-confirm">${lang.confirm}</span>
                 </header>
                 <section class="rolldate-content">
                     <div class="rolldate-dim mask-top"></div>
