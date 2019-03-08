@@ -172,7 +172,7 @@ export class Date{
 
            let that = _this.scroll[i],
                active = _this.$('#'+$class[i]+' .active'),
-               index = active? active.getAttribute('data-index') : Math.round(date.getMinutes()/5);
+               index = active? active.getAttribute('data-index') : Math.round(date.getMinutes()/_this.config.minStep);
 
             that.wheelTo(index);
             // 滚动结束
@@ -188,7 +188,7 @@ export class Date{
                     if(day != _this.$('#'+data.domClass[2]+' li','all').length){
 
                         for(let l=1; l<=day; l++){
-                            li += `<li class="wheel-item">${l<10? '0'+l : l}日</li>`;
+                            li += `<li class="wheel-item">${l<10? '0'+l : l}${lang.day}</li>`;
                         }
                         _this.$('#'+data.domClass[2]+' ul').innerHTML = li;
                         _this.scroll[2].refresh();

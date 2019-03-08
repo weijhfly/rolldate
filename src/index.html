@@ -4,64 +4,142 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<title>rolldate demo</title>
+	<!-- bootstrap.css仅作为示例演示使用 -->
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	<style type="text/css">
-		body{font-size: 16px;}
-		h1{font-size: 22px;}
-		input+input{margin-left: 10px;}
-		h4{margin:10px 0;}
+		h1{font-size: 30px;}
 	</style>
 </head>
 <body>
-<h1>rolldate 移动端日期选择插件</h1>
+<div class="jumbotron">
+	<div class="container">
+		<h1>rolldate 多格式、功能强大的移动端日期选择插件</h1>
+		<p>此为rolldate 2.0新版，使用better-scroll替换了iscroll,旧版请点击
+		<a href="https://weijhfly.github.io/rolldate-index2.html">返回旧版</a></p>
+	</div>
+</div>
+<div class="container">
+	<h4><strong>支持格式：(13种)</strong></h4>
+	<p>YYYY-MM、YYYY-MM-DD、YYYY-MM-DD hh:mm、YYYY-MM-DD hh:mm:ss、YYYY、MM、DD、hh:mm、hh:mm:ss、YYYY-MM-DD hh、hh、mm、ss</p>
+	<div class="row">
+		<div class="form-group clearfix">
+			<div class="col-xs-6">
+				<input class="form-control" type="text" id="date" placeholder="YYYY-MM">
+			</div>
+			<div class="col-xs-6">
+				<input class="form-control" type="text" id="date2" placeholder="YYYY-MM-DD">
+			</div>
+		</div>
+		<div class="form-group clearfix">
+			<div class="col-xs-6">
+				<input class="form-control" type="text" id="date26" placeholder="YYYY-MM-DD hh">
+			</div>
+			<div class="col-xs-6">
+				<input class="form-control" type="text" id="date3" placeholder="YYYY-MM-DD hh:mm">
+			</div>
+		</div>
+		<div class="form-group clearfix">
+			<div class="col-xs-6">
+				<input class="form-control" type="text" id="date4" placeholder="YYYY-MM-DD hh:mm:ss">
+			</div>
+			<div class="col-xs-6">
+				<input class="form-control" type="text" id="date19" placeholder="hh:mm">
+			</div>
+		</div>
+		<div class="form-group clearfix">
+			<div class="col-xs-6">
+				<input class="form-control" type="text" id="date20" placeholder="hh:mm:ss">
+			</div>
+			<div class="col-xs-6">
+				<input class="form-control" type="text" id="date15" placeholder="YYYY">
+			</div>
+		</div>
+		<div class="form-group clearfix">
+			<div class="col-xs-6">
+				<input class="form-control" type="text" id="date17" placeholder="MM">
+			</div>
+			<div class="col-xs-6">
+				<input class="form-control" type="text" id="date18" placeholder="DD">
+			</div>
+		</div>
+		<div class="form-group clearfix">
+			<div class="col-xs-6">
+				<input class="form-control" type="text" id="date27" placeholder="hh">
+			</div>
+			<div class="col-xs-6">
+				<input class="form-control" type="text" id="date28" placeholder="mm">
+			</div>
+		</div>
+		<div class="form-group clearfix">
+			<div class="col-xs-6">
+				<input class="form-control" type="text" id="date29" placeholder="ss">
+			</div>
+		</div>
+	</div>
 
-<h3 style="background: #2892ff;color: #fff;padding: 10px;">此为rolldate 2.0新版，使用better-scroll替换了iscroll,旧版请点击
-	<a href="https://weijhfly.github.io/rolldate-index2.html">返回旧版</a>
-</h3>
+	<h4><strong>回调函数：</strong></h4>
+	<p>tapBefore、moveEnd、confirmBefore、confirmEnd</p>
+	<div class="row">
+		<div class="form-group clearfix">
+			<div class="col-xs-6">
+				<input class="form-control" type="text" id="date10" placeholder="完整实例">
+			</div>
+		</div>
+		<h5 class="col-xs-12">tapBefore return false可阻止插件运行</h5>
+		<div class="form-group clearfix">
+			<div class="col-xs-6">
+				<input class="form-control" type="text" id="date11" placeholder="tapBefore">
+			</div>
+		</div>
+		<h5 class="col-xs-12">confirmBefore return false阻止插件运行,return其他值可以修改日期展示</h5>
+		<div class="form-group clearfix">
+			<div class="col-xs-6">
+				<input class="form-control" type="text" id="date12" placeholder="confirmBefore修改日期">
+			</div>
+		</div>
+	</div>
 
-<h4>支持格式：(13种)</h4>
-YYYY-MM、YYYY-MM-DD、YYYY-MM-DD hh:mm、YYYY-MM-DD hh:mm:ss、YYYY、MM、DD、hh:mm、hh:mm:ss、YYYY-MM-DD hh、hh、mm、ss
-<br>
-<input readonly type="text" id="date" placeholder="YYYY-MM"><input readonly type="text" id="date2" placeholder="YYYY-MM-DD">
-<br>
-<input readonly type="text" id="date3" placeholder="YYYY-MM-DD hh:mm"><input readonly type="text" id="date4" placeholder="YYYY-MM-DD hh:mm:ss">
-<br>
-<input readonly type="text" id="date15" placeholder="YYYY"><input readonly type="text" id="date17" placeholder="MM">
-<br>
-<input readonly type="text" id="date18" placeholder="DD"><input readonly type="text" id="date19" placeholder="hh:mm">
-<br>
-<input readonly type="text" id="date20" placeholder="hh:mm:ss"><input readonly type="text" id="date26" placeholder="YYYY-MM-DD hh">
-<br>
-<input readonly type="text" id="date27" placeholder="hh"><input readonly type="text" id="date28" placeholder="mm">
-<br>
-<input readonly type="text" id="date29" placeholder="ss">
-<hr>
+	<h4><strong>自定义语言</strong></h4>
+	<p>lang</p>
+	<div class="row">
+		<div class="form-group clearfix">
+			<div class="col-xs-6">
+				<input class="form-control" type="text" id="date25" placeholder="lang">
+			</div>
+		</div>
+	</div>
 
-<h4>回调函数：</h4>
-tapBefore、moveEnd、confirmBefore、confirmEnd
-<br>
-<input readonly type="text" id="date10" placeholder="完整实例"><br><br>	
-<div>tapBefore return false可阻止插件运行</div>
-<input readonly type="text" id="date11" placeholder="tapBefore"><br><br>
-<div>confirmBefore return false阻止插件运行,return其他值可以修改日期展示</div>
-<input readonly type="text" id="date12" placeholder="confirmBefore修改日期"><br>
-<hr>
+	<h4><strong>设置默认日期</strong></h4>
+	<p>value</p>
+	<div class="row">
+		<div class="form-group clearfix">
+			<div class="col-xs-6">
+				<input class="form-control" type="text" id="date23" placeholder="设置默认日期">
+			</div>
+		</div>
+	</div>
 
-<h4>自定义语言</h4>
-lang
-<br>
-<input readonly type="text" id="date25" placeholder="lang">
-<hr>
-
-<h4>其他示例</h4>
-<input readonly type="text" id="date13" placeholder="不能小于当前的日期">
-<hr>
-<input readonly type="text" id="date21" placeholder="el传dom对象">
-<hr>
-<input readonly type="text" id="date23" placeholder="设置默认日期">设置默认日期
-<hr>
-<input readonly type="text" id="date24" placeholder="分钟相隔5">
-<br>
-<br>
+	<h4><strong>el传dom对象</strong></h4>
+	<div class="row">
+		<div class="form-group clearfix">
+			<div class="col-xs-6">
+				<input class="form-control" type="text" id="date21" placeholder="el传dom对象">
+			</div>
+		</div>
+	</div>
+	
+	<h4><strong>其他示例</strong></h4>
+	<div class="row">
+		<div class="form-group clearfix">
+			<div class="col-xs-6">
+				<input class="form-control" type="text" id="date13" placeholder="不能小于当前的日期">
+			</div>
+			<div class="col-xs-6">
+				<input class="form-control" type="text" id="date24" placeholder="分钟相隔5">
+			</div>
+		</div>
+	</div>
+</div>
 <script>
 window.onload = function(){
 
