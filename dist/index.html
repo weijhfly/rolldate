@@ -8,6 +8,20 @@
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	<style type="text/css">
 		h1{font-size: 30px;}
+		@media(max-width: 414px){
+			.form-control{font-size: 12px;}
+		}
+		@media(max-width: 360px){
+			.form-control{ 
+				font-size: 10px;
+			    padding: 0 5px;
+			}
+		}
+		@media(max-width: 320px){
+			.col-xs-6{ 
+				padding: 0 5px;
+			}
+		}
 	</style>
 </head>
 <body>
@@ -24,55 +38,55 @@
 	<div class="row">
 		<div class="form-group clearfix">
 			<div class="col-xs-6">
-				<input class="form-control" type="text" id="date" placeholder="YYYY-MM">
+				<input readonly class="form-control" type="text" id="date" placeholder="YYYY-MM">
 			</div>
 			<div class="col-xs-6">
-				<input class="form-control" type="text" id="date2" placeholder="YYYY-MM-DD">
-			</div>
-		</div>
-		<div class="form-group clearfix">
-			<div class="col-xs-6">
-				<input class="form-control" type="text" id="date26" placeholder="YYYY-MM-DD hh">
-			</div>
-			<div class="col-xs-6">
-				<input class="form-control" type="text" id="date3" placeholder="YYYY-MM-DD hh:mm">
+				<input readonly class="form-control" type="text" id="date2" placeholder="YYYY-MM-DD">
 			</div>
 		</div>
 		<div class="form-group clearfix">
 			<div class="col-xs-6">
-				<input class="form-control" type="text" id="date4" placeholder="YYYY-MM-DD hh:mm:ss">
+				<input readonly class="form-control" type="text" id="date26" placeholder="YYYY-MM-DD hh">
 			</div>
 			<div class="col-xs-6">
-				<input class="form-control" type="text" id="date19" placeholder="hh:mm">
-			</div>
-		</div>
-		<div class="form-group clearfix">
-			<div class="col-xs-6">
-				<input class="form-control" type="text" id="date20" placeholder="hh:mm:ss">
-			</div>
-			<div class="col-xs-6">
-				<input class="form-control" type="text" id="date15" placeholder="YYYY">
+				<input readonly class="form-control" type="text" id="date3" placeholder="YYYY-MM-DD hh:mm">
 			</div>
 		</div>
 		<div class="form-group clearfix">
 			<div class="col-xs-6">
-				<input class="form-control" type="text" id="date17" placeholder="MM">
+				<input readonly class="form-control" type="text" id="date4" placeholder="YYYY-MM-DD hh:mm:ss">
 			</div>
 			<div class="col-xs-6">
-				<input class="form-control" type="text" id="date18" placeholder="DD">
-			</div>
-		</div>
-		<div class="form-group clearfix">
-			<div class="col-xs-6">
-				<input class="form-control" type="text" id="date27" placeholder="hh">
-			</div>
-			<div class="col-xs-6">
-				<input class="form-control" type="text" id="date28" placeholder="mm">
+				<input readonly class="form-control" type="text" id="date19" placeholder="hh:mm">
 			</div>
 		</div>
 		<div class="form-group clearfix">
 			<div class="col-xs-6">
-				<input class="form-control" type="text" id="date29" placeholder="ss">
+				<input readonly class="form-control" type="text" id="date20" placeholder="hh:mm:ss">
+			</div>
+			<div class="col-xs-6">
+				<input readonly class="form-control" type="text" id="date15" placeholder="YYYY">
+			</div>
+		</div>
+		<div class="form-group clearfix">
+			<div class="col-xs-6">
+				<input readonly class="form-control" type="text" id="date17" placeholder="MM">
+			</div>
+			<div class="col-xs-6">
+				<input readonly class="form-control" type="text" id="date18" placeholder="DD">
+			</div>
+		</div>
+		<div class="form-group clearfix">
+			<div class="col-xs-6">
+				<input readonly class="form-control" type="text" id="date27" placeholder="hh">
+			</div>
+			<div class="col-xs-6">
+				<input readonly class="form-control" type="text" id="date28" placeholder="mm">
+			</div>
+		</div>
+		<div class="form-group clearfix">
+			<div class="col-xs-6">
+				<input readonly class="form-control" type="text" id="date29" placeholder="ss">
 			</div>
 		</div>
 	</div>
@@ -82,19 +96,19 @@
 	<div class="row">
 		<div class="form-group clearfix">
 			<div class="col-xs-6">
-				<input class="form-control" type="text" id="date10" placeholder="完整实例">
+				<input readonly class="form-control" type="text" id="date10" placeholder="完整实例">
 			</div>
 		</div>
 		<h5 class="col-xs-12">tapBefore return false可阻止插件运行</h5>
 		<div class="form-group clearfix">
 			<div class="col-xs-6">
-				<input class="form-control" type="text" id="date11" placeholder="tapBefore">
+				<input readonly class="form-control" type="text" id="date11" placeholder="tapBefore">
 			</div>
 		</div>
 		<h5 class="col-xs-12">confirmBefore return false阻止插件运行,return其他值可以修改日期展示</h5>
 		<div class="form-group clearfix">
 			<div class="col-xs-6">
-				<input class="form-control" type="text" id="date12" placeholder="confirmBefore修改日期">
+				<input readonly class="form-control" type="text" id="date12" placeholder="confirmBefore修改日期">
 			</div>
 		</div>
 	</div>
@@ -104,7 +118,7 @@
 	<div class="row">
 		<div class="form-group clearfix">
 			<div class="col-xs-6">
-				<input class="form-control" type="text" id="date25" placeholder="lang">
+				<input readonly class="form-control" type="text" id="date25" placeholder="lang">
 			</div>
 		</div>
 	</div>
@@ -114,7 +128,7 @@
 	<div class="row">
 		<div class="form-group clearfix">
 			<div class="col-xs-6">
-				<input class="form-control" type="text" id="date23" placeholder="设置默认日期">
+				<input readonly class="form-control" type="text" id="date23" placeholder="设置默认日期">
 			</div>
 		</div>
 	</div>
@@ -123,7 +137,7 @@
 	<div class="row">
 		<div class="form-group clearfix">
 			<div class="col-xs-6">
-				<input class="form-control" type="text" id="date21" placeholder="el传dom对象">
+				<input readonly class="form-control" type="text" id="date21" placeholder="el传dom对象">
 			</div>
 		</div>
 	</div>
@@ -132,10 +146,10 @@
 	<div class="row">
 		<div class="form-group clearfix">
 			<div class="col-xs-6">
-				<input class="form-control" type="text" id="date13" placeholder="不能小于当前的日期">
+				<input readonly class="form-control" type="text" id="date13" placeholder="不能小于当前的日期">
 			</div>
 			<div class="col-xs-6">
-				<input class="form-control" type="text" id="date24" placeholder="分钟相隔5">
+				<input readonly class="form-control" type="text" id="date24" placeholder="分钟相隔5">
 			</div>
 		</div>
 	</div>
@@ -207,7 +221,9 @@ window.onload = function(){
  	el:'#date29',
 	format:'ss'
  })
-  // 回调
+  /* 回调函数
+   * tips:	在vue及其他mvvm框架中使用时，在confirmBefore中修改v-model绑定的数据即可
+  */
   new rolldate.Date({
  	el:'#date10',
 	format:'YYYY-MM-DD',
@@ -220,9 +236,11 @@ window.onload = function(){
 		console.log('滚动结束');
 	},
 	confirmBefore:function(el,date){
+		console.log(date)
 		console.log('确定按钮触发');
 	},
 	confirmEnd:function(el,date){
+		console.log(date);//取消或点击遮罩层时date为undefined
 		console.log('插件运行结束');
 	}
  })
@@ -281,7 +299,6 @@ window.onload = function(){
 	format:'YYYY-MM-DD',
 	beginYear:2000,
 	endYear:2100,
-	theme:'blue'
  })
 // 设置默认日期
   new rolldate.Date({

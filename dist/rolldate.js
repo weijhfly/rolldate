@@ -1,5 +1,5 @@
 /*!
- * Rolldate 2.1.4
+ * Rolldate 2.1.5
  * Copyright 2019 雾空
  * https://github.com/weijhfly/rolldate
  * Licensed under MIT
@@ -149,7 +149,7 @@ var Date = exports.Date = function () {
             if (dom) {
                 return;
             }
-            if (el.nodeName == 'INPUT') {
+            if (el.nodeName.toLowerCase() == 'input') {
                 el.blur();
             }
             if (_this.config.tapBefore && _this.config.tapBefore.call(_this, el) === false) {
@@ -159,7 +159,7 @@ var Date = exports.Date = function () {
         });
         // 设置默认日期
         if (config.value) {
-            if (el.nodeName == 'INPUT') {
+            if (el.nodeName.toLowerCase() == 'input') {
                 el.value = config.value;
             } else {
                 el.innerText = config.value;
@@ -167,8 +167,8 @@ var Date = exports.Date = function () {
             var str = config.value.replace(/-/g, '/').replace(/[^\d/:\s]/g, ''),
                 date = new window.Date(str);
 
-            if (date == 'Invalid Date') {
-                console.error('无效的日期：' + str);
+            if (!date || date == 'Invalid Date') {
+                console.error('Invalid Date：' + str);
             } else {
                 el.date = date;
             }
@@ -226,7 +226,7 @@ var Date = exports.Date = function () {
                 len = $class.length,
                 ul = '',
                 el = _this.$(_this.config.el),
-                date = el.date ? el.date : data.date,
+                date = el.date || data.date,
                 itemClass = '',
                 lang = _this.config.lang;
 
@@ -404,20 +404,17 @@ var Date = exports.Date = function () {
                 if (_this.config.confirmBefore) {
                     var flag = _this.config.confirmBefore.call(_this, el, date);
                     if (flag === false) {
-                        if (_this.config.confirmEnd) {
-                            _this.config.confirmEnd.call(_this, el, date);
-                        }
                         return false;
                     } else if (flag) {
                         date = flag;
                     }
                 }
-                if (el.nodeName == 'INPUT') {
+                if (el.nodeName.toLowerCase() == 'input') {
                     el.value = date;
                 } else {
                     el.innerText = date;
                 }
-                _this.destroy();
+                _this.destroy(date);
                 el.date = nativeDate;
             });
         }
@@ -441,7 +438,7 @@ var Date = exports.Date = function () {
         }
     }, {
         key: 'destroy',
-        value: function destroy() {
+        value: function destroy(date) {
             var _this = this;
 
             _this.scroll.forEach(function (v, i) {
@@ -451,7 +448,7 @@ var Date = exports.Date = function () {
             if (_this.config.confirmEnd) {
                 var el = _this.$(_this.config.el);
 
-                _this.config.confirmEnd.call(_this, el);
+                _this.config.confirmEnd.call(_this, el, date);
             }
             _this.$('.rolldate-panel').className = 'rolldate-panel fadeOut';
             setTimeout(function () {
@@ -1456,7 +1453,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 /* 7 */
 /***/ (function(module) {
 
-module.exports = {"name":"rolldate","version":"2.1.4","description":"rolldate 多格式、功能强大的移动端日期选择插件","main":"dist/rolldate.min.js","scripts":{"build":"cross-env NODE_ENV=production webpack --config config/rolldate.config.js --mode production","build-common":"cross-env NODE_ENV=production webpack --config config/common.config.js --mode production","dev":"cross-env NODE_ENV=development webpack-dev-server --config config/rolldate.config.js --mode development","start":"npm run build-common && npm run build"},"keywords":["date","time","js-date"],"repository":{"type":"git","url":"https://github.com/weijhfly/rolldate"},"author":"雾空","license":"MIT","dependencies":{},"devDependencies":{"autoprefixer":"^9.0.1","babel-core":"^6.26.3","babel-loader":"^7.1.5","babel-preset-es2015":"^6.24.1","clean-webpack-plugin":"^0.1.19","cross-env":"^5.2.0","css-loader":"^1.0.0","extract-text-webpack-plugin":"^4.0.0-beta.0","html-webpack-plugin":"^3.2.0","less":"^3.8.0","less-loader":"^4.1.0","postcss-loader":"^2.1.6","style-loader":"^0.21.0","webpack":"^4.16.2","webpack-cli":"^3.1.0","webpack-dev-server":"^3.1.5"}};
+module.exports = {"name":"rolldate","version":"2.1.5","description":"rolldate 多格式、功能强大的移动端日期选择插件","main":"dist/rolldate.min.js","scripts":{"build":"cross-env NODE_ENV=production webpack --config config/rolldate.config.js --mode production","build-common":"cross-env NODE_ENV=production webpack --config config/common.config.js --mode production","dev":"cross-env NODE_ENV=development webpack-dev-server --config config/rolldate.config.js --mode development","start":"npm run build-common && npm run build"},"keywords":["date","time","js-date"],"repository":{"type":"git","url":"https://github.com/weijhfly/rolldate"},"author":"雾空","license":"MIT","dependencies":{},"devDependencies":{"autoprefixer":"^9.0.1","babel-core":"^6.26.3","babel-loader":"^7.1.5","babel-preset-es2015":"^6.24.1","clean-webpack-plugin":"^0.1.19","cross-env":"^5.2.0","css-loader":"^1.0.0","extract-text-webpack-plugin":"^4.0.0-beta.0","html-webpack-plugin":"^3.2.0","less":"^3.8.0","less-loader":"^4.1.0","postcss-loader":"^2.1.6","style-loader":"^0.21.0","webpack":"^4.16.2","webpack-cli":"^3.1.0","webpack-dev-server":"^3.1.5"}};
 
 /***/ })
 /******/ ]);

@@ -15,13 +15,13 @@ export class Date{
         el.addEventListener('click', function() {
             let dom = _this.$('.rolldate-container');
             if(dom){return;}
-            if(el.nodeName == 'INPUT'){el.blur();}
+            if(el.nodeName.toLowerCase() == 'input'){el.blur();}
             if(_this.config.tapBefore && _this.config.tapBefore.call(_this,el) === false){return false;}
             _this.createUi();
         })
         // 设置默认日期
         if(config.value){
-            if(el.nodeName == 'INPUT'){
+            if(el.nodeName.toLowerCase() == 'input'){
                 el.value = config.value;
             }else{
                 el.innerText = config.value;
@@ -29,8 +29,8 @@ export class Date{
             let str = config.value.replace(/-/g,'/').replace(/[^\d/:\s]/g,''),
                 date = new window.Date(str);
 
-            if(date == 'Invalid Date'){
-                console.error('无效的日期：'+str);
+            if(!date || date == 'Invalid Date'){
+                console.error('Invalid Date：'+str);
             }else{
                 el.date = date;
             }
@@ -81,7 +81,7 @@ export class Date{
             len = $class.length,
             ul = '',
             el = _this.$(_this.config.el),
-            date = el.date? el.date:data.date,
+            date = el.date || data.date,
             itemClass = '',
             lang = _this.config.lang;
 
@@ -262,18 +262,17 @@ export class Date{
             if(_this.config.confirmBefore){
                 var flag = _this.config.confirmBefore.call(_this,el,date);
                 if(flag === false){
-                    if(_this.config.confirmEnd){_this.config.confirmEnd.call(_this,el,date);}
                     return false
                 }else if(flag){
                     date = flag;
                 }
             }
-            if(el.nodeName == 'INPUT'){
+            if(el.nodeName.toLowerCase() == 'input'){
                 el.value = date;
             }else{
                 el.innerText = date;
             }
-            _this.destroy();
+            _this.destroy(date);
             el.date = nativeDate;
         })
     }
@@ -293,7 +292,7 @@ export class Date{
         }
         return day;
     }
-    destroy(){
+    destroy(date){
         let _this = this;
 
         _this.scroll.forEach(function(v,i){v.destroy();})
@@ -301,7 +300,7 @@ export class Date{
         if(_this.config.confirmEnd){
             let el = _this.$(_this.config.el);
             
-            _this.config.confirmEnd.call(_this,el);
+            _this.config.confirmEnd.call(_this,el,date);
         }
         _this.$('.rolldate-panel').className = 'rolldate-panel fadeOut';
         setTimeout(function() {
