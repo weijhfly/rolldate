@@ -1,4 +1,4 @@
-# rolldate [![npm](https://img.shields.io/npm/v/rolldate.svg)](https://www.npmjs.com/package/rolldate)
+# rolldate [![npm](https://img.shields.io/npm/v/rolldate.svg)](https://www.npmjs.com/package/rolldate) [![npm](https://img.shields.io/npm/dm/rolldate.svg)](https://www.npmjs.com/package/rolldate)
 此插件为[jquery-date](https://github.com/weijhfly/jqueryDatePlugin "jquery-date")的全新版本，主要为了解决旧版参数设计不够合理、滑动效率不高、依赖jquery、没有可选的主题风格等问题，并增加了回调函数，使插件有更大的灵活性。
 ## 2019/02/03重要版本更新
 上一个版本为1.5.1, 新版本(从2.0.0开始)与此前版本的不同之处： 
@@ -29,13 +29,22 @@ new rolldate.Date({
   el:'#date'
 })
 ```
-### require.js
+### amd
 ```js
 require(['rolldate'],function(rolldate){
   new rolldate.Date({
     el:'#date'
   })
 })
+```
+### cmd 
+```js
+seajs.use('rolldate',function(undefined){
+    //插件没有遵循cmd规范，这里的rolldate是全局的
+    new rolldate.Date({
+      el:'#date'
+    })
+});
 ```
 ## 参数说明
 名称|必填|默认值|说明
