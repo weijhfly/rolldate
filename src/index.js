@@ -1,6 +1,7 @@
 import './rolldate.less';
 
 import BScroll from './bscroll.min';
+import {version} from '../package.json';
 
 function Rolldate(config){
   if(!config || !config.el){return;}
@@ -190,8 +191,8 @@ Rolldate.prototype = {
                     config.moveEnd.call(_this,that);
                 }
                 if([domId['YYYY'],domId['MM']].indexOf(that.wrapper.id) != -1 && _this.scroll['DD']){
-                    let prevDay = _this.getscrollDay(_this.scroll['DD']),
-                        day = _this.bissextile(_this.getscrollDay(_this.scroll['YYYY']),_this.getscrollDay(_this.scroll['MM'])),
+                    let prevDay = _this.getSelected(_this.scroll['DD']),
+                        day = _this.bissextile(_this.getSelected(_this.scroll['YYYY']),_this.getSelected(_this.scroll['MM'])),
                         li = '';
 
                     if(day != _this.$('#'+domId['DD']+' li',1).length){
@@ -229,7 +230,7 @@ Rolldate.prototype = {
             newDate = new Date();
 
             for(let f in _this.scroll){
-              let d = _this.getscrollDay(_this.scroll[f]);
+              let d = _this.getSelected(_this.scroll[f]);
 
               date = date.replace(f,d);
               if(f == 'YYYY'){
@@ -297,10 +298,12 @@ Rolldate.prototype = {
           document.body.removeChild(el);
       }, 300);
   },
-  getscrollDay: function(scroll){
+  getSelected: function(scroll){
       let _this = this;
 
       return this.$('#'+scroll.wrapper.id+' li',1)[scroll.getSelectedIndex()].innerText.replace(/\D/g,'');
   }
 }
+Rolldate.version = version;
+
 export default Rolldate;
