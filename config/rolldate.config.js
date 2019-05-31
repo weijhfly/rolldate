@@ -8,45 +8,42 @@ let banner = require('./banner').info;
 module.exports = {
     entry:'./src/index.js',
     output: {
-        filename: 'rolldate.min.js',
+        filename: 'rolldate.min.js',   
         path: path.resolve('dist'),
-        library      : 'Rolldate',
-        // libraryTarget: 'umd',
-        libraryExport: "default",
+        library      : 'rolldate',
+        libraryTarget: 'umd'
     },
     devServer: {
         contentBase: './dist',
-        host: 'localhost',
-        //host: '0.0.0.0',
-        port: 9091,
-        open: false,
-        hot: false
+        host: 'localhost', 
+        port: 3000,            
+        open: true,             
+        hot: false              
     },
     module:{
-        rules:[
+        rules:[ 
             {
                 test:/\.js$/,
-                exclude:/node_modules|bscroll/,
+                exclude:/node_modules|iscroll/,
                 loader:'babel-loader',
                 options:{
                     presets:["es2015"]
                 }
             },
-            {
-                test:/\.less$/,
-                use: ['style-loader', 'css-loader', 'postcss-loader', 'less-loader']
+			{
+                test: /\.(less|css)$/i,
+                use: ExtractTextWebpackPlugin.extract({
+                    use: ['css-loader', 'postcss-loader', 'less-loader']       
+                })
             }
         ]
     },
 	plugins: [
 		new HtmlWebpackPlugin({
             template: './src/index.html',
-            hash: false,
-    }),
-    //new ExtractTextWebpackPlugin('css/rolldate.css'),
-    //new webpack.BannerPlugin(banner)
-	],
-  optimization: {
-      minimize: false
-  }
+            hash: false, 
+        }),
+        new ExtractTextWebpackPlugin('css/rolldate.css'),
+        new webpack.BannerPlugin(banner)  
+	]
 }

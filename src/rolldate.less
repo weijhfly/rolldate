@@ -1,154 +1,121 @@
-ul {
-  margin: 0;
-  padding: 0;
+ul{
+    margin: 0;
+    padding: 0;
 }
-
 li {
-  list-style-type: none;
+    list-style-type: none;
 }
-
-.rolldate-container {
-  font-size: 20px;
-  color: #333;
-  text-align: center;
-
-  header {
-    position: relative;
-    line-height: 60px;
-    font-size: 18px;
-    border-bottom: 1px solid #e0e0e0;
-  }
-
-  .rolldate-mask {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background: #000;
-    opacity: 0.4;
-    z-index: 999;
-  }
-
-  .rolldate-panel {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 273px;
-    z-index: 1000;
-    background: #fff;
-    animation-duration: 300ms;
-    animation-delay: 0s;
-    animation-iteration-count: 1;
-  }
-
-  .rolldate-btn {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    padding: 0 15px;
-    color: #666;
-    font-size: 16px;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  &.wx {
-    .rolldate-btn {
-      height: 150%;
-    }
-  }
-
-  .rolldate-confirm {
-    left: auto;
-    right: 0;
-    color: #007bff;
-  }
-
-  .rolldate-content {
-    position: relative;
-    top: 20px;
-  }
-
-  .rolldate-wrapper {
-    display: flex;
-
-    > div {
-      flex: 1;
-      height: 173px;
-      line-height: 36px;
-      overflow: hidden;
-      flex-basis: 1e-9px;
-      width: 1%;
-    }
-
-    ul {
-      margin-top: 68px;
-    }
-
-    li {
-      height: 36px;
-    }
-  }
-
-  .rolldate-dim {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 68px;
-    background: linear-gradient(0deg,hsla(0,0%,100%,.4),hsla(0,0%,100%,.8));
-    pointer-events: none;
-    transform: translateZ(0);
-    z-index: 10;
-  }
-
-  .mask-top {
-    border-bottom: 1px solid #ebebeb;
-  }
-
-  .mask-bottom {
-    top: auto;
-    bottom: 1px;
-    border-top: 1px solid #ebebeb;
-  }
-
-  .fadeIn {
-    animation-name: fadeIn;
-  }
-
-  .fadeOut {
-    animation-name: fadeOut;
-  }
-  @keyframes fadeIn {
-    from {
-      bottom: -273px;
-    }
-
-    to {
-      bottom: 0;
-    }
-  }
-  @keyframes fadeOut {
-    from {
-      bottom: 0;
-    }
-
-    to {
-      bottom: -273px;
-      display: none;
-    }
-  }
-}
-@media screen and (max-width: 414px) {
-  .rolldate-container {
-    font-size: 18px;
-  }
+.rolldate-container{
+	font-size: 14px;
+	text-align: center;
+	header{
+		background: #79c12f;
+		line-height: 45px;
+		font-size: 18px;
+		color: #fff;
+		font-weight: bold;
+	}
+	.rolldate-mask{
+		position: fixed;
+	    width: 100%;
+	    height: 100%;
+	    top: 0;
+	    left: 0;
+	    background: #000;
+	    opacity: .5;
+	    z-index: 100;
+	}
+	.rolldate-wrapper{
+		position: fixed;
+		width: 80%;
+		top: 50%;
+		left: 10%;
+		margin-top: -118px;
+		z-index: 101;
+		border-radius: 3px;
+		overflow: hidden;
+		background: #fff;
+	}
+	.rolldate-content{padding: 10px;}
+	.rolldate-frame{
+		position: relative;
+		height: 120px;
+		overflow: hidden;
+		background: #f5f5f5;
+		border: 1px solid #e0e0e0;
+        border-radius: 5px;
+		&>div{
+			position: relative;
+			left: 0;
+			top: 0;
+			height: 120px;
+			float: left;
+			width: 33.3333333%;
+			z-index: 2;
+		}
+		li{
+			line-height: 40px;
+		}
+		&:after {
+	    content: '';
+	    height: 40px;
+	    background: #ddd;
+	    position: absolute;
+	    top: 40px;
+	    left: 0;
+	    width: 100%;
+	    z-index: 1;
+	}
+	}
+	footer{
+		overflow: hidden;
+		padding:10px 20px;
+	}
+	.rolldate-btn{
+		float: left;
+		background: #dcdddd;
+    	color: #666;
+    	font-size: 15px;
+    	line-height: 30px;
+    	padding:0;
+    	border:none;
+    	width: 120px;
+    	border-radius: 5px;
+    	outline: none;
+	}
+	.rolldate-confirm{float: right;background: #79c12f;color: #fff;}
+	&.rolldate-two{
+		.rolldate-frame>div{
+			width: 50%;
+		}
+	}
+	&.rolldate-five{
+		.rolldate-frame>div{
+			width: 20%;
+		}
+	}
+	&.rolldate-six{
+		.rolldate-wrapper{
+			width: 90%;
+			left: 5%;
+		}
+		.rolldate-frame>div{
+			width: 16.6666666%;
+		}
+	}
+	&.rolldate-one{
+		.rolldate-wrapper{
+			width: 60%;
+			left: 20%;
+		}
+		.rolldate-frame>div{
+			width: 100%;
+		}
+		.rolldate-btn{width: 80px;}
+	}
 }
 @media screen and (max-width: 320px) {
-  .rolldate-container {
-    font-size: 15px;
-  }
+    .rolldate-container{font-size: 13px;}
+    .rolldate-container footer{padding:10px;}
+    .rolldate-container .rolldate-btn{width: 100px;}
 }

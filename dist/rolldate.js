@@ -1,415 +1,561 @@
-/** 
- * Rolldate 3.1.0
- * Copyright 2019
- * weijhfly https://github.com/weijhfly/rolldate
+/*!
+ * Rolldate 1.5.1
+ * Copyright 2018 雾空
+ * https://github.com/weijhfly/rolldate
  * Licensed under MIT
  * Released on: aug 4, 2018
  */
-(function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-  typeof define === 'function' && define.amd ? define(factory) :
-  (global = global || self, global.Rolldate = factory());
-}(this, function () { 'use strict';
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["rolldate"] = factory();
+	else
+		root["rolldate"] = factory();
+})(window, function() {
+return /******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports, __webpack_require__) {
 
-  function styleInject(css, ref) {
-    if ( ref === void 0 ) ref = {};
-    var insertAt = ref.insertAt;
+"use strict";
 
-    if (!css || typeof document === 'undefined') { return; }
 
-    var head = document.head || document.getElementsByTagName('head')[0];
-    var style = document.createElement('style');
-    style.type = 'text/css';
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.version = exports.Date = undefined;
 
-    if (insertAt === 'top') {
-      if (head.firstChild) {
-        head.insertBefore(style, head.firstChild);
-      } else {
-        head.appendChild(style);
-      }
-    } else {
-      head.appendChild(style);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+// 更换为iscroll4
+
+
+__webpack_require__(3);
+
+var _iscroll = __webpack_require__(1);
+
+var _iscroll2 = _interopRequireDefault(_iscroll);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var pkg = __webpack_require__(2),
+    iScroll = _iscroll2.default.iScroll;
+
+var Date = exports.Date = function () {
+    function Date(config) {
+        _classCallCheck(this, Date);
+
+        if (!config || !config.el) {
+            return;
+        }
+        var _this = this,
+            el = _this.$(config.el)[0];
+
+        if (!el || el.rolldate) {
+            return;
+        }
+        el.rolldate = true;
+        _this.extend(config);
+        el.addEventListener('click', function () {
+            var dom = _this.$('.rolldate-container')[0];
+            if (dom) {
+                return;
+            }
+            if (el.nodeName == 'INPUT') {
+                el.blur();
+            }
+            if (_this.config.tapBefore && _this.config.tapBefore.call(_this, el) === false) {
+                return false;
+            }
+            _this.createUi();
+        });
+        // 设置默认日期
+        if (config.value) {
+            if (el.nodeName == 'INPUT') {
+                el.value = config.value;
+            } else {
+                el.innerText = config.value;
+            }
+            var str = config.value.replace(/-/g, '/').replace(/[^\d/:\s]/g, ''),
+                date = new window.Date(str);
+
+            if (date == 'Invalid Date') {
+                console.error('无效的日期：' + str);
+            } else {
+                el.date = date;
+            }
+        }
     }
 
-    if (style.styleSheet) {
-      style.styleSheet.cssText = css;
-    } else {
-      style.appendChild(document.createTextNode(css));
-    }
-  }
+    _createClass(Date, [{
+        key: 'baseData',
+        value: function baseData() {
 
-  var css = "ul{margin:0;padding:0}li{list-style-type:none}.rolldate-container{font-size:20px;color:#333;text-align:center}.rolldate-container header{position:relative;line-height:60px;font-size:18px;border-bottom:1px solid #e0e0e0}.rolldate-container .rolldate-mask{position:fixed;width:100%;height:100%;top:0;left:0;background:#000;opacity:.4;z-index:999}.rolldate-container .rolldate-panel{position:fixed;bottom:0;left:0;width:100%;height:273px;z-index:1000;background:#fff;-webkit-animation-duration:.3s;animation-duration:.3s;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-iteration-count:1;animation-iteration-count:1}.rolldate-container .rolldate-btn{position:absolute;left:0;top:0;height:100%;padding:0 15px;color:#666;font-size:16px;cursor:pointer;-webkit-tap-highlight-color:transparent}.rolldate-container.wx .rolldate-btn{height:150%}.rolldate-container .rolldate-confirm{left:auto;right:0;color:#007bff}.rolldate-container .rolldate-content{position:relative;top:20px}.rolldate-container .rolldate-wrapper{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}.rolldate-container .rolldate-wrapper>div{-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;height:173px;line-height:36px;overflow:hidden;-webkit-flex-basis:-8e;-ms-flex-preferred-size:-8e;flex-basis:-8e;width:1%}.rolldate-container .rolldate-wrapper ul{margin-top:68px}.rolldate-container .rolldate-wrapper li{height:36px}.rolldate-container .rolldate-dim{position:absolute;left:0;top:0;width:100%;height:68px;background:-webkit-gradient(linear,left bottom,left top,from(hsla(0,0%,100%,.4)),to(hsla(0,0%,100%,.8)));background:-webkit-linear-gradient(bottom,hsla(0,0%,100%,.4),hsla(0,0%,100%,.8));background:-o-linear-gradient(bottom,hsla(0,0%,100%,.4),hsla(0,0%,100%,.8));background:-webkit-gradient(linear, left bottom, left top, from(hsla(0, 0%, 100%, 0.4)), to(hsla(0, 0%, 100%, 0.8)));background:-webkit-linear-gradient(bottom, hsla(0, 0%, 100%, 0.4), hsla(0, 0%, 100%, 0.8));background:-o-linear-gradient(bottom, hsla(0, 0%, 100%, 0.4), hsla(0, 0%, 100%, 0.8));background:linear-gradient(0deg,hsla(0,0%,100%,.4),hsla(0,0%,100%,.8));pointer-events:none;-webkit-transform:translateZ(0);transform:translateZ(0);z-index:10}.rolldate-container .mask-top{border-bottom:1px solid #ebebeb}.rolldate-container .mask-bottom{top:auto;bottom:1px;border-top:1px solid #ebebeb}.rolldate-container .fadeIn{-webkit-animation-name:fadeIn;animation-name:fadeIn}.rolldate-container .fadeOut{-webkit-animation-name:fadeOut;animation-name:fadeOut}@-webkit-keyframes fadeIn{0%{bottom:-273px}to{bottom:0}}@keyframes fadeIn{0%{bottom:-273px}to{bottom:0}}@-webkit-keyframes fadeOut{0%{bottom:0}to{bottom:-273px;display:none}}@keyframes fadeOut{0%{bottom:0}to{bottom:-273px;display:none}}@media screen and (max-width:414px){.rolldate-container{font-size:18px}}@media screen and (max-width:320px){.rolldate-container{font-size:15px}}";
-  styleInject(css);
+            return {
+                date: new window.Date(),
+                emptyli: '<li>&nbsp;</li>',
+                dateFormat: ['YYYY-MM', 'YYYY-MM-DD', 'YYYY-MM-DD hh:mm', 'YYYY-MM-DD hh:mm:ss', 'YYYY', 'MM', 'DD', 'hh:mm', 'hh:mm:ss'], //支持的日期格式
+                domClass: ['rolldate-year', 'rolldate-month', 'rolldate-day', 'rolldate-hour', 'rolldate-min', 'rolldate-sec'],
+                opts: { //插件默认配置
+                    el: '',
+                    format: 'YYYY-MM-DD',
+                    beginYear: 2000,
+                    endYear: 2100,
+                    theme: '',
+                    scrollTime: 200,
+                    tapBefore: null,
+                    moveEnd: null,
+                    confirmBefore: null,
+                    confirmEnd: null,
+                    liHeight: 40,
+                    minStep: 1
+                }
+            };
+        }
+    }, {
+        key: 'extend',
+        value: function extend(config) {
+            var _this = this,
+                opts = _this.baseData().opts;
 
-  var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+            for (var key in opts) {
+                opts[key] = config[key] === 0 ? 0 : config[key] || opts[key];
+            }
+            _this.config = opts;
+        }
+    }, {
+        key: 'createUi',
+        value: function createUi() {
+            var _this = this,
+                data = _this.baseData(),
+                index = data.dateFormat.indexOf(_this.config.format);
 
-  function createCommonjsModule(fn, module) {
-  	return module = { exports: {} }, fn(module, module.exports), module.exports;
-  }
+            index = index > 1 ? index + 1 : index;
+            var $class = index == 5 ? [data.domClass[0]] : index == 6 ? [data.domClass[1]] : index == 7 ? [data.domClass[2]] : index == 8 ? data.domClass.slice(3, 5) : index == 9 ? data.domClass.slice(3) : data.domClass.slice(0, index + 2),
+                len = $class.length,
+                ul = '',
+                el = _this.$(_this.config.el)[0],
+                date = el.date ? el.date : data.date;
 
-  var bscroll_min = createCommonjsModule(function (module, exports) {
-  /*!
-   * better-normal-scroll v1.14.1
-   * (c) 2016-2019 ustbhuangyi
-   * Released under the MIT License.
-   */
-  !function(t,i){module.exports=i();}(commonjsGlobal,function(){function o(t,i){for(;i+1<t.length;i++)t[i]=t[i+1];t.pop();}var l=function(t,i){if(Array.isArray(t))return t;if(Symbol.iterator in Object(t))return function(t,i){var e=[],s=!0,o=!1,n=void 0;try{for(var r,h=t[Symbol.iterator]();!(s=(r=h.next()).done)&&(e.push(r.value),!i||e.length!==i);s=!0);}catch(t){o=!0,n=t;}finally{try{!s&&h.return&&h.return();}finally{if(o)throw n}}return e}(t,i);throw new TypeError("Invalid attempt to destructure non-iterable instance")};var e="undefined"!=typeof window,t=e&&navigator.userAgent.toLowerCase(),i=t&&/wechatdevtools/.test(t),s=t&&0<t.indexOf("android");function T(){return window.performance&&window.performance.now?window.performance.now()+window.performance.timing.navigationStart:+new Date}function a(t){for(var i=arguments.length,e=Array(1<i?i-1:0),s=1;s<i;s++)e[s-1]=arguments[s];for(var o=0;o<e.length;o++){var n=e[o];for(var r in n)t[r]=n[r];}return t}function c(t){return null==t}var n=e&&document.createElement("div").style,r=function(){if(!e)return !1;var t={webkit:"webkitTransform",Moz:"MozTransform",O:"OTransform",ms:"msTransform",standard:"transform"};for(var i in t)if(void 0!==n[t[i]])return i;return !1}();function h(t){return !1!==r&&("standard"===r?"transitionEnd"===t?"transitionend":t:r+t.charAt(0).toUpperCase()+t.substr(1))}function p(t,i,e,s){t.addEventListener(i,e,{passive:!1,capture:!!s});}function u(t,i,e,s){t.removeEventListener(i,e,{passive:!1,capture:!!s});}function m(t){for(var i=0,e=0;t;)i-=t.offsetLeft,e-=t.offsetTop,t=t.offsetParent;return {left:i,top:e}}r&&"standard"!==r&&r.toLowerCase();var d=h("transform"),f=h("transition"),v=e&&h("perspective")in n,g=e&&("ontouchstart"in window||i),y=!1!==d,w=e&&f in n,S={transform:d,transition:f,transitionTimingFunction:h("transitionTimingFunction"),transitionDuration:h("transitionDuration"),transitionDelay:h("transitionDelay"),transformOrigin:h("transformOrigin"),transitionEnd:h("transitionEnd")},x={touchstart:1,touchmove:1,touchend:1,mousedown:2,mousemove:2,mouseup:2};function b(t){if(t instanceof window.SVGElement){var i=t.getBoundingClientRect();return {top:i.top,left:i.left,width:i.width,height:i.height}}return {top:t.offsetTop,left:t.offsetLeft,width:t.offsetWidth,height:t.offsetHeight}}function X(t,i){for(var e in i)if(i[e].test(t[e]))return !0;return !1}function Y(t){var i=1<arguments.length&&void 0!==arguments[1]?arguments[1]:"click",e=void 0;"mouseup"===t.type||"mousecancel"===t.type?e=t:"touchend"!==t.type&&"touchcancel"!==t.type||(e=t.changedTouches[0]);var s={};e&&(s.screenX=e.screenX||0,s.screenY=e.screenY||0,s.clientX=e.clientX||0,s.clientY=e.clientY||0);var o=void 0,n=!0,r=!0;if("undefined"!=typeof MouseEvent)try{o=new MouseEvent(i,a({bubbles:n,cancelable:r},s));}catch(t){h();}else h();function h(){(o=document.createEvent("Event")).initEvent(i,n,r),a(o,s);}o.forwardedTouchEvent=!0,o._constructed=!0,t.target.dispatchEvent(o);}var _={startX:0,startY:0,scrollX:!1,scrollY:!0,freeScroll:!1,directionLockThreshold:5,eventPassthrough:"",click:!1,tap:!1,bounce:!0,bounceTime:800,momentum:!0,momentumLimitTime:300,momentumLimitDistance:15,swipeTime:2500,swipeBounceTime:500,deceleration:.0015,flickLimitTime:200,flickLimitDistance:100,resizePolling:60,probeType:0,preventDefault:!0,preventDefaultException:{tagName:/^(INPUT|TEXTAREA|BUTTON|SELECT|AUDIO)$/},HWCompositing:!0,useTransition:!0,useTransform:!0,bindToWrapper:!1,disableMouse:g,disableTouch:!g,observeDOM:!0,autoBlur:!0,wheel:!1,snap:!1,scrollbar:!1,pullDownRefresh:!1,pullUpLoad:!1,mouseWheel:!1,stopPropagation:!1,zoom:!1,infinity:!1,dblclick:!1};var M={swipe:{style:"cubic-bezier(0.23, 1, 0.32, 1)",fn:function(t){return 1+--t*t*t*t*t}},swipeBounce:{style:"cubic-bezier(0.25, 0.46, 0.45, 0.94)",fn:function(t){return t*(2-t)}},bounce:{style:"cubic-bezier(0.165, 0.84, 0.44, 1)",fn:function(t){return 1- --t*t*t*t}}};function E(t,i,e,s,o,n,r){var h=t-i,a=Math.abs(h)/e,l=r.deceleration,c=r.itemHeight,p=r.swipeBounceTime,u=r.wheel,m=r.swipeTime,d=u?4:15,f=t+a/l*(h<0?-1:1);return u&&c&&(f=Math.round(f/c)*c),f<s?(f=n?Math.max(s-n/4,s-n/d*a):s,m=p):o<f&&(f=n?Math.min(o+n/4,o+n/d*a):o,m=p),{destination:Math.round(f),duration:m}}function D(){}var k,P,L,O,W,H=e?window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||function(t){return window.setTimeout(t,(t.interval||100/60)/2)}:D,z=e?window.cancelAnimationFrame||window.webkitCancelAnimationFrame||window.mozCancelAnimationFrame||window.oCancelAnimationFrame||function(t){window.clearTimeout(t);}:D;function I(t){console.error("[BScroll warn]: "+t);}function A(t,i){this.wrapper="string"==typeof t?document.querySelector(t):t,this.wrapper||I("Can not resolve the wrapper DOM."),this.scroller=this.wrapper.children[0],this.scroller||I("The wrapper need at least one child element to be scroller."),this.scrollerStyle=this.scroller.style,this._init(i);}return (k=A).prototype._init=function(t){this._handleOptions(t),this._events={},this.x=0,this.y=0,this.directionX=0,this.directionY=0,this.setScale(1),this._addDOMEvents(),this._initExtFeatures(),this._watchTransition(),this.options.observeDOM&&this._initDOMObserver(),this.options.autoBlur&&this._handleAutoBlur(),this.refresh(),this.options.snap||this.scrollTo(this.options.startX,this.options.startY),this.enable();},k.prototype.setScale=function(t){this.lastScale=c(this.scale)?t:this.scale,this.scale=t;},k.prototype._handleOptions=function(t){this.options=a({},_,t),this.translateZ=this.options.HWCompositing&&v?" translateZ(0)":"",this.options.useTransition=this.options.useTransition&&w,this.options.useTransform=this.options.useTransform&&y,this.options.preventDefault=!this.options.eventPassthrough&&this.options.preventDefault,this.options.scrollX="horizontal"!==this.options.eventPassthrough&&this.options.scrollX,this.options.scrollY="vertical"!==this.options.eventPassthrough&&this.options.scrollY,this.options.freeScroll=this.options.freeScroll&&!this.options.eventPassthrough,this.options.directionLockThreshold=this.options.eventPassthrough?0:this.options.directionLockThreshold,!0===this.options.tap&&(this.options.tap="tap");},k.prototype._addDOMEvents=function(){var t=p;this._handleDOMEvents(t);},k.prototype._removeDOMEvents=function(){var t=u;this._handleDOMEvents(t);},k.prototype._handleDOMEvents=function(t){var i=this.options.bindToWrapper?this.wrapper:window;t(window,"orientationchange",this),t(window,"resize",this),this.options.click&&t(this.wrapper,"click",this,!0),this.options.disableMouse||(t(this.wrapper,"mousedown",this),t(i,"mousemove",this),t(i,"mousecancel",this),t(i,"mouseup",this)),g&&!this.options.disableTouch&&(t(this.wrapper,"touchstart",this),t(i,"touchmove",this),t(i,"touchcancel",this),t(i,"touchend",this)),t(this.scroller,S.transitionEnd,this);},k.prototype._initExtFeatures=function(){this.options.snap&&this._initSnap(),this.options.scrollbar&&this._initScrollbar(),this.options.pullUpLoad&&this._initPullUp(),this.options.pullDownRefresh&&this._initPullDown(),this.options.wheel&&this._initWheel(),this.options.mouseWheel&&this._initMouseWheel(),this.options.zoom&&this._initZoom(),this.options.infinity&&this._initInfinite();},k.prototype._watchTransition=function(){if("function"==typeof Object.defineProperty){var o=this,n=!1,t=this.options.useTransition?"isInTransition":"isAnimating";Object.defineProperty(this,t,{get:function(){return n},set:function(t){n=t;for(var i=o.scroller.children.length?o.scroller.children:[o.scroller],e=n&&!o.pulling?"none":"auto",s=0;s<i.length;s++)i[s].style.pointerEvents=e;}});}},k.prototype._handleAutoBlur=function(){this.on("scrollStart",function(){var t=document.activeElement;!t||"INPUT"!==t.tagName&&"TEXTAREA"!==t.tagName||t.blur();});},k.prototype._initDOMObserver=function(){var n=this;if("undefined"!=typeof MutationObserver){var r=void 0,t=new MutationObserver(function(t){if(!n._shouldNotRefresh()){for(var i=!1,e=!1,s=0;s<t.length;s++){var o=t[s];if("attributes"!==o.type){i=!0;break}if(o.target!==n.scroller){e=!0;break}}i?n.refresh():e&&(clearTimeout(r),r=setTimeout(function(){n._shouldNotRefresh()||n.refresh();},60));}});t.observe(this.scroller,{attributes:!0,childList:!0,subtree:!0}),this.on("destroy",function(){t.disconnect();});}else this._checkDOMUpdate();},k.prototype._shouldNotRefresh=function(){var t=this.x>this.minScrollX||this.x<this.maxScrollX||this.y>this.minScrollY||this.y<this.maxScrollY;return this.isInTransition||this.stopFromTransition||t},k.prototype._checkDOMUpdate=function(){var e=b(this.scroller),s=e.width,o=e.height;function n(){var t=this;setTimeout(function(){(function(){if(!this.destroyed){var t=(e=b(this.scroller)).width,i=e.height;s===t&&o===i||this.refresh(),s=t,o=i,n.call(this);}}).call(t);},1e3);}n.call(this);},k.prototype.handleEvent=function(t){switch(t.type){case"touchstart":case"mousedown":this._start(t),this.options.zoom&&t.touches&&1<t.touches.length&&this._zoomStart(t);break;case"touchmove":case"mousemove":this.options.zoom&&t.touches&&1<t.touches.length?this._zoom(t):this._move(t);break;case"touchend":case"mouseup":case"touchcancel":case"mousecancel":this.scaled?this._zoomEnd(t):this._end(t);break;case"orientationchange":case"resize":this._resize();break;case"transitionend":case"webkitTransitionEnd":case"oTransitionEnd":case"MSTransitionEnd":this._transitionEnd(t);break;case"click":this.enabled&&!t._constructed&&(X(t.target,this.options.preventDefaultException)||(t.preventDefault(),t.stopPropagation()));break;case"wheel":case"DOMMouseScroll":case"mousewheel":this._onMouseWheel(t);}},k.prototype.refresh=function(){var t="static"===window.getComputedStyle(this.wrapper,null).position,i=b(this.wrapper);this.wrapperWidth=i.width,this.wrapperHeight=i.height;var e=b(this.scroller);this.scrollerWidth=Math.round(e.width*this.scale),this.scrollerHeight=Math.round(e.height*this.scale),this.relativeX=e.left,this.relativeY=e.top,t&&(this.relativeX-=i.left,this.relativeY-=i.top),this.minScrollX=0,this.minScrollY=0;var s=this.options.wheel;s?(this.items=this.scroller.children,this.options.itemHeight=this.itemHeight=this.items.length?this.scrollerHeight/this.items.length:0,void 0===this.selectedIndex&&(this.selectedIndex=s.selectedIndex||0),this.options.startY=-this.selectedIndex*this.itemHeight,this.maxScrollX=0,this.maxScrollY=-this.itemHeight*(this.items.length-1)):(this.maxScrollX=this.wrapperWidth-this.scrollerWidth,this.options.infinity||(this.maxScrollY=this.wrapperHeight-this.scrollerHeight),this.maxScrollX<0?(this.maxScrollX-=this.relativeX,this.minScrollX=-this.relativeX):1<this.scale&&(this.maxScrollX=this.maxScrollX/2-this.relativeX,this.minScrollX=this.maxScrollX),this.maxScrollY<0?(this.maxScrollY-=this.relativeY,this.minScrollY=-this.relativeY):1<this.scale&&(this.maxScrollY=this.maxScrollY/2-this.relativeY,this.minScrollY=this.maxScrollY)),this.hasHorizontalScroll=this.options.scrollX&&this.maxScrollX<this.minScrollX,this.hasVerticalScroll=this.options.scrollY&&this.maxScrollY<this.minScrollY,this.hasHorizontalScroll||(this.maxScrollX=this.minScrollX,this.scrollerWidth=this.wrapperWidth),this.hasVerticalScroll||(this.maxScrollY=this.minScrollY,this.scrollerHeight=this.wrapperHeight),this.endTime=0,this.directionX=0,this.directionY=0,this.wrapperOffset=m(this.wrapper),this.trigger("refresh"),!this.scaled&&this.resetPosition();},k.prototype.enable=function(){this.enabled=!0;},k.prototype.disable=function(){this.enabled=!1;},(P=A).prototype._start=function(t){var i=x[t.type];if((1===i||0===t.button)&&!(!this.enabled||this.destroyed||this.initiated&&this.initiated!==i)){this.initiated=i,this.options.preventDefault&&!X(t.target,this.options.preventDefaultException)&&t.preventDefault(),this.options.stopPropagation&&t.stopPropagation(),this.moved=!1,this.distX=0,this.distY=0,this.directionX=0,this.directionY=0,this.movingDirectionX=0,this.movingDirectionY=0,this.directionLocked=0,this._transitionTime(),this.startTime=T(),this.options.wheel&&(this.target=t.target),this.stop();var e=t.touches?t.touches[0]:t;this.startX=this.x,this.startY=this.y,this.absStartX=this.x,this.absStartY=this.y,this.pointX=e.pageX,this.pointY=e.pageY,this.trigger("beforeScrollStart");}},P.prototype._move=function(t){if(this.enabled&&!this.destroyed&&x[t.type]===this.initiated){this.options.preventDefault&&t.preventDefault(),this.options.stopPropagation&&t.stopPropagation();var i=t.touches?t.touches[0]:t,e=i.pageX-this.pointX,s=i.pageY-this.pointY;this.pointX=i.pageX,this.pointY=i.pageY,this.distX+=e,this.distY+=s;var o=Math.abs(this.distX),n=Math.abs(this.distY),r=T();if(!(r-this.endTime>this.options.momentumLimitTime&&n<this.options.momentumLimitDistance&&o<this.options.momentumLimitDistance)){if(this.directionLocked||this.options.freeScroll||(o>n+this.options.directionLockThreshold?this.directionLocked="h":n>=o+this.options.directionLockThreshold?this.directionLocked="v":this.directionLocked="n"),"h"===this.directionLocked){if("vertical"===this.options.eventPassthrough)t.preventDefault();else if("horizontal"===this.options.eventPassthrough)return void(this.initiated=!1);s=0;}else if("v"===this.directionLocked){if("horizontal"===this.options.eventPassthrough)t.preventDefault();else if("vertical"===this.options.eventPassthrough)return void(this.initiated=!1);e=0;}e=this.hasHorizontalScroll?e:0,s=this.hasVerticalScroll?s:0,this.movingDirectionX=0<e?-1:e<0?1:0,this.movingDirectionY=0<s?-1:s<0?1:0;var h=this.x+e,a=this.y+s,l=!1,c=!1,p=!1,u=!1,m=this.options.bounce;!1!==m&&(l=void 0===m.top||m.top,c=void 0===m.bottom||m.bottom,p=void 0===m.left||m.left,u=void 0===m.right||m.right),(h>this.minScrollX||h<this.maxScrollX)&&(h=h>this.minScrollX&&p||h<this.maxScrollX&&u?this.x+e/3:h>this.minScrollX?this.minScrollX:this.maxScrollX),(a>this.minScrollY||a<this.maxScrollY)&&(a=a>this.minScrollY&&l||a<this.maxScrollY&&c?this.y+s/3:a>this.minScrollY?this.minScrollY:this.maxScrollY),this.moved||(this.moved=!0,this.trigger("scrollStart")),this._translate(h,a),r-this.startTime>this.options.momentumLimitTime&&(this.startTime=r,this.startX=this.x,this.startY=this.y,1===this.options.probeType&&this.trigger("scroll",{x:this.x,y:this.y})),1<this.options.probeType&&this.trigger("scroll",{x:this.x,y:this.y});var d=document.documentElement.scrollLeft||window.pageXOffset||document.body.scrollLeft,f=document.documentElement.scrollTop||window.pageYOffset||document.body.scrollTop,v=this.pointX-d,g=this.pointY-f;(v>document.documentElement.clientWidth-this.options.momentumLimitDistance||v<this.options.momentumLimitDistance||g<this.options.momentumLimitDistance||g>document.documentElement.clientHeight-this.options.momentumLimitDistance)&&this._end(t);}}},P.prototype._end=function(t){if(this.enabled&&!this.destroyed&&x[t.type]===this.initiated){this.initiated=!1,this.options.preventDefault&&!X(t.target,this.options.preventDefaultException)&&t.preventDefault(),this.options.stopPropagation&&t.stopPropagation(),this.trigger("touchEnd",{x:this.x,y:this.y}),this.isInTransition=!1;var i=Math.round(this.x),e=Math.round(this.y),s=i-this.absStartX,o=e-this.absStartY;if(this.directionX=0<s?-1:s<0?1:0,this.directionY=0<o?-1:o<0?1:0,!this.options.pullDownRefresh||!this._checkPullDown())if(this._checkClick(t))this.trigger("scrollCancel");else if(!this.resetPosition(this.options.bounceTime,M.bounce)){this._translate(i,e),this.endTime=T();var n=this.endTime-this.startTime,r=Math.abs(i-this.startX),h=Math.abs(e-this.startY);if(this._events.flick&&n<this.options.flickLimitTime&&r<this.options.flickLimitDistance&&h<this.options.flickLimitDistance)this.trigger("flick");else{var a=0;if(this.options.momentum&&n<this.options.momentumLimitTime&&(h>this.options.momentumLimitDistance||r>this.options.momentumLimitDistance)){var l=!1,c=!1,p=!1,u=!1,m=this.options.bounce;!1!==m&&(l=void 0===m.top||m.top,c=void 0===m.bottom||m.bottom,p=void 0===m.left||m.left,u=void 0===m.right||m.right);var d=-1===this.directionX&&p||1===this.directionX&&u?this.wrapperWidth:0,f=-1===this.directionY&&l||1===this.directionY&&c?this.wrapperHeight:0,v=this.hasHorizontalScroll?E(this.x,this.startX,n,this.maxScrollX,this.minScrollX,d,this.options):{destination:i,duration:0},g=this.hasVerticalScroll?E(this.y,this.startY,n,this.maxScrollY,this.minScrollY,f,this.options):{destination:e,duration:0};i=v.destination,e=g.destination,a=Math.max(v.duration,g.duration),this.isInTransition=!0;}else this.options.wheel&&(e=Math.round(e/this.itemHeight)*this.itemHeight,a=this.options.wheel.adjustTime||400);var y=M.swipe;if(this.options.snap){var w=this._nearestSnap(i,e);this.currentPage=w,a=this.options.snapSpeed||Math.max(Math.max(Math.min(Math.abs(i-w.x),1e3),Math.min(Math.abs(e-w.y),1e3)),300),i=w.x,e=w.y,this.directionX=0,this.directionY=0,y=this.options.snap.easing||M.bounce;}if(i!==this.x||e!==this.y)return (i>this.minScrollX||i<this.maxScrollX||e>this.minScrollY||e<this.maxScrollY)&&(y=M.swipeBounce),void this.scrollTo(i,e,a,y);this.options.wheel&&(this.selectedIndex=Math.round(Math.abs(this.y/this.itemHeight))),this.trigger("scrollEnd",{x:this.x,y:this.y});}}}},P.prototype._checkClick=function(t){var i,e,s,o,n,r=this.stopFromTransition&&!this.pulling;if(this.stopFromTransition=!1,this.moved)return !1;if(this.options.wheel){if(this.target&&this.target.classList.contains(this.options.wheel.wheelWrapperClass)){var h=Math.abs(Math.round(this.y/this.itemHeight)),a=Math.round((this.pointY+(o=this.wrapper,n=o.getBoundingClientRect(),{left:-(n.left+window.pageXOffset),top:-(n.top+window.pageYOffset)}).top-this.wrapperHeight/2)/this.itemHeight);this.target=this.items[h+a];}return this.scrollToElement(this.target,this.options.wheel.adjustTime||400,!0,!0,M.swipe),!0}if(r)return !1;var l=this.options.dblclick,c=!1;if(l&&this.lastClickTime){var p=l.delay,u=void 0===p?300:p;T()-this.lastClickTime<u&&(c=!0,Y(t,"dblclick"));}return this.options.tap&&(i=t,e=this.options.tap,(s=document.createEvent("Event")).initEvent(e,!0,!0),s.pageX=i.pageX,s.pageY=i.pageY,i.target.dispatchEvent(s)),this.options.click&&!X(t.target,this.options.preventDefaultException)&&Y(t),this.lastClickTime=c?null:T(),!0},P.prototype._resize=function(){var t=this;this.enabled&&(s&&(this.wrapper.scrollTop=0),clearTimeout(this.resizeTimeout),this.resizeTimeout=setTimeout(function(){t.refresh();},this.options.resizePolling));},P.prototype._startProbe=function(){z(this.probeTimer),this.probeTimer=H(function t(){var i=e.getComputedPosition();e.trigger("scroll",i),e.isInTransition?e.probeTimer=H(t):e.trigger("scrollEnd",i);});var e=this;},P.prototype._transitionTime=function(){var t=0<arguments.length&&void 0!==arguments[0]?arguments[0]:0;if(this.scrollerStyle[S.transitionDuration]=t+"ms",this.options.wheel)for(var i=0;i<this.items.length;i++)this.items[i].style[S.transitionDuration]=t+"ms";if(this.indicators)for(var e=0;e<this.indicators.length;e++)this.indicators[e].transitionTime(t);},P.prototype._transitionTimingFunction=function(t){if(this.scrollerStyle[S.transitionTimingFunction]=t,this.options.wheel)for(var i=0;i<this.items.length;i++)this.items[i].style[S.transitionTimingFunction]=t;if(this.indicators)for(var e=0;e<this.indicators.length;e++)this.indicators[e].transitionTimingFunction(t);},P.prototype._transitionEnd=function(t){t.target===this.scroller&&this.isInTransition&&(this._transitionTime(),(!this.pulling||1===this.movingDirectionY)&&!this.resetPosition(this.options.bounceTime,M.bounce)&&(this.isInTransition=!1,3!==this.options.probeType&&this.trigger("scrollEnd",{x:this.x,y:this.y})));},P.prototype._translate=function(t,i,e){if(function(t,i){if(!t)throw new Error("[BScroll] "+i)}(!c(t)&&!c(i),"Translate x or y is null or undefined."),c(e)&&(e=this.scale),this.options.useTransform?this.scrollerStyle[S.transform]="translate("+t+"px,"+i+"px) scale("+e+")"+this.translateZ:(t=Math.round(t),i=Math.round(i),this.scrollerStyle.left=t+"px",this.scrollerStyle.top=i+"px"),this.options.wheel)for(var s=this.options.wheel.rotate,o=void 0===s?25:s,n=0;n<this.items.length;n++){var r=o*(i/this.itemHeight+n);this.items[n].style[S.transform]="rotateX("+r+"deg)";}if(this.x=t,this.y=i,this.setScale(e),this.indicators)for(var h=0;h<this.indicators.length;h++)this.indicators[h].updatePosition();},P.prototype._animate=function(r,h,a,l){var c=this,p=this.x,u=this.y,m=this.lastScale,d=this.scale,f=T(),v=f+a;this.isAnimating=!0,z(this.animateTimer),function t(){var i=T();if(v<=i)return c.isAnimating=!1,c._translate(r,h,d),c.trigger("scroll",{x:c.x,y:c.y}),void(c.pulling||c.resetPosition(c.options.bounceTime)||c.trigger("scrollEnd",{x:c.x,y:c.y}));var e=l(i=(i-f)/a),s=(r-p)*e+p,o=(h-u)*e+u,n=(d-m)*e+m;c._translate(s,o,n),c.isAnimating&&(c.animateTimer=H(t)),3===c.options.probeType&&c.trigger("scroll",{x:c.x,y:c.y});}();},P.prototype.scrollBy=function(t,i){var e=2<arguments.length&&void 0!==arguments[2]?arguments[2]:0,s=3<arguments.length&&void 0!==arguments[3]?arguments[3]:M.bounce;t=this.x+t,i=this.y+i,this.scrollTo(t,i,e,s);},P.prototype.scrollTo=function(t,i){var e=2<arguments.length&&void 0!==arguments[2]?arguments[2]:0,s=3<arguments.length&&void 0!==arguments[3]?arguments[3]:M.bounce;(this.x!==t||this.y!==i)&&(this.isInTransition=this.options.useTransition&&0<e&&(t!==this.x||i!==this.y),!e||this.options.useTransition?(this._transitionTimingFunction(s.style),this._transitionTime(e),this._translate(t,i),e&&3===this.options.probeType&&this._startProbe(),e||(this.trigger("scroll",{x:t,y:i}),this._reflow=document.body.offsetHeight,this.resetPosition(this.options.bounceTime,M.bounce)||this.trigger("scrollEnd",{x:t,y:i})),this.options.wheel&&(i>this.minScrollY?this.selectedIndex=0:i<this.maxScrollY?this.selectedIndex=this.items.length-1:this.selectedIndex=Math.round(Math.abs(i/this.itemHeight)))):this._animate(t,i,e,s.fn));},P.prototype.scrollToElement=function(t,i,e,s,o){if(t&&(t=t.nodeType?t:this.scroller.querySelector(t),!this.options.wheel||t.classList.contains(this.options.wheel.wheelItemClass))){var n=m(t);n.left-=this.wrapperOffset.left,n.top-=this.wrapperOffset.top,!0===e&&(e=Math.round(t.offsetWidth/2-this.wrapper.offsetWidth/2)),!0===s&&(s=Math.round(t.offsetHeight/2-this.wrapper.offsetHeight/2)),n.left-=e||0,n.top-=s||0,n.left=n.left>this.minScrollX?this.minScrollX:n.left<this.maxScrollX?this.maxScrollX:n.left,n.top=n.top>this.minScrollY?this.minScrollY:n.top<this.maxScrollY?this.maxScrollY:n.top,this.options.wheel&&(n.top=Math.round(n.top/this.itemHeight)*this.itemHeight),this.scrollTo(n.left,n.top,i,o);}},P.prototype.resetPosition=function(){var t=0<arguments.length&&void 0!==arguments[0]?arguments[0]:0,i=1<arguments.length&&void 0!==arguments[1]?arguments[1]:M.bounce,e=this.x,s=Math.round(e);!this.hasHorizontalScroll||s>this.minScrollX?e=this.minScrollX:s<this.maxScrollX&&(e=this.maxScrollX);var o=this.y,n=Math.round(o);return !this.hasVerticalScroll||n>this.minScrollY?o=this.minScrollY:n<this.maxScrollY&&(o=this.maxScrollY),(e!==this.x||o!==this.y)&&(this.scrollTo(e,o,t,i),!0)},P.prototype.getComputedPosition=function(){var t=window.getComputedStyle(this.scroller,null),i=void 0,e=void 0;return e=this.options.useTransform?(i=+((t=t[S.transform].split(")")[0].split(", "))[12]||t[4]),+(t[13]||t[5])):(i=+t.left.replace(/[^-\d.]/g,""),+t.top.replace(/[^-\d.]/g,"")),{x:i,y:e}},P.prototype.stop=function(){if(this.options.useTransition&&this.isInTransition){this.isInTransition=!1,z(this.probeTimer);var t=this.getComputedPosition();this._translate(t.x,t.y),this.options.wheel?this.target=this.items[Math.round(-t.y/this.itemHeight)]:this.trigger("scrollEnd",{x:this.x,y:this.y}),this.stopFromTransition=!0;}else!this.options.useTransition&&this.isAnimating&&(this.isAnimating=!1,z(this.animateTimer),this.trigger("scrollEnd",{x:this.x,y:this.y}),this.stopFromTransition=!0);},P.prototype.destroy=function(){this.destroyed=!0,this.trigger("destroy"),this.options.useTransition?z(this.probeTimer):z(this.animateTimer),this._removeDOMEvents(),this._events={};},(L=A).prototype.on=function(t,i){var e=2<arguments.length&&void 0!==arguments[2]?arguments[2]:this;this._events[t]||(this._events[t]=[]),this._events[t].push([i,e]);},L.prototype.once=function(t,i){var e=2<arguments.length&&void 0!==arguments[2]?arguments[2]:this;function s(){this.off(t,s),i.apply(e,arguments);}s.fn=i,this.on(t,s);},L.prototype.off=function(t,i){var e=this._events[t];if(e)for(var s=e.length;s--;)(e[s][0]===i||e[s][0]&&e[s][0].fn===i)&&o(e,s);},L.prototype.trigger=function(t){var i=this._events[t];if(i)for(var e=i.length,s=[].concat(function(t){if(Array.isArray(t)){for(var i=0,e=Array(t.length);i<t.length;i++)e[i]=t[i];return e}return Array.from(t)}(i)),o=0;o<e;o++){var n=s[o],r=l(n,2),h=r[0],a=r[1];h&&h.apply(a,[].slice.call(arguments,1));}},(O=A).prototype.wheelTo=function(){var t=0<arguments.length&&void 0!==arguments[0]?arguments[0]:0;if(this.options.wheel){var i=-t*this.itemHeight;this.scrollTo(0,i);}},O.prototype.getSelectedIndex=function(){return this.options.wheel&&this.selectedIndex},O.prototype._initWheel=function(){var t=this.options.wheel;t.wheelWrapperClass||(t.wheelWrapperClass="wheel-scroll"),t.wheelItemClass||(t.wheelItemClass="wheel-item"),void 0===t.selectedIndex&&(t.selectedIndex=0,I("wheel option selectedIndex is required!"));},(W=A).prototype._initMouseWheel=function(){var t=this;this._handleMouseWheelEvent(p),this.on("destroy",function(){clearTimeout(t.mouseWheelTimer),clearTimeout(t.mouseWheelEndTimer),t._handleMouseWheelEvent(u);}),this.firstWheelOpreation=!0;},W.prototype._handleMouseWheelEvent=function(t){t(this.wrapper,"wheel",this),t(this.wrapper,"mousewheel",this),t(this.wrapper,"DOMMouseScroll",this);},W.prototype._onMouseWheel=function(t){var i=this;if(this.enabled){t.preventDefault(),this.options.stopPropagation&&t.stopPropagation(),this.firstWheelOpreation&&this.trigger("scrollStart"),this.firstWheelOpreation=!1;var e=this.options.mouseWheel,s=e.speed,o=void 0===s?20:s,n=e.invert,r=void 0!==n&&n,h=e.easeTime,a=void 0===h?300:h;clearTimeout(this.mouseWheelTimer),this.mouseWheelTimer=setTimeout(function(){i.options.snap||a||i.trigger("scrollEnd",{x:i.x,y:i.y}),i.firstWheelOpreation=!0;},400);var l=void 0,c=void 0;switch(!0){case"deltaX"in t:c=1===t.deltaMode?(l=-t.deltaX*o,-t.deltaY*o):(l=-t.deltaX,-t.deltaY);break;case"wheelDeltaX"in t:l=t.wheelDeltaX/120*o,c=t.wheelDeltaY/120*o;break;case"wheelDelta"in t:l=c=t.wheelDelta/120*o;break;case"detail"in t:l=c=-t.detail/3*o;break;default:return}var p=r?-1:1;l*=p,c*=p,this.hasVerticalScroll||(l=c,c=0);var u=void 0,m=void 0;if(this.options.snap)return u=this.currentPage.pageX,m=this.currentPage.pageY,0<l?u--:l<0&&u++,0<c?m--:c<0&&m++,void this._goToPage(u,m);u=this.x+Math.round(this.hasHorizontalScroll?l:0),m=this.y+Math.round(this.hasVerticalScroll?c:0),this.movingDirectionX=this.directionX=0<l?-1:l<0?1:0,this.movingDirectionY=this.directionY=0<c?-1:c<0?1:0,u>this.minScrollX?u=this.minScrollX:u<this.maxScrollX&&(u=this.maxScrollX),m>this.minScrollY?m=this.minScrollY:m<this.maxScrollY&&(m=this.maxScrollY);var d=this.y===m;this.scrollTo(u,m,a,M.swipe),this.trigger("scroll",{x:this.x,y:this.y}),clearTimeout(this.mouseWheelEndTimer),d&&(this.mouseWheelEndTimer=setTimeout(function(){i.trigger("scrollEnd",{x:i.x,y:i.y});},a));}},A.Version="1.14.1",A});
-  });
+            for (var i = 0; i < len; i++) {
+                ul += '<div id="' + $class[i] + '"><ul>' + data.emptyli;
+                if (i == 0 && index < 6) {
+                    for (var j = _this.config.beginYear; j <= _this.config.endYear; j++) {
+                        ul += '<li' + (j == date.getFullYear() ? ' class="active"' : '') + '>' + j + '年</li>';
+                    }
+                } else if ((i == 1 || index == 6) && index < 7) {
+                    for (var k = 1; k <= 12; k++) {
+                        ul += '<li' + (k == date.getMonth() + 1 ? ' class="active"' : '') + '>' + (k < 10 ? '0' + k : k) + '月</li>';
+                    }
+                } else if ((i == 2 || index == 7) && index <= 7) {
+                    var day = _this.bissextile(date.getFullYear(), date.getMonth() + 1);
+                    for (var l = 1; l <= day; l++) {
+                        ul += '<li' + (l == date.getDate() ? ' class="active"' : '') + '>' + (l < 10 ? '0' + l : l) + '日</li>';
+                    }
+                } else if (i == 3 || index > 7 && i == 0) {
+                    for (var m = 0; m <= 23; m++) {
+                        ul += '<li' + (m == date.getHours() ? ' class="active"' : '') + '>' + (m < 10 ? '0' + m : m) + '时</li>';
+                    }
+                } else if (i == 4 || index > 7 && i == 1) {
+                    for (var n = 0; n <= 59; n += _this.config.minStep) {
+                        ul += '<li' + (n == date.getMinutes() ? ' class="active"' : '') + '>' + (n < 10 ? '0' + n : n) + '分</li>';
+                    }
+                } else if (i == 5 || index > 7 && i == 2) {
+                    for (var o = 0; o <= 59; o++) {
+                        ul += '<li' + (o == date.getSeconds() ? ' class="active"' : '') + '>' + (o < 10 ? '0' + o : o) + '秒</li>';
+                    }
+                }
+                ul += data.emptyli + '</ul></div>';
+            }
+            var $html = '<div class="rolldate-mask"></div>\n            <div class="rolldate-wrapper">\n                <header>\u9009\u62E9\u65E5\u671F</header>\n                <section class="rolldate-content">\n                    <div class="rolldate-frame">' + ul + '</div>\n                </section>\n                <footer>\n                    <button class="rolldate-btn rolldate-cancel">\u53D6\u6D88</button>\n                    <button class="rolldate-btn rolldate-confirm">\u786E\u5B9A</button>\n                </footer>\n            </div>',
+                box = document.createElement("div"),
+                className = index == 0 || index == 8 ? 'rolldate-two' : index == 3 ? 'rolldate-five' : index == 4 ? 'rolldate-six' : index >= 5 && index <= 7 ? 'rolldate-one' : '',
+                scrollEnd = false;
 
-  var version = "3.1.0";
+            box.className = 'rolldate-container ' + className;
+            box.innerHTML = $html;
+            document.body.appendChild(box);
+            _this.setTheme();
 
-  function Rolldate(config) {
-      if (!config || !config.el) {
-          return;
-      }
-      var _this = this,
-          el = _this.$(config.el);
+            _this.iscroll = [];
+            _this.config.liHeight = document.querySelector('.rolldate-frame li').offsetHeight;
 
-      if (!el || el.bindRolldate) {
-          return;
-      }
-      el.bindRolldate = 1;
-      _this.extend(config);
-      _this.tap(el, function () {
-          _this.show();
-      });
-      // 设置默认日期
-      if (config.value) {
-          if (el.nodeName.toLowerCase() == 'input') {
-              el.value = config.value;
-          } else {
-              el.innerText = config.value;
-          }
-          var str = config.value.replace(/-/g, '/').replace(/[^\d/:\s]/g, ''),
-              date = new Date(str);
+            for (var _i = 0; _i < len; _i++) {
+                _this.iscroll[_i] = new iScroll($class[_i], {
+                    snap: 'li',
+                    vScrollbar: false,
+                    hScroll: false,
+                    checkDOMChanges: _i == 2,
+                    onScrollEnd: function onScrollEnd() {
+                        if (!scrollEnd) {
+                            return;
+                        }
 
-          if (!date || date == 'Invalid Date') {
-              console.error('Invalid Date：' + str);
-          } else {
-              el.bindDate = date;
-          }
-      }
-  }
-  Rolldate.prototype = {
-      constructor: Rolldate,
-      baseData: function baseData() {
-          return {
-              domId: {
-                  YYYY: 'rolldate-year',
-                  MM: 'rolldate-month',
-                  DD: 'rolldate-day',
-                  hh: 'rolldate-hour',
-                  mm: 'rolldate-min',
-                  ss: 'rolldate-sec'
-              },
-              opts: { //插件默认配置
-                  el: '',
-                  format: 'YYYY-MM-DD',
-                  beginYear: 2000,
-                  endYear: 2100,
-                  init: null,
-                  moveEnd: null,
-                  confirm: null,
-                  cancel: null,
-                  minStep: 1,
-                  trigger: 'tap',
-                  lang: { title: '选择日期', cancel: '取消', confirm: '确认', year: '年', month: '月', day: '日', hour: '时', min: '分', sec: '秒' }
-              }
-          };
-      },
-      extend: function extend(config) {
-          var _this = this,
-              opts = _this.baseData().opts;
+                        var liHeight = _this.config.liHeight;
+                        if (Math.abs(this.y % liHeight) !== 0) {
+                            this.scrollTo(0, -Math.round(Math.abs(this.y) / liHeight) * liHeight, 0, false);
+                            return false;
+                        }
+                        if (_this.config.moveEnd) {
+                            _this.config.moveEnd.call(_this, _this.$(_this.config.el)[0], this);
+                        }
+                        if (data.domClass.slice(0, 2).indexOf(this.wrapper.id) != -1 && _this.iscroll[2]) {
+                            var prevDay = _this.getIscrollDay(_this.iscroll[2]),
+                                _day = _this.bissextile(_this.getIscrollDay(_this.iscroll[0]), _this.getIscrollDay(_this.iscroll[1])),
+                                li = '';
+                            if (_day + 2 != _this.$('#' + data.domClass[2] + ' li').length) {
 
-          for (var key in opts) {
-              if (opts[key] && Object.prototype.toString.call(opts[key]) == '[object Object]') {
-                  for (var key2 in config[key]) {
-                      opts[key][key2] = config[key][key2] == undefined ? opts[key][key2] : config[key][key2];
-                  }
-              } else {
-                  opts[key] = config[key] || opts[key];
-              }
-          }
-          _this.config = opts;
-      },
-      createUI: function createUI() {
-          var _this = this,
-              data = _this.baseData(),
-              config = _this.config,
-              domId = data.domId,
-              FormatArr = config.format.split(/-|\/|\s|:/g),
-              len = FormatArr.length,
-              ul = '',
-              date = _this.$(config.el).bindDate || new Date(),
-              itemClass = '',
-              lang = config.lang;
+                                for (var _l = 1; _l <= _day; _l++) {
+                                    li += '<li>' + (_l < 10 ? '0' + _l : _l) + '日</li>';
+                                }
+                                li = data.emptyli + li + data.emptyli;
+                                _this.$('#' + data.domClass[2] + ' ul')[0].innerHTML = li;
+                                if (prevDay > _day) {
+                                    _this.iscroll[2].scrollToElement(_this.$('#' + data.domClass[2] + ' li')[_day - 1]);
+                                }
+                            }
+                        }
+                    }
+                });
+                var active = _this.$('#' + $class[_i] + ' .active')[0];
+                if (active) {
+                    _this.iscroll[_i].scrollToElement(active.previousSibling, _this.config.scrollTime);
+                }
+            }
+            _this.event();
 
-          for (var i = 0; i < len; i++) {
-              var f = FormatArr[i],
-                  domMndex = 0;
+            document.body.style.overflow = 'hidden';
+            setTimeout(function () {
+                scrollEnd = true;
+            }, 1000);
+        }
+    }, {
+        key: '$',
+        value: function $(selector) {
+            if (typeof selector != 'string' && selector.nodeType) {
+                return [selector];
+            }
+            return document.querySelectorAll(selector);
+        }
+    }, {
+        key: 'event',
+        value: function event() {
+            var _this = this,
+                mask = _this.$('.rolldate-mask')[0],
+                cancel = _this.$('.rolldate-cancel')[0],
+                confirm = _this.$('.rolldate-confirm')[0];
 
-              ul += '<div id="' + domId[f] + '"><ul class="wheel-scroll">';
+            mask.addEventListener('click', function () {
+                _this.destroy(true);
+            });
+            cancel.addEventListener('click', function () {
+                _this.destroy(true);
+            });
+            confirm.addEventListener('click', function () {
+                var el = _this.$(_this.config.el)[0],
+                    data = _this.baseData(),
+                    date = _this.config.format,
+                    nativeDate = new window.Date(),
+                    index = data.dateFormat.indexOf(date);
 
-              if (f == 'YYYY') {
-                  for (var j = config.beginYear; j <= config.endYear; j++) {
-                      itemClass = j == date.getFullYear() ? 'active' : '';
+                _this.iscroll.forEach(function (v, i) {
+                    var d = _this.getIscrollDay(v),
+                        str = void 0;
 
-                      ul += '<li class="wheel-item ' + itemClass + '" data-index="' + domMndex + '">' + j + lang.year + '</li>';
-                      domMndex++;
-                  }
-              } else if (f == 'MM') {
-                  for (var k = 1; k <= 12; k++) {
-                      itemClass = k == date.getMonth() + 1 ? 'active' : '';
+                    if (index <= 4) {
+                        str = i == 0 ? 'YYYY' : i == 1 ? 'MM' : i == 2 ? 'DD' : i == 3 ? 'hh' : i == 4 ? 'mm' : 'ss';
+                    } else if (index == 5) {
+                        str = 'MM';
+                    } else if (index == 6) {
+                        str = 'DD';
+                    } else if (index == 7) {
+                        str = i == 0 ? 'hh' : i == 1 ? 'mm' : '';
+                    } else if (index == 8) {
+                        str = i == 0 ? 'hh' : i == 1 ? 'mm' : 'ss';
+                    }
 
-                      ul += '<li class="wheel-item ' + itemClass + '" data-index="' + domMndex + '">' + (k < 10 ? '0' + k : k) + lang.month + '</li>';
-                      domMndex++;
-                  }
-              } else if (f == 'DD') {
-                  var day = _this.bissextile(date.getFullYear(), date.getMonth() + 1);
-                  for (var l = 1; l <= day; l++) {
-                      itemClass = l == date.getDate() ? 'active' : '';
+                    date = date.replace(str, d);
 
-                      ul += '<li class="wheel-item ' + itemClass + '" data-index="' + domMndex + '">' + (l < 10 ? '0' + l : l) + lang.day + '</li>';
-                      domMndex++;
-                  }
-              } else if (f == 'hh') {
-                  for (var m = 0; m <= 23; m++) {
-                      itemClass = m == date.getHours() ? 'active' : '';
+                    if (str == 'YYYY') {
+                        nativeDate.setFullYear(d);
+                    } else if (str == 'MM') {
+                        nativeDate.setMonth(d - 1);
+                    } else if (str == 'DD') {
+                        nativeDate.setDate(d);
+                    } else if (str == 'hh') {
+                        nativeDate.setHours(d);
+                    } else if (str == 'mm') {
+                        nativeDate.setMinutes(d);
+                    } else if (str == 'ss') {
+                        nativeDate.setSeconds(d);
+                    }
+                });
+                if (_this.config.confirmBefore) {
+                    var flag = _this.config.confirmBefore.call(_this, el, date);
+                    if (flag === false) {
+                        if (_this.config.confirmEnd) {
+                            _this.config.confirmEnd.call(_this, el, date);
+                        }
+                        return false;
+                    } else if (flag) {
+                        date = flag;
+                    }
+                }
+                if (el.nodeName == 'INPUT') {
+                    el.value = date;
+                } else {
+                    el.innerText = date;
+                }
+                if (_this.config.confirmEnd) {
+                    _this.config.confirmEnd.call(_this, el, date);
+                }
+                _this.destroy();
+                el.date = nativeDate;
+            });
 
-                      ul += '<li class="wheel-item ' + itemClass + '" data-index="' + domMndex + '">' + (m < 10 ? '0' + m : m) + lang.hour + '</li>';
-                      domMndex++;
-                  }
-              } else if (f == 'mm') {
-                  for (var n = 0; n <= 59; n += config.minStep) {
-                      itemClass = n == date.getMinutes() ? 'active' : '';
+            var liHeight = _this.config.liHeight;
 
-                      ul += '<li class="wheel-item ' + itemClass + '" data-index="' + domMndex + '">' + (n < 10 ? '0' + n : n) + lang.min + '</li>';
-                      domMndex++;
-                  }
-              } else if (f == 'ss') {
-                  for (var o = 0; o <= 59; o++) {
-                      itemClass = o == date.getSeconds() ? 'active' : '';
+            _this.config.queryStyle = function () {
 
-                      ul += '<li class="wheel-item ' + itemClass + '" data-index="' + domMndex + '">' + (o < 10 ? '0' + o : o) + lang.sec + '</li>';
-                      domMndex++;
-                  }
-              }
-              ul += '</ul></div>';
-          }
-          var $html = '<div class="rolldate-mask"></div>\n            <div class="rolldate-panel fadeIn">\n                <header>\n                    <span class="rolldate-btn rolldate-cancel">' + lang.cancel + '</span>\n                    ' + lang.title + '\n                    <span class="rolldate-btn rolldate-confirm">' + lang.confirm + '</span>\n                </header>\n                <section class="rolldate-content">\n                    <div class="rolldate-dim mask-top"></div>\n                    <div class="rolldate-dim mask-bottom"></div>\n                    <div class="rolldate-wrapper">\n                        ' + ul + '\n                    </div>\n                </section>\n            </div>',
-              box = document.createElement("div");
+                window.removeEventListener('resize', _this.config.queryStyle);
+                setTimeout(function () {
+                    if (_this.$('.rolldate-container')[0] && liHeight != document.querySelector('.rolldate-frame li').offsetHeight) {
+                        _this.destroy(true);
+                    }
+                }, 0);
+            };
+            window.addEventListener("resize", _this.config.queryStyle, false);
+        }
+    }, {
+        key: 'bissextile',
+        value: function bissextile(year, month) {
+            var day = void 0;
+            if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
+                day = 31;
+            } else if (month == 4 || month == 6 || month == 11 || month == 9) {
+                day = 30;
+            } else if (month == 2) {
+                if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) {
+                    //闰年
+                    day = 29;
+                } else {
+                    day = 28;
+                }
+            }
+            return day;
+        }
+    }, {
+        key: 'destroy',
+        value: function destroy(cancel) {
+            var _this = this;
 
-          // 在微信中输入框在底部时，偶现按钮点击范围被挤压，暂定增加按钮高度
-          box.className = 'rolldate-container' + (!!navigator.userAgent.match(/MicroMessenger/i) ? ' wx' : '');
-          box.innerHTML = $html;
-          document.body.appendChild(box);
+            _this.iscroll.forEach(function (v, i) {
+                v.destroy();
+            });
+            document.body.removeChild(_this.$('.rolldate-container')[0]);
+            if (cancel && _this.config.confirmEnd) {
+                var el = _this.$(_this.config.el)[0];
 
-          _this.scroll = {};
+                _this.config.confirmEnd.call(_this, el);
+            }
 
-          var _loop = function _loop(_i) {
-              var $id = domId[FormatArr[_i]];
+            if (_this.config.queryStyle) {
+                window.removeEventListener("resize", _this.config.queryStyle, false);
+            }
+            document.body.style.overflow = 'visible';
+        }
+    }, {
+        key: 'getIscrollDay',
+        value: function getIscrollDay(iscroll) {
+            var _this = this,
+                liHeight = _this.config.liHeight,
+                index = Math.abs(iscroll.y % liHeight) !== 0 ? Math.round(Math.abs(iscroll.y) / liHeight) + 1 : Math.abs(iscroll.y) / liHeight + 1;
 
-              _this.scroll[FormatArr[_i]] = new bscroll_min('#' + $id, {
-                  wheel: {
-                      selectedIndex: 0,
-                      wheelWrapperClass: 'wheel-scroll',
-                      wheelItemClass: 'wheel-item'
-                  },
-                  probeType: 1
-              });
+            return this.$('#' + iscroll.wrapper.id + ' li')[index].innerText.replace(/\D/g, '');
+        }
+    }, {
+        key: 'setTheme',
+        value: function setTheme() {
+            var _this = this,
+                theme = _this.config.theme,
+                defaultTheme = { blue: '#16a1d3', red: '#d91600', green: '#009688', black: '#393D49' },
+                header = _this.$('.rolldate-container header')[0],
+                btn = _this.$('.rolldate-container .rolldate-confirm')[0];
 
-              var that = _this.scroll[FormatArr[_i]],
-                  active = _this.$('#' + $id + ' .active'),
-                  index = active ? active.getAttribute('data-index') : Math.round(date.getMinutes() / config.minStep);
+            if (theme) {
+                if (defaultTheme[theme]) {
+                    header.style.background = btn.style.background = defaultTheme[theme];
+                } else {
+                    header.style.background = btn.style.background = theme;
+                }
+            }
+        }
+    }]);
 
-              that.wheelTo(index);
-              // 滚动结束
-              that.on('scrollEnd', function () {
-                  if (config.moveEnd) {
-                      config.moveEnd.call(_this, that);
-                  }
-                  if ([domId['YYYY'], domId['MM']].indexOf(that.wrapper.id) != -1 && _this.scroll['DD']) {
-                      var prevDay = _this.getSelected(_this.scroll['DD']),
-                          _day = _this.bissextile(_this.getSelected(_this.scroll['YYYY']), _this.getSelected(_this.scroll['MM'])),
-                          li = '';
+    return Date;
+}();
 
-                      if (_day != _this.$('#' + domId['DD'] + ' li', 1).length) {
+var version = exports.version = pkg.version;
 
-                          for (var _l = 1; _l <= _day; _l++) {
-                              li += '<li class="wheel-item">' + (_l < 10 ? '0' + _l : _l) + lang.day + '</li>';
-                          }
-                          _this.$('#' + domId['DD'] + ' ul').innerHTML = li;
-                          _this.scroll['DD'].refresh();
-                      }
-                  }
-              });
-          };
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
 
-          for (var _i = 0; _i < len; _i++) {
-              _loop(_i);
-          }
-      },
-      $: function $(selector, flag) {
-          if (typeof selector != 'string' && selector.nodeType) {
-              return selector;
-          }
+(function(){var m=Math,mround=function(r){return r>>0;},vendor=(/webkit/i).test(navigator.appVersion)?'webkit':(/firefox/i).test(navigator.userAgent)?'Moz':'opera'in window?'O':'',isAndroid=(/android/gi).test(navigator.appVersion),isIDevice=(/iphone|ipad/gi).test(navigator.appVersion),isPlaybook=(/playbook/gi).test(navigator.appVersion),isTouchPad=(/hp-tablet/gi).test(navigator.appVersion),has3d='WebKitCSSMatrix'in window&&'m11'in new WebKitCSSMatrix(),hasTouch='ontouchstart'in window&&!isTouchPad,hasTransform=vendor+'Transform'in document.documentElement.style,hasTransitionEnd=isIDevice||isPlaybook,nextFrame=(function(){return window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(callback){return setTimeout(callback,1);}})(),cancelFrame=(function(){return window.cancelRequestAnimationFrame||window.webkitCancelAnimationFrame||window.webkitCancelRequestAnimationFrame||window.mozCancelRequestAnimationFrame||window.oCancelRequestAnimationFrame||window.msCancelRequestAnimationFrame||clearTimeout})(),RESIZE_EV='onorientationchange'in window?'orientationchange':'resize',START_EV=hasTouch?'touchstart':'mousedown',MOVE_EV=hasTouch?'touchmove':'mousemove',END_EV=hasTouch?'touchend':'mouseup',CANCEL_EV=hasTouch?'touchcancel':'mouseup',WHEEL_EV=vendor=='Moz'?'DOMMouseScroll':'mousewheel',trnOpen='translate'+(has3d?'3d(':'('),trnClose=has3d?',0)':')',iScroll=function(el,options){var that=this,doc=document,i;that.wrapper=typeof el=='object'?el:doc.getElementById(el);that.wrapper.style.overflow='hidden';that.scroller=that.wrapper.children[0];that.options={hScroll:true,vScroll:true,x:0,y:0,bounce:true,bounceLock:false,momentum:true,lockDirection:true,useTransform:true,useTransition:false,topOffset:0,checkDOMChanges:false,hScrollbar:true,vScrollbar:true,fixedScrollbar:isAndroid,hideScrollbar:isIDevice,fadeScrollbar:isIDevice&&has3d,scrollbarClass:'',zoom:false,zoomMin:1,zoomMax:4,doubleTapZoom:2,wheelAction:'scroll',snap:false,snapThreshold:1,onRefresh:null,onBeforeScrollStart:function(e){e.preventDefault();},onScrollStart:null,onBeforeScrollMove:null,onScrollMove:null,onBeforeScrollEnd:null,onScrollEnd:null,onTouchEnd:null,onDestroy:null,onZoomStart:null,onZoom:null,onZoomEnd:null};for(i in options)that.options[i]=options[i];that.x=that.options.x;that.y=that.options.y;that.options.useTransform=hasTransform?that.options.useTransform:false;that.options.hScrollbar=that.options.hScroll&&that.options.hScrollbar;that.options.vScrollbar=that.options.vScroll&&that.options.vScrollbar;that.options.zoom=that.options.useTransform&&that.options.zoom;that.options.useTransition=hasTransitionEnd&&that.options.useTransition;if(that.options.zoom&&isAndroid){trnOpen='translate(';trnClose=')';}
+that.scroller.style[vendor+'TransitionProperty']=that.options.useTransform?'-'+vendor.toLowerCase()+'-transform':'top left';that.scroller.style[vendor+'TransitionDuration']='0';that.scroller.style[vendor+'TransformOrigin']='0 0';if(that.options.useTransition)that.scroller.style[vendor+'TransitionTimingFunction']='cubic-bezier(0.33,0.66,0.66,1)';if(that.options.useTransform)that.scroller.style[vendor+'Transform']=trnOpen+that.x+'px,'+that.y+'px'+trnClose;else that.scroller.style.cssText+=';position:absolute;top:'+that.y+'px;left:'+that.x+'px';if(that.options.useTransition)that.options.fixedScrollbar=true;that.refresh();that._bind(RESIZE_EV,window);that._bind(START_EV);if(!hasTouch){that._bind('mouseout',that.wrapper);if(that.options.wheelAction!='none')
+that._bind(WHEEL_EV);}
+if(that.options.checkDOMChanges)that.checkDOMTime=setInterval(function(){that._checkDOMChanges();},500);};iScroll.prototype={enabled:true,x:0,y:0,steps:[],scale:1,currPageX:0,currPageY:0,pagesX:[],pagesY:[],aniTime:null,wheelZoomCount:0,handleEvent:function(e){var that=this;switch(e.type){case START_EV:if(!hasTouch&&e.button!==0)return;that._start(e);break;case MOVE_EV:that._move(e);break;case END_EV:case CANCEL_EV:that._end(e);break;case RESIZE_EV:that._resize();break;case WHEEL_EV:that._wheel(e);break;case'mouseout':that._mouseout(e);break;case'webkitTransitionEnd':that._transitionEnd(e);break;}},_checkDOMChanges:function(){if(this.moved||this.zoomed||this.animating||(this.scrollerW==this.scroller.offsetWidth*this.scale&&this.scrollerH==this.scroller.offsetHeight*this.scale))return;this.refresh();},_scrollbar:function(dir){var that=this,doc=document,bar;if(!that[dir+'Scrollbar']){if(that[dir+'ScrollbarWrapper']){if(hasTransform)that[dir+'ScrollbarIndicator'].style[vendor+'Transform']='';that[dir+'ScrollbarWrapper'].parentNode.removeChild(that[dir+'ScrollbarWrapper']);that[dir+'ScrollbarWrapper']=null;that[dir+'ScrollbarIndicator']=null;}
+return;}
+if(!that[dir+'ScrollbarWrapper']){bar=doc.createElement('div');if(that.options.scrollbarClass)bar.className=that.options.scrollbarClass+dir.toUpperCase();else bar.style.cssText='position:absolute;z-index:100;'+(dir=='h'?'height:7px;bottom:1px;left:2px;right:'+(that.vScrollbar?'7':'2')+'px':'width:7px;bottom:'+(that.hScrollbar?'7':'2')+'px;top:2px;right:1px');bar.style.cssText+=';pointer-events:none;-'+vendor+'-transition-property:opacity;-'+vendor+'-transition-duration:'+(that.options.fadeScrollbar?'350ms':'0')+';overflow:hidden;opacity:'+(that.options.hideScrollbar?'0':'1');that.wrapper.appendChild(bar);that[dir+'ScrollbarWrapper']=bar;bar=doc.createElement('div');if(!that.options.scrollbarClass){bar.style.cssText='position:absolute;z-index:100;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.9);-'+vendor+'-background-clip:padding-box;-'+vendor+'-box-sizing:border-box;'+(dir=='h'?'height:100%':'width:100%')+';-'+vendor+'-border-radius:3px;border-radius:3px';}
+bar.style.cssText+=';pointer-events:none;-'+vendor+'-transition-property:-'+vendor+'-transform;-'+vendor+'-transition-timing-function:cubic-bezier(0.33,0.66,0.66,1);-'+vendor+'-transition-duration:0;-'+vendor+'-transform:'+trnOpen+'0,0'+trnClose;if(that.options.useTransition)bar.style.cssText+=';-'+vendor+'-transition-timing-function:cubic-bezier(0.33,0.66,0.66,1)';that[dir+'ScrollbarWrapper'].appendChild(bar);that[dir+'ScrollbarIndicator']=bar;}
+if(dir=='h'){that.hScrollbarSize=that.hScrollbarWrapper.clientWidth;that.hScrollbarIndicatorSize=m.max(mround(that.hScrollbarSize*that.hScrollbarSize/that.scrollerW),8);that.hScrollbarIndicator.style.width=that.hScrollbarIndicatorSize+'px';that.hScrollbarMaxScroll=that.hScrollbarSize-that.hScrollbarIndicatorSize;that.hScrollbarProp=that.hScrollbarMaxScroll/that.maxScrollX;}else{that.vScrollbarSize=that.vScrollbarWrapper.clientHeight;that.vScrollbarIndicatorSize=m.max(mround(that.vScrollbarSize*that.vScrollbarSize/that.scrollerH),8);that.vScrollbarIndicator.style.height=that.vScrollbarIndicatorSize+'px';that.vScrollbarMaxScroll=that.vScrollbarSize-that.vScrollbarIndicatorSize;that.vScrollbarProp=that.vScrollbarMaxScroll/that.maxScrollY;}
+that._scrollbarPos(dir,true);},_resize:function(){var that=this;setTimeout(function(){that.refresh();},isAndroid?200:0);},_pos:function(x,y){x=this.hScroll?x:0;y=this.vScroll?y:0;if(this.options.useTransform){this.scroller.style[vendor+'Transform']=trnOpen+x+'px,'+y+'px'+trnClose+' scale('+this.scale+')';}else{x=mround(x);y=mround(y);this.scroller.style.left=x+'px';this.scroller.style.top=y+'px';}
+this.x=x;this.y=y;this._scrollbarPos('h');this._scrollbarPos('v');},_scrollbarPos:function(dir,hidden){var that=this,pos=dir=='h'?that.x:that.y,size;if(!that[dir+'Scrollbar'])return;pos=that[dir+'ScrollbarProp']*pos;if(pos<0){if(!that.options.fixedScrollbar){size=that[dir+'ScrollbarIndicatorSize']+mround(pos*3);if(size<8)size=8;that[dir+'ScrollbarIndicator'].style[dir=='h'?'width':'height']=size+'px';}
+pos=0;}else if(pos>that[dir+'ScrollbarMaxScroll']){if(!that.options.fixedScrollbar){size=that[dir+'ScrollbarIndicatorSize']-mround((pos-that[dir+'ScrollbarMaxScroll'])*3);if(size<8)size=8;that[dir+'ScrollbarIndicator'].style[dir=='h'?'width':'height']=size+'px';pos=that[dir+'ScrollbarMaxScroll']+(that[dir+'ScrollbarIndicatorSize']-size);}else{pos=that[dir+'ScrollbarMaxScroll'];}}
+that[dir+'ScrollbarWrapper'].style[vendor+'TransitionDelay']='0';that[dir+'ScrollbarWrapper'].style.opacity=hidden&&that.options.hideScrollbar?'0':'1';that[dir+'ScrollbarIndicator'].style[vendor+'Transform']=trnOpen+(dir=='h'?pos+'px,0':'0,'+pos+'px')+trnClose;},_start:function(e){var that=this,point=hasTouch?e.touches[0]:e,matrix,x,y,c1,c2;if(!that.enabled)return;if(that.options.onBeforeScrollStart)that.options.onBeforeScrollStart.call(that,e);if(that.options.useTransition||that.options.zoom)that._transitionTime(0);that.moved=false;that.animating=false;that.zoomed=false;that.distX=0;that.distY=0;that.absDistX=0;that.absDistY=0;that.dirX=0;that.dirY=0;if(that.options.zoom&&hasTouch&&e.touches.length>1){c1=m.abs(e.touches[0].pageX-e.touches[1].pageX);c2=m.abs(e.touches[0].pageY-e.touches[1].pageY);that.touchesDistStart=m.sqrt(c1*c1+c2*c2);that.originX=m.abs(e.touches[0].pageX+e.touches[1].pageX-that.wrapperOffsetLeft*2)/2-that.x;that.originY=m.abs(e.touches[0].pageY+e.touches[1].pageY-that.wrapperOffsetTop*2)/2-that.y;if(that.options.onZoomStart)that.options.onZoomStart.call(that,e);}
+if(that.options.momentum){if(that.options.useTransform){matrix=getComputedStyle(that.scroller,null)[vendor+'Transform'].replace(/[^0-9-.,]/g,'').split(',');x=matrix[4]*1;y=matrix[5]*1;}else{x=getComputedStyle(that.scroller,null).left.replace(/[^0-9-]/g,'')*1;y=getComputedStyle(that.scroller,null).top.replace(/[^0-9-]/g,'')*1;}
+if(x!=that.x||y!=that.y){if(that.options.useTransition)that._unbind('webkitTransitionEnd');else cancelFrame(that.aniTime);that.steps=[];that._pos(x,y);}}
+that.absStartX=that.x;that.absStartY=that.y;that.startX=that.x;that.startY=that.y;that.pointX=point.pageX;that.pointY=point.pageY;that.startTime=e.timeStamp||Date.now();if(that.options.onScrollStart)that.options.onScrollStart.call(that,e);that._bind(MOVE_EV);that._bind(END_EV);that._bind(CANCEL_EV);},_move:function(e){var that=this,point=hasTouch?e.touches[0]:e,deltaX=point.pageX-that.pointX,deltaY=point.pageY-that.pointY,newX=that.x+deltaX,newY=that.y+deltaY,c1,c2,scale,timestamp=e.timeStamp||Date.now();if(that.options.onBeforeScrollMove)that.options.onBeforeScrollMove.call(that,e);if(that.options.zoom&&hasTouch&&e.touches.length>1){c1=m.abs(e.touches[0].pageX-e.touches[1].pageX);c2=m.abs(e.touches[0].pageY-e.touches[1].pageY);that.touchesDist=m.sqrt(c1*c1+c2*c2);that.zoomed=true;scale=1/that.touchesDistStart*that.touchesDist*this.scale;if(scale<that.options.zoomMin)scale=0.5*that.options.zoomMin*Math.pow(2.0,scale/that.options.zoomMin);else if(scale>that.options.zoomMax)scale=2.0*that.options.zoomMax*Math.pow(0.5,that.options.zoomMax/scale);that.lastScale=scale/this.scale;newX=this.originX-this.originX*that.lastScale+this.x,newY=this.originY-this.originY*that.lastScale+this.y;this.scroller.style[vendor+'Transform']=trnOpen+newX+'px,'+newY+'px'+trnClose+' scale('+scale+')';if(that.options.onZoom)that.options.onZoom.call(that,e);return;}
+that.pointX=point.pageX;that.pointY=point.pageY;if(newX>0||newX<that.maxScrollX){newX=that.options.bounce?that.x+(deltaX/2):newX>=0||that.maxScrollX>=0?0:that.maxScrollX;}
+if(newY>that.minScrollY||newY<that.maxScrollY){newY=that.options.bounce?that.y+(deltaY/2):newY>=that.minScrollY||that.maxScrollY>=0?that.minScrollY:that.maxScrollY;}
+if(that.absDistX<6&&that.absDistY<6){that.distX+=deltaX;that.distY+=deltaY;that.absDistX=m.abs(that.distX);that.absDistY=m.abs(that.distY);return;}
+if(that.options.lockDirection){if(that.absDistX>that.absDistY+5){newY=that.y;deltaY=0;}else if(that.absDistY>that.absDistX+5){newX=that.x;deltaX=0;}}
+that.moved=true;that._pos(newX,newY);that.dirX=deltaX>0?-1:deltaX<0?1:0;that.dirY=deltaY>0?-1:deltaY<0?1:0;if(timestamp-that.startTime>300){that.startTime=timestamp;that.startX=that.x;that.startY=that.y;}
+if(that.options.onScrollMove)that.options.onScrollMove.call(that,e);},_end:function(e){if(hasTouch&&e.touches.length!=0)return;var that=this,point=hasTouch?e.changedTouches[0]:e,target,ev,momentumX={dist:0,time:0},momentumY={dist:0,time:0},duration=(e.timeStamp||Date.now())-that.startTime,newPosX=that.x,newPosY=that.y,distX,distY,newDuration,snap,scale;that._unbind(MOVE_EV);that._unbind(END_EV);that._unbind(CANCEL_EV);if(that.options.onBeforeScrollEnd)that.options.onBeforeScrollEnd.call(that,e);if(that.zoomed){scale=that.scale*that.lastScale;scale=Math.max(that.options.zoomMin,scale);scale=Math.min(that.options.zoomMax,scale);that.lastScale=scale/that.scale;that.scale=scale;that.x=that.originX-that.originX*that.lastScale+that.x;that.y=that.originY-that.originY*that.lastScale+that.y;that.scroller.style[vendor+'TransitionDuration']='200ms';that.scroller.style[vendor+'Transform']=trnOpen+that.x+'px,'+that.y+'px'+trnClose+' scale('+that.scale+')';that.zoomed=false;that.refresh();if(that.options.onZoomEnd)that.options.onZoomEnd.call(that,e);return;}
+if(!that.moved){if(hasTouch){if(that.doubleTapTimer&&that.options.zoom){clearTimeout(that.doubleTapTimer);that.doubleTapTimer=null;if(that.options.onZoomStart)that.options.onZoomStart.call(that,e);that.zoom(that.pointX,that.pointY,that.scale==1?that.options.doubleTapZoom:1);if(that.options.onZoomEnd){setTimeout(function(){that.options.onZoomEnd.call(that,e);},200);}}else{that.doubleTapTimer=setTimeout(function(){that.doubleTapTimer=null;target=point.target;while(target.nodeType!=1)target=target.parentNode;if(target.tagName!='SELECT'&&target.tagName!='INPUT'&&target.tagName!='TEXTAREA'){ev=document.createEvent('MouseEvents');ev.initMouseEvent('click',true,true,e.view,1,point.screenX,point.screenY,point.clientX,point.clientY,e.ctrlKey,e.altKey,e.shiftKey,e.metaKey,0,null);ev._fake=true;target.dispatchEvent(ev);}},that.options.zoom?250:0);}}
+that._resetPos(200);if(that.options.onTouchEnd)that.options.onTouchEnd.call(that,e);return;}
+if(duration<300&&that.options.momentum){momentumX=newPosX?that._momentum(newPosX-that.startX,duration,-that.x,that.scrollerW-that.wrapperW+that.x,that.options.bounce?that.wrapperW:0):momentumX;momentumY=newPosY?that._momentum(newPosY-that.startY,duration,-that.y,(that.maxScrollY<0?that.scrollerH-that.wrapperH+that.y-that.minScrollY:0),that.options.bounce?that.wrapperH:0):momentumY;newPosX=that.x+momentumX.dist;newPosY=that.y+momentumY.dist;if((that.x>0&&newPosX>0)||(that.x<that.maxScrollX&&newPosX<that.maxScrollX))momentumX={dist:0,time:0};if((that.y>that.minScrollY&&newPosY>that.minScrollY)||(that.y<that.maxScrollY&&newPosY<that.maxScrollY))momentumY={dist:0,time:0};}
+if(momentumX.dist||momentumY.dist){newDuration=m.max(m.max(momentumX.time,momentumY.time),10);if(that.options.snap){distX=newPosX-that.absStartX;distY=newPosY-that.absStartY;if(m.abs(distX)<that.options.snapThreshold&&m.abs(distY)<that.options.snapThreshold){that.scrollTo(that.absStartX,that.absStartY,200);}
+else{snap=that._snap(newPosX,newPosY);newPosX=snap.x;newPosY=snap.y;newDuration=m.max(snap.time,newDuration);}}
+that.scrollTo(mround(newPosX),mround(newPosY),newDuration);if(that.options.onTouchEnd)that.options.onTouchEnd.call(that,e);return;}
+if(that.options.snap){distX=newPosX-that.absStartX;distY=newPosY-that.absStartY;if(m.abs(distX)<that.options.snapThreshold&&m.abs(distY)<that.options.snapThreshold)that.scrollTo(that.absStartX,that.absStartY,200);else{snap=that._snap(that.x,that.y);if(snap.x!=that.x||snap.y!=that.y)that.scrollTo(snap.x,snap.y,snap.time);}
+if(that.options.onTouchEnd)that.options.onTouchEnd.call(that,e);return;}
+that._resetPos(200);if(that.options.onTouchEnd)that.options.onTouchEnd.call(that,e);},_resetPos:function(time){var that=this,resetX=that.x>=0?0:that.x<that.maxScrollX?that.maxScrollX:that.x,resetY=that.y>=that.minScrollY||that.maxScrollY>0?that.minScrollY:that.y<that.maxScrollY?that.maxScrollY:that.y;if(resetX==that.x&&resetY==that.y){if(that.moved){that.moved=false;if(that.options.onScrollEnd)that.options.onScrollEnd.call(that);}
+if(that.hScrollbar&&that.options.hideScrollbar){if(vendor=='webkit')that.hScrollbarWrapper.style[vendor+'TransitionDelay']='300ms';that.hScrollbarWrapper.style.opacity='0';}
+if(that.vScrollbar&&that.options.hideScrollbar){if(vendor=='webkit')that.vScrollbarWrapper.style[vendor+'TransitionDelay']='300ms';that.vScrollbarWrapper.style.opacity='0';}
+return;}
+that.scrollTo(resetX,resetY,time||0);},_wheel:function(e){var that=this,wheelDeltaX,wheelDeltaY,deltaX,deltaY,deltaScale;if('wheelDeltaX'in e){wheelDeltaX=e.wheelDeltaX/12;wheelDeltaY=e.wheelDeltaY/12;}else if('detail'in e){wheelDeltaX=wheelDeltaY=-e.detail*3;}else{wheelDeltaX=wheelDeltaY=-e.wheelDelta;}
+if(that.options.wheelAction=='zoom'){deltaScale=that.scale*Math.pow(2,1/3*(wheelDeltaY?wheelDeltaY/Math.abs(wheelDeltaY):0));if(deltaScale<that.options.zoomMin)deltaScale=that.options.zoomMin;if(deltaScale>that.options.zoomMax)deltaScale=that.options.zoomMax;if(deltaScale!=that.scale){if(!that.wheelZoomCount&&that.options.onZoomStart)that.options.onZoomStart.call(that,e);that.wheelZoomCount++;that.zoom(e.pageX,e.pageY,deltaScale,400);setTimeout(function(){that.wheelZoomCount--;if(!that.wheelZoomCount&&that.options.onZoomEnd)that.options.onZoomEnd.call(that,e);},400);}
+return;}
+deltaX=that.x+wheelDeltaX;deltaY=that.y+wheelDeltaY;if(deltaX>0)deltaX=0;else if(deltaX<that.maxScrollX)deltaX=that.maxScrollX;if(deltaY>that.minScrollY)deltaY=that.minScrollY;else if(deltaY<that.maxScrollY)deltaY=that.maxScrollY;that.scrollTo(deltaX,deltaY,0);},_mouseout:function(e){var t=e.relatedTarget;if(!t){this._end(e);return;}
+while(t=t.parentNode)if(t==this.wrapper)return;this._end(e);},_transitionEnd:function(e){var that=this;if(e.target!=that.scroller)return;that._unbind('webkitTransitionEnd');that._startAni();},_startAni:function(){var that=this,startX=that.x,startY=that.y,startTime=Date.now(),step,easeOut,animate;if(that.animating)return;if(!that.steps.length){that._resetPos(400);return;}
+step=that.steps.shift();if(step.x==startX&&step.y==startY)step.time=0;that.animating=true;that.moved=true;if(that.options.useTransition){that._transitionTime(step.time);that._pos(step.x,step.y);that.animating=false;if(step.time)that._bind('webkitTransitionEnd');else that._resetPos(0);return;}
+animate=function(){var now=Date.now(),newX,newY;if(now>=startTime+step.time){that._pos(step.x,step.y);that.animating=false;if(that.options.onAnimationEnd)that.options.onAnimationEnd.call(that);that._startAni();return;}
+now=(now-startTime)/step.time-1;easeOut=m.sqrt(1-now*now);newX=(step.x-startX)*easeOut+startX;newY=(step.y-startY)*easeOut+startY;that._pos(newX,newY);if(that.animating)that.aniTime=nextFrame(animate);};animate();},_transitionTime:function(time){time+='ms';this.scroller.style[vendor+'TransitionDuration']=time;if(this.hScrollbar)this.hScrollbarIndicator.style[vendor+'TransitionDuration']=time;if(this.vScrollbar)this.vScrollbarIndicator.style[vendor+'TransitionDuration']=time;},_momentum:function(dist,time,maxDistUpper,maxDistLower,size){var deceleration=0.0006,speed=m.abs(dist)/time,newDist=(speed*speed)/(2*deceleration),newTime=0,outsideDist=0;if(dist>0&&newDist>maxDistUpper){outsideDist=size/(6/(newDist/speed*deceleration));maxDistUpper=maxDistUpper+outsideDist;speed=speed*maxDistUpper/newDist;newDist=maxDistUpper;}else if(dist<0&&newDist>maxDistLower){outsideDist=size/(6/(newDist/speed*deceleration));maxDistLower=maxDistLower+outsideDist;speed=speed*maxDistLower/newDist;newDist=maxDistLower;}
+newDist=newDist*(dist<0?-1:1);newTime=speed/deceleration;return{dist:newDist,time:mround(newTime)};},_offset:function(el){var left=-el.offsetLeft,top=-el.offsetTop;while(el=el.offsetParent){left-=el.offsetLeft;top-=el.offsetTop;}
+if(el!=this.wrapper){left*=this.scale;top*=this.scale;}
+return{left:left,top:top};},_snap:function(x,y){var that=this,i,l,page,time,sizeX,sizeY;page=that.pagesX.length-1;for(i=0,l=that.pagesX.length;i<l;i++){if(x>=that.pagesX[i]){page=i;break;}}
+if(page==that.currPageX&&page>0&&that.dirX<0)page--;x=that.pagesX[page];sizeX=m.abs(x-that.pagesX[that.currPageX]);sizeX=sizeX?m.abs(that.x-x)/sizeX*500:0;that.currPageX=page;page=that.pagesY.length-1;for(i=0;i<page;i++){if(y>=that.pagesY[i]){page=i;break;}}
+if(page==that.currPageY&&page>0&&that.dirY<0)page--;y=that.pagesY[page];sizeY=m.abs(y-that.pagesY[that.currPageY]);sizeY=sizeY?m.abs(that.y-y)/sizeY*500:0;that.currPageY=page;time=mround(m.max(sizeX,sizeY))||200;return{x:x,y:y,time:time};},_bind:function(type,el,bubble){(el||this.scroller).addEventListener(type,this,!!bubble);},_unbind:function(type,el,bubble){(el||this.scroller).removeEventListener(type,this,!!bubble);},destroy:function(){var that=this;that.scroller.style[vendor+'Transform']='';that.hScrollbar=false;that.vScrollbar=false;that._scrollbar('h');that._scrollbar('v');that._unbind(RESIZE_EV,window);that._unbind(START_EV);that._unbind(MOVE_EV);that._unbind(END_EV);that._unbind(CANCEL_EV);if(!that.options.hasTouch){that._unbind('mouseout',that.wrapper);that._unbind(WHEEL_EV);}
+if(that.options.useTransition)that._unbind('webkitTransitionEnd');if(that.options.checkDOMChanges)clearInterval(that.checkDOMTime);if(that.options.onDestroy)that.options.onDestroy.call(that);},refresh:function(){var that=this,offset,i,l,els,pos=0,page=0;if(that.scale<that.options.zoomMin)that.scale=that.options.zoomMin;that.wrapperW=that.wrapper.clientWidth||1;that.wrapperH=that.wrapper.clientHeight||1;that.minScrollY=-that.options.topOffset||0;that.scrollerW=mround(that.scroller.offsetWidth*that.scale);that.scrollerH=mround((that.scroller.offsetHeight+that.minScrollY)*that.scale);that.maxScrollX=that.wrapperW-that.scrollerW;that.maxScrollY=that.wrapperH-that.scrollerH+that.minScrollY;that.dirX=0;that.dirY=0;if(that.options.onRefresh)that.options.onRefresh.call(that);that.hScroll=that.options.hScroll&&that.maxScrollX<0;that.vScroll=that.options.vScroll&&(!that.options.bounceLock&&!that.hScroll||that.scrollerH>that.wrapperH);that.hScrollbar=that.hScroll&&that.options.hScrollbar;that.vScrollbar=that.vScroll&&that.options.vScrollbar&&that.scrollerH>that.wrapperH;offset=that._offset(that.wrapper);that.wrapperOffsetLeft=-offset.left;that.wrapperOffsetTop=-offset.top;if(typeof that.options.snap=='string'){that.pagesX=[];that.pagesY=[];els=that.scroller.querySelectorAll(that.options.snap);for(i=0,l=els.length;i<l;i++){pos=that._offset(els[i]);pos.left+=that.wrapperOffsetLeft;pos.top+=that.wrapperOffsetTop;that.pagesX[i]=pos.left<that.maxScrollX?that.maxScrollX:pos.left*that.scale;that.pagesY[i]=pos.top<that.maxScrollY?that.maxScrollY:pos.top*that.scale;}}else if(that.options.snap){that.pagesX=[];while(pos>=that.maxScrollX){that.pagesX[page]=pos;pos=pos-that.wrapperW;page++;}
+if(that.maxScrollX%that.wrapperW)that.pagesX[that.pagesX.length]=that.maxScrollX-that.pagesX[that.pagesX.length-1]+that.pagesX[that.pagesX.length-1];pos=0;page=0;that.pagesY=[];while(pos>=that.maxScrollY){that.pagesY[page]=pos;pos=pos-that.wrapperH;page++;}
+if(that.maxScrollY%that.wrapperH)that.pagesY[that.pagesY.length]=that.maxScrollY-that.pagesY[that.pagesY.length-1]+that.pagesY[that.pagesY.length-1];}
+that._scrollbar('h');that._scrollbar('v');if(!that.zoomed){that.scroller.style[vendor+'TransitionDuration']='0';that._resetPos(200);}},scrollTo:function(x,y,time,relative){var that=this,step=x,i,l;that.stop();if(!step.length)step=[{x:x,y:y,time:time,relative:relative}];for(i=0,l=step.length;i<l;i++){if(step[i].relative){step[i].x=that.x-step[i].x;step[i].y=that.y-step[i].y;}
+that.steps.push({x:step[i].x,y:step[i].y,time:step[i].time||0});}
+that._startAni();},scrollToElement:function(el,time){var that=this,pos;el=el.nodeType?el:that.scroller.querySelector(el);if(!el)return;pos=that._offset(el);pos.left+=that.wrapperOffsetLeft;pos.top+=that.wrapperOffsetTop;pos.left=pos.left>0?0:pos.left<that.maxScrollX?that.maxScrollX:pos.left;pos.top=pos.top>that.minScrollY?that.minScrollY:pos.top<that.maxScrollY?that.maxScrollY:pos.top;time=time===undefined?m.max(m.abs(pos.left)*2,m.abs(pos.top)*2):time;that.scrollTo(pos.left,pos.top,time);},scrollToPage:function(pageX,pageY,time){var that=this,x,y;time=time===undefined?400:time;if(that.options.onScrollStart)that.options.onScrollStart.call(that);if(that.options.snap){pageX=pageX=='next'?that.currPageX+1:pageX=='prev'?that.currPageX-1:pageX;pageY=pageY=='next'?that.currPageY+1:pageY=='prev'?that.currPageY-1:pageY;pageX=pageX<0?0:pageX>that.pagesX.length-1?that.pagesX.length-1:pageX;pageY=pageY<0?0:pageY>that.pagesY.length-1?that.pagesY.length-1:pageY;that.currPageX=pageX;that.currPageY=pageY;x=that.pagesX[pageX];y=that.pagesY[pageY];}else{x=-that.wrapperW*pageX;y=-that.wrapperH*pageY;if(x<that.maxScrollX)x=that.maxScrollX;if(y<that.maxScrollY)y=that.maxScrollY;}
+that.scrollTo(x,y,time);},disable:function(){this.stop();this._resetPos(0);this.enabled=false;this._unbind(MOVE_EV);this._unbind(END_EV);this._unbind(CANCEL_EV);},enable:function(){this.enabled=true;},stop:function(){if(this.options.useTransition)this._unbind('webkitTransitionEnd');else cancelFrame(this.aniTime);this.steps=[];this.moved=false;this.animating=false;},zoom:function(x,y,scale,time){var that=this,relScale=scale/that.scale;if(!that.options.useTransform)return;that.zoomed=true;time=time===undefined?200:time;x=x-that.wrapperOffsetLeft-that.x;y=y-that.wrapperOffsetTop-that.y;that.x=x-x*relScale+that.x;that.y=y-y*relScale+that.y;that.scale=scale;that.refresh();that.x=that.x>0?0:that.x<that.maxScrollX?that.maxScrollX:that.x;that.y=that.y>that.minScrollY?that.minScrollY:that.y<that.maxScrollY?that.maxScrollY:that.y;that.scroller.style[vendor+'TransitionDuration']=time+'ms';that.scroller.style[vendor+'Transform']=trnOpen+that.x+'px,'+that.y+'px'+trnClose+' scale('+scale+')';that.zoomed=false;},isReady:function(){return!this.moved&&!this.zoomed&&!this.animating;}};if(true)exports.iScroll=iScroll;else {}})();
 
-          return flag ? document.querySelectorAll(selector) : document.querySelector(selector);
-      },
-      tap: function tap(el, fn) {
-          var _this = this,
-              hasTouch = "ontouchstart" in window;
+/***/ }),
+/* 2 */
+/***/ (function(module) {
 
-          if (hasTouch && _this.config.trigger == 'tap') {
-              var o = {};
-              el.addEventListener('touchstart', function (e) {
-                  var t = e.touches[0];
+module.exports = {"name":"rolldate","version":"1.5.1","description":"rolldate 移动端日期选择插件","main":"dist/rolldate.min.js","scripts":{"build":"cross-env NODE_ENV=production webpack --config config/rolldate.config.js --mode production","build-common":"cross-env NODE_ENV=production webpack --config config/common.config.js --mode production","dev":"cross-env NODE_ENV=development webpack-dev-server --config config/rolldate.config.js --mode development","start":"npm run build-common && npm run build"},"keywords":["date","iscroll-date"],"repository":{"type":"git","url":"https://github.com/weijhfly/rolldate"},"author":"雾空","license":"MIT","dependencies":{},"devDependencies":{"autoprefixer":"^9.0.1","babel-core":"^6.26.3","babel-loader":"^7.1.5","babel-preset-es2015":"^6.24.1","clean-webpack-plugin":"^0.1.19","cross-env":"^5.2.0","css-loader":"^1.0.0","extract-text-webpack-plugin":"^4.0.0-beta.0","html-webpack-plugin":"^3.2.0","less":"^3.8.0","less-loader":"^4.1.0","postcss-loader":"^2.1.6","style-loader":"^0.21.0","webpack":"^4.16.2","webpack-cli":"^3.1.0","webpack-dev-server":"^3.1.5"}};
 
-                  o.startX = t.pageX;
-                  o.startY = t.pageY;
-                  o.sTime = +new Date();
-              });
-              el.addEventListener('touchend', function (e) {
-                  var t = e.changedTouches[0];
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
 
-                  o.endX = t.pageX;
-                  o.endY = t.pageY;
-                  if (+new Date() - o.sTime < 300) {
-                      if (Math.abs(o.endX - o.startX) + Math.abs(o.endY - o.startY) < 20) {
-                          e.preventDefault();
-                          fn.call(this, e);
-                      }
-                  }
-                  o = {};
-              });
-          } else {
-              el.addEventListener('click', function (e) {
-                  fn.call(this, e);
-              });
-          }
-      },
-      show: function show() {
-          var _this = this,
-              config = _this.config,
-              el = _this.$(config.el);
+// removed by extract-text-webpack-plugin
 
-          if (!el.bindRolldate) {
-              return;
-          }
-          if (el.nodeName.toLowerCase() == 'input') {
-              el.blur();
-          }
-          if (_this.$('.rolldate-container')) {
-              return;
-          }
-          if (config.init && config.init.call(_this) === false) {
-              return;
-          }
-
-          _this.createUI();
-          _this.event();
-      },
-      hide: function hide(flag) {
-          var _this = this,
-              el = _this.$('.rolldate-panel.fadeIn');
-
-          if (el) {
-              el.className = 'rolldate-panel fadeOut';
-              _this.destroy(flag);
-          }
-      },
-      event: function event() {
-          var _this = this,
-              mask = _this.$('.rolldate-mask'),
-              cancel = _this.$('.rolldate-cancel'),
-              confirm = _this.$('.rolldate-confirm');
-
-          _this.tap(mask, function () {
-              _this.hide(1);
-          });
-          _this.tap(cancel, function () {
-              _this.hide(1);
-          });
-          _this.tap(confirm, function () {
-              var config = _this.config,
-                  el = _this.$(config.el),
-                  date = config.format,
-                  newDate = new Date();
-
-              for (var f in _this.scroll) {
-                  var d = _this.getSelected(_this.scroll[f]);
-
-                  date = date.replace(f, d);
-                  if (f == 'YYYY') {
-                      newDate.setFullYear(d);
-                  } else if (f == 'MM') {
-                      newDate.setMonth(d - 1);
-                  } else if (f == 'DD') {
-                      newDate.setDate(d);
-                  } else if (f == 'hh') {
-                      newDate.setHours(d);
-                  } else if (f == 'mm') {
-                      newDate.setMinutes(d);
-                  } else if (f == 'ss') {
-                      newDate.setSeconds(d);
-                  }
-              }
-              if (config.confirm) {
-                  var flag = config.confirm.call(_this, date);
-                  if (flag === false) {
-                      return false;
-                  } else if (flag) {
-                      date = flag;
-                  }
-              }
-              if (el.nodeName.toLowerCase() == 'input') {
-                  el.value = date;
-              } else {
-                  el.innerText = date;
-              }
-              _this.hide();
-              el.bindDate = newDate;
-          });
-      },
-      bissextile: function bissextile(year, month) {
-          var day = void 0;
-          if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
-              day = 31;
-          } else if (month == 4 || month == 6 || month == 11 || month == 9) {
-              day = 30;
-          } else if (month == 2) {
-              if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) {
-                  //闰年
-                  day = 29;
-              } else {
-                  day = 28;
-              }
-          }
-          return day;
-      },
-      destroy: function destroy(flag) {
-          var _this = this,
-              config = _this.config;
-
-          for (var i in _this.scroll) {
-              _this.scroll[i].destroy();
-          }
-
-          if (flag && config.cancel) {
-              config.cancel.call(_this);
-          }
-          setTimeout(function () {
-              var el = _this.$('.rolldate-container');
-              document.body.removeChild(el);
-          }, 300);
-      },
-      getSelected: function getSelected(scroll) {
-
-          return this.$('#' + scroll.wrapper.id + ' li', 1)[scroll.getSelectedIndex()].innerText.replace(/\D/g, '');
-      }
-  };
-  Rolldate.version = version;
-
-  return Rolldate;
-
-}));
+/***/ })
+/******/ ]);
+});
