@@ -8,6 +8,7 @@ import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
 import banner from 'rollup-plugin-banner';
 import merge from 'webpack-merge';
+import json from 'rollup-plugin-json';
 
 let year = new Date().getFullYear(),
     version = pkg.version;
@@ -24,6 +25,7 @@ let config = {
     plugins: [
       resolve(),
       commonjs(),
+      json(),
       postcss({
           plugins: [
             autoprefixer({//补全前缀

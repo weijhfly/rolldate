@@ -1,6 +1,7 @@
 import './rolldate.less';
 
 import BScroll from './bscroll.min';
+import {version} from '../package.json';
 
 function Rolldate(config){
   if(!config || !config.el){return;}
@@ -10,15 +11,8 @@ function Rolldate(config){
   if(!el || el.bindRolldate){return;}
   el.bindRolldate = 1;
   _this.extend(config);
-  el.addEventListener('click', function() {
-      if(el.nodeName.toLowerCase() == 'input'){el.blur();}
-      let dom = _this.$('.rolldate-container'),
-          config = _this.config;
-
-      if(dom){return;}
-      if(config.init && config.init.call(_this) === false){return;}
-      _this.createUI();
-      _this.event();
+  _this.tap(el,function(){
+      _this.show();
   })
   // 设置默认日期
   if(config.value){
@@ -59,6 +53,7 @@ Rolldate.prototype = {
             confirm:null,
             cancel:null,
             minStep:1,
+            trigger:'tap',
             lang:{title:'选择日期',cancel:'取消',confirm:'确认',year:'年',month:'月',day:'日',hour:'时',min:'分',sec:'秒'}
         }
     };
@@ -86,8 +81,7 @@ Rolldate.prototype = {
             FormatArr = config.format.split(/-|\/|\s|:/g),
             len = FormatArr.length,
             ul = '',
-            el = _this.$(config.el),
-            date = el.bindDate || new Date(),
+            date = _this.$(config.el).bindDate || new Date(),
             itemClass = '',
             lang = config.lang;
 
@@ -190,8 +184,8 @@ Rolldate.prototype = {
                     config.moveEnd.call(_this,that);
                 }
                 if([domId['YYYY'],domId['MM']].indexOf(that.wrapper.id) != -1 && _this.scroll['DD']){
-                    let prevDay = _this.getscrollDay(_this.scroll['DD']),
-                        day = _this.bissextile(_this.getscrollDay(_this.scroll['YYYY']),_this.getscrollDay(_this.scroll['MM'])),
+                    let prevDay = _this.getSelected(_this.scroll['DD']),
+                        day = _this.bissextile(_this.getSelected(_this.scroll['YYYY']),_this.getSelected(_this.scroll['MM'])),
                         li = '';
 
                     if(day != _this.$('#'+domId['DD']+' li',1).length){
@@ -214,22 +208,80 @@ Rolldate.prototype = {
 
       return flag? document.querySelectorAll(selector) : document.querySelector(selector);
   },
+  tap:function (el, fn) {
+    let _this = this,
+        hasTouch = "ontouchstart" in window;
+
+    if(hasTouch && _this.config.trigger == 'tap'){
+      let o = {};
+			el.addEventListener('touchstart',function(e){
+				let t = e.touches[0];
+
+				o.startX = t.pageX;
+				o.startY = t.pageY;
+				o.sTime = + new Date;
+			});
+			el.addEventListener('touchend',function(e){
+				let t = e.changedTouches[0];
+
+				o.endX = t.pageX;
+				o.endY = t.pageY;
+				if((+ new Date) - o.sTime < 300){
+					if(Math.abs(o.endX-o.startX) + Math.abs(o.endY-o.startY) < 20){
+      			e.preventDefault();
+						fn.call(this,e);
+					}
+				}
+				o = {};
+			});
+    }else{
+      el.addEventListener('click',function(e){
+				fn.call(this,e);
+			});
+    }
+  },
+  show: function(){
+    let _this = this,
+        config = _this.config,
+        el = _this.$(config.el);
+
+    if(!el.bindRolldate){return;}
+    if(el.nodeName.toLowerCase() == 'input'){el.blur();}
+    if(_this.$('.rolldate-container')){return;}
+    if(config.init && config.init.call(_this) === false){return;}
+
+    _this.createUI();
+    _this.event();
+  },
+  hide: function(flag){
+    let _this = this,
+        el = _this.$('.rolldate-panel.fadeIn');
+
+    if(el){
+      el.className = 'rolldate-panel fadeOut';
+      _this.destroy(flag);
+    }
+  },
   event: function(){
     let _this = this,
          mask = _this.$('.rolldate-mask'),
          cancel = _this.$('.rolldate-cancel'),
          confirm = _this.$('.rolldate-confirm');
 
-    mask.addEventListener('click', function(){_this.destroy(1);})
-    cancel.addEventListener('click', function(){_this.destroy(1);})
-    confirm.addEventListener('click', function(){
+    _this.tap(mask,function(){
+      _this.hide(1);
+    })
+    _this.tap(cancel,function(){
+      _this.hide(1);
+    })
+    _this.tap(confirm,function(){
         let config = _this.config,
             el = _this.$(config.el),
             date = config.format,
             newDate = new Date();
 
             for(let f in _this.scroll){
-              let d = _this.getscrollDay(_this.scroll[f]);
+              let d = _this.getSelected(_this.scroll[f]);
 
               date = date.replace(f,d);
               if(f == 'YYYY'){
@@ -259,7 +311,7 @@ Rolldate.prototype = {
         }else{
             el.innerText = date;
         }
-        _this.destroy();
+        _this.hide();
         el.bindDate = newDate;
     })
   },
@@ -290,17 +342,17 @@ Rolldate.prototype = {
       if(flag && config.cancel){
           config.cancel.call(_this);
       }
-      _this.$('.rolldate-panel').className = 'rolldate-panel fadeOut';
       setTimeout(function() {
-         let el = _this.$('.rolldate-container');
-         if(el)
+          let el = _this.$('.rolldate-container');
           document.body.removeChild(el);
       }, 300);
   },
-  getscrollDay: function(scroll){
+  getSelected: function(scroll){
       let _this = this;
 
       return this.$('#'+scroll.wrapper.id+' li',1)[scroll.getSelectedIndex()].innerText.replace(/\D/g,'');
   }
 }
+Rolldate.version = version;
+
 export default Rolldate;

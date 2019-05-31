@@ -159,14 +159,27 @@
 			</div>
 		</div>
 
+		<h4><strong>分钟间隔</strong></h4>
+		<div class="row">
+			<div class="form-group clearfix">
+				<div class="col-xs-6">
+					<input readonly class="form-control" type="text" id="date-group6-1" placeholder="分钟间隔5">
+				</div>
+			</div>
+		</div>
+		<h4><strong>使用原生click</strong></h4>
+		<div class="row">
+			<div class="form-group clearfix">
+				<div class="col-xs-6">
+					<input readonly class="form-control" type="text" id="date-group7-1" placeholder="trigger:'click'">
+				</div>
+			</div>
+		</div>
 		<h4><strong>其他示例</strong></h4>
 		<div class="row">
 			<div class="form-group clearfix">
 				<div class="col-xs-6">
-					<input readonly class="form-control" type="text" id="date-group6-1" placeholder="不能小于当前的日期">
-				</div>
-				<div class="col-xs-6">
-					<input readonly class="form-control" type="text" id="date-group6-2" placeholder="分钟相隔5">
+					<input readonly class="form-control" type="text" id="date-group8-1" placeholder="不能小于当前的日期">
 				</div>
 			</div>
 		</div>
@@ -306,7 +319,7 @@
 				lang: lang
 			})
 
-			// 设置默认日期 内部使用document.getElementById('date').rdate = new Date('2019/05/13');
+			// 设置默认日期 内部使用document.getElementById('date').bindDate = new Date('2019/05/13');
 			new Rolldate({
 				el: '#date-group4-1',
 				format: 'YYYY-MM-DD',
@@ -323,14 +336,26 @@
 				endYear: 2100
 			})
 
-			// 其他示例
-			new Rolldate({ //日期判断
+			// 分钟按指定数分隔
+			new Rolldate({
 				el: '#date-group6-1',
+				format: 'hh:mm',
+				minStep: 5
+			})
+			// 使用原生click
+			new Rolldate({
+				el: '#date-group7-1',
+				trigger: 'click'
+			})
+
+			// 其他示例
+			//日期判断
+			new Rolldate({
+				el: '#date-group8-1',
 				format: 'YYYY-MM-DD',
 				beginYear: 2000,
 				endYear: 2100,
 				confirm: function(date) {
-					console.log(date)
 					var d = new Date(),
 						d1 = new Date(date.replace(/\-/g, "\/")),
 						d2 = new Date(d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate()); //如果非'YYYY-MM-DD'格式，需要另做调整
@@ -340,12 +365,6 @@
 						return false;
 					}
 				}
-			})
-			// 分钟按指定数分隔
-			new Rolldate({
-				el: '#date-group6-2',
-				format: 'hh:mm',
-				minStep: 5
 			})
 		}
 	</script>

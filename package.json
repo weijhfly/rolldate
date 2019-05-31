@@ -1,6 +1,6 @@
 {
   "name": "rolldate",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "rolldate 多格式、功能强大的移动端日期选择插件",
   "main": "dist/rolldate.min.js",
   "scripts": {
@@ -44,6 +44,7 @@
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-banner": "^0.2.0",
     "rollup-plugin-commonjs": "^10.0.0",
+    "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-node-resolve": "^5.0.0",
     "rollup-plugin-postcss": "^2.0.3",
     "rollup-plugin-uglify": "^6.0.2",
