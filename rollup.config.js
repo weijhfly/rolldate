@@ -13,8 +13,13 @@ import json from 'rollup-plugin-json';
 let year = new Date().getFullYear(),
     version = pkg.version;
 
-const bannerText =`Rolldate ${version}\nCopyright ${year}\nweijhfly https://github.com/weijhfly/rolldate\nLicensed under MIT\nReleased on: aug 4, 2018`;
+let bannerText = `Rolldate ${version}
+Copyright 2018-${year}
+weijhfly https://github.com/weijhfly/rolldate
+Licensed under MIT
+Released on: aug 4, 2018`;
 
+console.log(bannerText)
 let config = {
     input: 'src/index.js',
     output: {

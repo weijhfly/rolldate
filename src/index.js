@@ -3,31 +3,41 @@ import './rolldate.less';
 import BScroll from './bscroll.min';
 import {version} from '../package.json';
 
-function Rolldate(config){
-  if(!config || !config.el){return;}
+function Rolldate(config = {}){
   let _this = this,
-      el = _this.$(config.el);
+      el;
 
-  if(!el || el.bindRolldate){return;}
-  el.bindRolldate = 1;
   _this.extend(config);
-  _this.tap(el,function(){
-      _this.show();
-  })
+  if(config.el){
+    el = _this.$(config.el);
+
+    if(!el || el.bindRolldate){return;}
+    el.bindRolldate = 1;
+
+    _this.tap(el,function(){
+        _this.show();
+    })
+  }
   // 设置默认日期
   if(config.value){
+    if(config.el){
       if(el.nodeName.toLowerCase() == 'input'){
           el.value = config.value;
       }else{
           el.innerText = config.value;
       }
+    }
       let str = config.value.replace(/-/g,'/').replace(/[^\d/:\s]/g,''),
           date = new Date(str);
 
       if(!date || date == 'Invalid Date'){
           console.error('Invalid Date：'+str);
       }else{
+        if(config.el){
           el.bindDate = date;
+        }else{
+          _this.bindDate = date;
+        }
       }
   }
 }
@@ -81,7 +91,7 @@ Rolldate.prototype = {
             FormatArr = config.format.split(/-|\/|\s|:/g),
             len = FormatArr.length,
             ul = '',
-            date = _this.$(config.el).bindDate || new Date(),
+            date = config.el? (_this.$(config.el).bindDate || new Date()) : (_this.bindDate || new Date()),
             itemClass = '',
             lang = config.lang;
 
@@ -183,7 +193,7 @@ Rolldate.prototype = {
                 if(config.moveEnd){
                     config.moveEnd.call(_this,that);
                 }
-                if([domId['YYYY'],domId['MM']].indexOf(that.wrapper.id) != -1 && _this.scroll['DD']){
+                if([domId['YYYY'],domId['MM']].indexOf(that.wrapper.id) != -1 && _this.scroll['YYYY'] && _this.scroll['MM'] && _this.scroll['DD']){
                     let prevDay = _this.getSelected(_this.scroll['DD']),
                         day = _this.bissextile(_this.getSelected(_this.scroll['YYYY']),_this.getSelected(_this.scroll['MM'])),
                         li = '';
@@ -243,10 +253,14 @@ Rolldate.prototype = {
   show: function(){
     let _this = this,
         config = _this.config,
-        el = _this.$(config.el);
+        el;
 
-    if(!el.bindRolldate){return;}
-    if(el.nodeName.toLowerCase() == 'input'){el.blur();}
+    if(config.el){
+      el = _this.$(config.el);
+
+      if(!el.bindRolldate){return;}
+      if(el.nodeName.toLowerCase() == 'input'){el.blur();}
+    }
     if(_this.$('.rolldate-container')){return;}
     if(config.init && config.init.call(_this) === false){return;}
 
@@ -276,7 +290,7 @@ Rolldate.prototype = {
     })
     _this.tap(confirm,function(){
         let config = _this.config,
-            el = _this.$(config.el),
+            el,
             date = config.format,
             newDate = new Date();
 
@@ -299,20 +313,26 @@ Rolldate.prototype = {
               }
             }
         if(config.confirm){
-            var flag = config.confirm.call(_this,date);
+            let flag = config.confirm.call(_this,date);
             if(flag === false){
                 return false
             }else if(flag){
                 date = flag;
             }
         }
-        if(el.nodeName.toLowerCase() == 'input'){
-            el.value = date;
+        if(config.el){
+          el = _this.$(config.el);
+          if(el.nodeName.toLowerCase() == 'input'){
+              el.value = date;
+          }else{
+              el.innerText = date;
+          }
+          el.bindDate = newDate;
         }else{
-            el.innerText = date;
+          _this.bindDate = newDate;
         }
         _this.hide();
-        el.bindDate = newDate;
+
     })
   },
   bissextile: function(year,month){
