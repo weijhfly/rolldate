@@ -175,6 +175,14 @@
 				</div>
 			</div>
 		</div>
+		<h4><strong>不传el</strong></h4>
+		<div class="row">
+			<div class="form-group clearfix">
+				<div class="col-xs-6">
+					<input readonly class="form-control" type="text" id="date-group9-1" placeholder="不传el">
+				</div>
+			</div>
+		</div>
 		<h4><strong>其他示例</strong></h4>
 		<div class="row">
 			<div class="form-group clearfix">
@@ -346,6 +354,16 @@
 			new Rolldate({
 				el: '#date-group7-1',
 				trigger: 'click'
+			})
+			// 不传el
+			var el = document.getElementById('date-group9-1');
+			el.addEventListener('click', function() {
+				rd.show();
+			})
+			var rd = new Rolldate({
+				confirm: function(date) {
+					el.value = date;
+				}
 			})
 
 			// 其他示例

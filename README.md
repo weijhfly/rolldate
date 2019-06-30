@@ -56,7 +56,7 @@ seajs.use('rolldate',function(undefined){
 ## 参数、方法说明
 名称|必填|默认值|说明
 ---|:-:|:-:|---
-el|是|无|绑定插件的dom元素，插件内部使用document.querySelector，<br>也可以直接传递dom元素对象，只支持单个
+el|否|无|绑定插件的dom元素，插件内部使用document.querySelector，<br>也可以直接传递dom元素对象，只支持单个
 format|否|'YYYY-MM-DD'|日期格式，无限制。规则：年-YYYY 月-MM 日-DD 时-hh 分-mm 秒-ss 使用/、-、空格、:之一分隔，可随意组合
 beginYear|否|2000|日期开始年份
 endYear|否|2100|日期结束年份
@@ -69,7 +69,8 @@ confirm|否|null|确认按钮触发前的回调函数，return false可阻止插
 cancel|否|null|插件取消时触发的回调函数
 trigger|否|'tap'|默认使用tap解决移动端click事件300ms延迟，可选click替换tap。注意使用tap会阻止其他绑定的click事件的触发
 show|否|无|主动触发插件，当trigger为tap时，主动触发插件应该使用此方法
-hide|否|无|主动隐藏插件
+hide|否|无|主动隐藏插件  
+
 ```js
 //完整参数、方法示例
 var rd = new Rolldate({
