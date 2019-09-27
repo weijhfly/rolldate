@@ -25,9 +25,8 @@ li {
     height: 100%;
     top: 0;
     left: 0;
-    background: #000;
-    opacity: 0.4;
     z-index: 999;
+    background-color: rgba(37,38,45,0.4);
   }
 
   .rolldate-panel {
@@ -38,9 +37,8 @@ li {
     height: 273px;
     z-index: 1000;
     background: #fff;
-    animation-duration: 300ms;
-    animation-delay: 0s;
-    animation-iteration-count: 1;
+    transition: all .3s ease-in-out;
+    transform: translate3d(0, 273px, 0);
   }
 
   .rolldate-btn {
@@ -116,30 +114,11 @@ li {
   }
 
   .fadeIn {
-    animation-name: fadeIn;
+   transform: translate3d(0, 0, 0);
   }
 
   .fadeOut {
-    animation-name: fadeOut;
-  }
-  @keyframes fadeIn {
-    from {
-      bottom: -273px;
-    }
-
-    to {
-      bottom: 0;
-    }
-  }
-  @keyframes fadeOut {
-    from {
-      bottom: 0;
-    }
-
-    to {
-      bottom: -273px;
-      display: none;
-    }
+    transform: translate3d(0, 273px, 0);
   }
 }
 @media screen and (max-width: 414px) {
