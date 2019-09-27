@@ -148,7 +148,7 @@ Rolldate.prototype = {
             ul += '</ul></div>'
         }
         let $html = `<div class="rolldate-mask"></div>
-            <div class="rolldate-panel fadeIn">
+            <div class="rolldate-panel">
                 <header>
                     <span class="rolldate-btn rolldate-cancel">${lang.cancel}</span>
                     ${lang.title}
@@ -176,17 +176,14 @@ Rolldate.prototype = {
 
             _this.scroll[FormatArr[i]] = new BScroll('#'+$id, {
                 wheel: {
-                  selectedIndex: 0,
-                  wheelWrapperClass: 'wheel-scroll',
-                  wheelItemClass: 'wheel-item'
-                },
-                probeType: 1
+                  selectedIndex: 0
+                }
               });
 
            let that = _this.scroll[FormatArr[i]],
                active = _this.$('#'+$id+' .active'),
                index = active? active.getAttribute('data-index') : Math.round(date.getMinutes()/config.minStep);
-
+ 
             that.wheelTo(index);
             // 滚动结束
             that.on('scrollEnd', () => {
@@ -210,6 +207,7 @@ Rolldate.prototype = {
             })
 
         }
+      _this.$('.rolldate-panel').className = 'rolldate-panel fadeIn';
   },
   $: function(selector,flag){
       if(typeof selector != 'string' && selector.nodeType){
