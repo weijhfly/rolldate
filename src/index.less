@@ -1,0 +1,127 @@
+.rolldate-container {
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+  
+  li {
+    list-style-type: none;
+  }
+  
+  font-size: 20px;
+  color: #333;
+  text-align: center;
+
+  header {
+    position: relative;
+    line-height: 60px;
+    font-size: 18px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .rolldate-mask {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    background-color: rgba(37,38,45,0.4);
+  }
+
+  .rolldate-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 273px;
+    z-index: 1000;
+    background: #fff;
+    transition: all .3s ease-in-out;
+    transform: translate3d(0, 273px, 0);
+  }
+
+  .rolldate-btn {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    padding: 0 15px;
+    color: #666;
+    font-size: 16px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .rolldate-confirm {
+    left: auto;
+    right: 0;
+    color: #007bff;
+  }
+
+  .rolldate-content {
+    position: relative;
+    top: 20px;
+  }
+
+  .rolldate-wrapper {
+    display: flex;
+
+    > div {
+      flex: 1;
+      height: 173px;
+      line-height: 36px;
+      overflow: hidden;
+      flex-basis: 1e-9px;
+      width: 1%;
+    }
+
+    ul {
+      margin-top: 68px;
+    }
+
+    li {
+      height: 36px;
+    }
+  }
+
+  .rolldate-dim {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 68px;
+    background: linear-gradient(0deg,hsla(0,0%,100%,.4),hsla(0,0%,100%,.8));
+    pointer-events: none;
+    transform: translateZ(0);
+    z-index: 10;
+  }
+
+  .mask-top {
+    border-bottom: 1px solid #ebebeb;
+  }
+
+  .mask-bottom {
+    top: auto;
+    bottom: 1px;
+    border-top: 1px solid #ebebeb;
+  }
+
+  .fadeIn {
+   transform: translate3d(0, 0, 0);
+  }
+
+  .fadeOut {
+    transform: translate3d(0, 273px, 0);
+  }
+}
+@media screen and (max-width: 414px) {
+  .rolldate-container {
+    font-size: 18px;
+  }
+}
+@media screen and (max-width: 320px) {
+  .rolldate-container {
+    font-size: 15px;
+  }
+}
