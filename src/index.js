@@ -35,8 +35,17 @@ function Rolldate(config = {}){
         el.innerText = config.value;
       }
     }
-    let str = config.value.replace(/-/g, '/').replace(/[^\d/:\s]/g, ''),
-      date = new Date(str);
+
+    // normalize reversed config.format
+    let str = '';
+    const isReverseFormat = config.format === 'DD-MM-YYYY';
+    if (isReverseFormat) {
+      str = config.value.split('.').reverse().join('/');
+    } else {
+      str = config.value.replace(/-/g, '/').replace(/[^\d/:\s]/g, '');
+    }
+
+    let date = new Date(str);
 
     if(!date || date == 'Invalid Date'){
       console.error('Invalid Date：'+str);
@@ -190,7 +199,7 @@ Rolldate.prototype = {
       let that = _this.scroll[FormatArr[i]],
         active = $(`#${$id} .active`),
         index = active? active.getAttribute('data-index') : Math.round(date.getMinutes()/config.minStep);
- 
+
       that.wheelTo(index);
       // 滚动结束
       that.on('scrollEnd', () => {
@@ -218,19 +227,19 @@ Rolldate.prototype = {
   tap:function (el, fn) {
     let _this = this,
       hasTouch = "ontouchstart" in window;
-    
+
     if(hasTouch && _this.config.trigger == 'tap'){
       let o = {},
         touchstart = function(e) {
           let t = e.touches[0];
-    
+
           o.startX = t.pageX;
           o.startY = t.pageY;
           o.sTime = + new Date;
         },
         touchend = function(e) {
           let t = e.changedTouches[0];
-    
+
           o.endX = t.pageX;
           o.endY = t.pageY;
           if((+ new Date) - o.sTime < 300){
@@ -333,7 +342,12 @@ Rolldate.prototype = {
       if(config.el){
         el = $(config.el);
         if(el.nodeName.toLowerCase() == 'input'){
-          el.value = date;
+          const isReverseFormat = config.format === 'DD-MM-YYYY';
+          if (isReverseFormat) {
+            el.value = date.split('-').join('.');
+          } else {
+            el.value = date;
+          }
         }else{
           el.innerText = date;
         }
