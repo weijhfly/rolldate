@@ -138,6 +138,12 @@
 					<input readonly class="form-control" type="text" id="date-group3-1" placeholder="lang">
 				</div>
 			</div>
+			<h5 class="col-xs-12">custom month names (english)</h5>
+			<div class="form-group clearfix">
+				<div class="col-xs-6">
+					<input readonly class="form-control" type="text" id="date-group3-2" placeholder="custom month names">
+				</div>
+			</div>
 		</div>
 
 		<h4><strong>设置默认日期</strong></h4>
@@ -325,6 +331,36 @@
 				beginYear: 2000,
 				endYear: 2100,
 				lang: lang
+			})
+
+			// Custom month names
+			new Rolldate({
+				el: '#date-group3-2',
+				format: 'MM-DD-YYYY',
+				beginYear: 2000,
+				endYear: 2100,
+				lang: {
+					title: 'Select a date',
+					cancel: 'Cancel',
+					confirm: 'Confirm',
+					day: '',
+					month: '',
+					year: '',
+				},
+				monthNames: {
+					month1: 'Jan',
+					month2: 'Feb',
+					month3: 'Mar',
+					month4: 'Apr',
+					month5: 'May',
+					month6: 'Jun',
+					month7: 'Jul',
+					month8: 'Aug',
+					month9: 'Sep',
+					month10: 'Oct',
+					month11: 'Nov',
+					month12: 'Dec',
+				}
 			})
 
 			// 设置默认日期 内部使用document.getElementById('date').bindDate = new Date('2019/05/13');
