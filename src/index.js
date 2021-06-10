@@ -72,7 +72,21 @@ Rolldate.prototype = {
         cancel:null,
         minStep:1,
         trigger:'tap',
-        lang:{title:'选择日期', cancel:'取消', confirm:'确认', year:'年', month:'月', day:'日', hour:'时', min:'分', sec:'秒'}
+        lang:{title:'选择日期', cancel:'取消', confirm:'确认', year:'年', month:'月', day:'日', hour:'时', min:'分', sec:'秒'},
+        monthNames: {
+          month1: null,
+          month2: null,
+          month3: null,
+          month4: null,
+          month5: null,
+          month6: null,
+          month7: null,
+          month8: null,
+          month9: null,
+          month10: null,
+          month11: null,
+          month12: null,
+        }
       }
     };
   },
@@ -101,7 +115,8 @@ Rolldate.prototype = {
       ul = '',
       date = config.el? ($(config.el).bindDate || new Date()) : (_this.bindDate || new Date()),
       itemClass = '',
-      lang = config.lang;
+      lang = config.lang,
+      monthNames = config.monthNames;
 
     for(let i=0; i<len; i++){
       let f = FormatArr[i],
@@ -113,14 +128,16 @@ Rolldate.prototype = {
         for(let j=config.beginYear; j<=config.endYear; j++){
           itemClass = j == date.getFullYear()? 'active':'';
 
-          ul += `<li class="wheel-item ${itemClass}" data-index="${domMndex}">${j}${lang.year}</li>`;
+          ul += `<li class="wheel-item ${itemClass}" data-index="${domMndex}" data-value="${j}">${j}${lang.year}</li>`;
           domMndex ++;
         }
       }else if(f == 'MM'){
         for(let k=1; k<=12; k++){
           itemClass = k == date.getMonth() + 1? 'active':'';
 
-          ul += `<li class="wheel-item ${itemClass}" data-index="${domMndex}">${k<10? '0'+k : k}${lang.month}</li>`;
+          const month = monthNames['month'+k] === null ? k<10? '0'+k : k: monthNames['month'+k];
+
+          ul += `<li class="wheel-item ${itemClass}" data-index="${domMndex}" data-value="${k<10? '0'+k : k}">${month}${lang.month}</li>`;
           domMndex ++;
         }
       }else if(f == 'DD'){
@@ -128,28 +145,28 @@ Rolldate.prototype = {
         for(let l=1; l<=day; l++){
           itemClass = l == date.getDate()? 'active':'';
 
-          ul += `<li class="wheel-item ${itemClass}" data-index="${domMndex}">${l<10? '0'+l : l}${lang.day}</li>`;
+          ul += `<li class="wheel-item ${itemClass}" data-index="${domMndex}" data-value="${l<10? '0'+l : l}">${l<10? '0'+l : l}${lang.day}</li>`;
           domMndex ++;
         }
       }else if(f == 'hh'){
         for(let m=0; m<=23; m++){
           itemClass = m == date.getHours()? 'active':'';
 
-          ul += `<li class="wheel-item ${itemClass}" data-index="${domMndex}">${m<10? '0'+m : m}${lang.hour}</li>`;
+          ul += `<li class="wheel-item ${itemClass}" data-index="${domMndex}" data-value="${m<10? '0'+m : m}">${m<10? '0'+m : m}${lang.hour}</li>`;
           domMndex ++;
         }
       }else if(f == 'mm'){
         for(let n=0; n<=59; n+=config.minStep){
           itemClass = n == date.getMinutes()? 'active':'';
 
-          ul += `<li class="wheel-item ${itemClass}" data-index="${domMndex}">${n<10? '0'+n : n}${lang.min}</li>`;
+          ul += `<li class="wheel-item ${itemClass}" data-index="${domMndex}" data-value="${n<10? '0'+n : n}">${n<10? '0'+n : n}${lang.min}</li>`;
           domMndex ++;
         }
       }else if(f == 'ss'){
         for(let o=0; o<=59; o++){
           itemClass = o == date.getSeconds()? 'active':'';
 
-          ul += `<li class="wheel-item ${itemClass}" data-index="${domMndex}">${o<10? '0'+o : o}${lang.sec}</li>`;
+          ul += `<li class="wheel-item ${itemClass}" data-index="${domMndex}" data-value="${o<10? '0'+o : o}">${o<10? '0'+o : o}${lang.sec}</li>`;
           domMndex ++;
         }
       }
@@ -190,7 +207,7 @@ Rolldate.prototype = {
       let that = _this.scroll[FormatArr[i]],
         active = $(`#${$id} .active`),
         index = active? active.getAttribute('data-index') : Math.round(date.getMinutes()/config.minStep);
- 
+
       that.wheelTo(index);
       // 滚动结束
       that.on('scrollEnd', () => {
@@ -218,19 +235,19 @@ Rolldate.prototype = {
   tap:function (el, fn) {
     let _this = this,
       hasTouch = "ontouchstart" in window;
-    
+
     if(hasTouch && _this.config.trigger == 'tap'){
       let o = {},
         touchstart = function(e) {
           let t = e.touches[0];
-    
+
           o.startX = t.pageX;
           o.startY = t.pageY;
           o.sTime = + new Date;
         },
         touchend = function(e) {
           let t = e.changedTouches[0];
-    
+
           o.endX = t.pageX;
           o.endY = t.pageY;
           if((+ new Date) - o.sTime < 300){
@@ -384,7 +401,7 @@ Rolldate.prototype = {
     }, 300);
   },
   getSelected: function(scroll){
-    return $('#'+scroll.wrapper.id+' li', 1)[scroll.getSelectedIndex()].innerText.replace(/\D/g, '');
+    return $('#'+scroll.wrapper.id+' li', 1)[scroll.getSelectedIndex()].getAttribute('data-value');
   }
 }
 Rolldate.version = version;

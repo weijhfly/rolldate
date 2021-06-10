@@ -1,16 +1,17 @@
-/**
+/** 
  * Rolldate 3.1.3
- * Copyright 2018-2020
+ * Copyright 2018-2021
  * weijhfly https://github.com/weijhfly/rolldate
  * Licensed under MIT
  * Released on: aug 4, 2018
  */
-
 function styleInject(css, ref) {
-  if ( ref === void 0 ) ref = {};
+  if (ref === void 0) ref = {};
   var insertAt = ref.insertAt;
 
-  if (!css || typeof document === 'undefined') { return; }
+  if (!css || typeof document === 'undefined') {
+    return;
+  }
 
   var head = document.head || document.getElementsByTagName('head')[0];
   var style = document.createElement('style');
@@ -33,7 +34,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css = ".rolldate-container{font-size:20px;color:#333;text-align:center}.rolldate-container ul{margin:0;padding:0}.rolldate-container li{list-style-type:none}.rolldate-container header{position:relative;line-height:60px;font-size:18px;border-bottom:1px solid #e0e0e0}.rolldate-container .rolldate-mask{position:fixed;width:100%;height:100%;top:0;left:0;z-index:999;background-color:rgba(37,38,45,.4)}.rolldate-container .rolldate-panel{position:fixed;bottom:0;left:0;width:100%;height:273px;z-index:1000;background:#fff;-webkit-transition:all .3s ease-in-out;-o-transition:all .3s ease-in-out;transition:all .3s ease-in-out;-webkit-transform:translate3d(0,273px,0);transform:translate3d(0,273px,0)}.rolldate-container .rolldate-btn{position:absolute;left:0;top:0;height:100%;padding:0 15px;color:#666;font-size:16px;cursor:pointer;-webkit-tap-highlight-color:transparent}.rolldate-container .rolldate-confirm{left:auto;right:0;color:#007bff}.rolldate-container .rolldate-content{position:relative;top:20px}.rolldate-container .rolldate-wrapper{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}.rolldate-container .rolldate-wrapper>div{-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;height:173px;line-height:36px;overflow:hidden;-webkit-flex-basis:-8e;-ms-flex-preferred-size:-8e;flex-basis:-8e;width:1%}.rolldate-container .rolldate-wrapper ul{margin-top:68px}.rolldate-container .rolldate-wrapper li{height:36px}.rolldate-container .rolldate-dim{position:absolute;left:0;top:0;width:100%;height:68px;background:-o-linear-gradient(bottom,hsla(0,0%,100%,.4),hsla(0,0%,100%,.8));background:-webkit-gradient(linear, left bottom, left top, from(hsla(0, 0%, 100%, 0.4)), to(hsla(0, 0%, 100%, 0.8)));background:-o-linear-gradient(bottom, hsla(0, 0%, 100%, 0.4), hsla(0, 0%, 100%, 0.8));background:linear-gradient(0deg,hsla(0,0%,100%,.4),hsla(0,0%,100%,.8));pointer-events:none;-webkit-transform:translateZ(0);transform:translateZ(0);z-index:10}.rolldate-container .mask-top{border-bottom:1px solid #ebebeb}.rolldate-container .mask-bottom{top:auto;bottom:1px;border-top:1px solid #ebebeb}.rolldate-container .fadeIn{-webkit-transform:translateZ(0);transform:translateZ(0)}.rolldate-container .fadeOut{-webkit-transform:translate3d(0,273px,0);transform:translate3d(0,273px,0)}@media screen and (max-width:414px){.rolldate-container{font-size:18px}}@media screen and (max-width:320px){.rolldate-container{font-size:15px}}";
+var css = ".rolldate-container{font-size:20px;color:#333;text-align:center}.rolldate-container ul{margin:0;padding:0}.rolldate-container li{list-style-type:none}.rolldate-container header{position:relative;line-height:60px;font-size:18px;border-bottom:1px solid #e0e0e0}.rolldate-container .rolldate-mask{position:fixed;width:100%;height:100%;top:0;left:0;z-index:999;background-color:rgba(37,38,45,.4)}.rolldate-container .rolldate-panel{position:fixed;bottom:0;left:0;width:100%;height:273px;z-index:1000;background:#fff;transition:all .3s ease-in-out;-webkit-transform:translate3d(0,273px,0);transform:translate3d(0,273px,0)}.rolldate-container .rolldate-btn{position:absolute;left:0;top:0;height:100%;padding:0 15px;color:#666;font-size:16px;cursor:pointer;-webkit-tap-highlight-color:transparent}.rolldate-container .rolldate-confirm{left:auto;right:0;color:#007bff}.rolldate-container .rolldate-content{position:relative;top:20px}.rolldate-container .rolldate-wrapper{display:flex}.rolldate-container .rolldate-wrapper>div{flex:1;height:173px;line-height:36px;overflow:hidden;flex-basis:-8e;width:1%}.rolldate-container .rolldate-wrapper ul{margin-top:68px}.rolldate-container .rolldate-wrapper li{height:36px}.rolldate-container .rolldate-dim{position:absolute;left:0;top:0;width:100%;height:68px;background:linear-gradient(0deg,hsla(0,0%,100%,.4),hsla(0,0%,100%,.8));pointer-events:none;-webkit-transform:translateZ(0);transform:translateZ(0);z-index:10}.rolldate-container .mask-top{border-bottom:1px solid #ebebeb}.rolldate-container .mask-bottom{top:auto;bottom:1px;border-top:1px solid #ebebeb}.rolldate-container .fadeIn{-webkit-transform:translateZ(0);transform:translateZ(0)}.rolldate-container .fadeOut{-webkit-transform:translate3d(0,273px,0);transform:translate3d(0,273px,0)}@media screen and (max-width:414px){.rolldate-container{font-size:18px}}@media screen and (max-width:320px){.rolldate-container{font-size:15px}}";
 styleInject(css);
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
@@ -126,7 +127,21 @@ Rolldate.prototype = {
         cancel: null,
         minStep: 1,
         trigger: 'tap',
-        lang: { title: '选择日期', cancel: '取消', confirm: '确认', year: '年', month: '月', day: '日', hour: '时', min: '分', sec: '秒' }
+        lang: { title: '选择日期', cancel: '取消', confirm: '确认', year: '年', month: '月', day: '日', hour: '时', min: '分', sec: '秒' },
+        monthNames: {
+          month1: null,
+          month2: null,
+          month3: null,
+          month4: null,
+          month5: null,
+          month6: null,
+          month7: null,
+          month8: null,
+          month9: null,
+          month10: null,
+          month11: null,
+          month12: null
+        }
       }
     };
   },
@@ -155,7 +170,8 @@ Rolldate.prototype = {
         ul = '',
         date = config.el ? $(config.el).bindDate || new Date() : _this.bindDate || new Date(),
         itemClass = '',
-        lang = config.lang;
+        lang = config.lang,
+        monthNames = config.monthNames;
 
     for (var i = 0; i < len; i++) {
       var f = FormatArr[i],
@@ -167,14 +183,16 @@ Rolldate.prototype = {
         for (var j = config.beginYear; j <= config.endYear; j++) {
           itemClass = j == date.getFullYear() ? 'active' : '';
 
-          ul += '<li class="wheel-item ' + itemClass + '" data-index="' + domMndex + '">' + j + lang.year + '</li>';
+          ul += '<li class="wheel-item ' + itemClass + '" data-index="' + domMndex + '" data-value="' + j + '">' + j + lang.year + '</li>';
           domMndex++;
         }
       } else if (f == 'MM') {
         for (var k = 1; k <= 12; k++) {
           itemClass = k == date.getMonth() + 1 ? 'active' : '';
 
-          ul += '<li class="wheel-item ' + itemClass + '" data-index="' + domMndex + '">' + (k < 10 ? '0' + k : k) + lang.month + '</li>';
+          var month = monthNames['month' + k] === null ? k < 10 ? '0' + k : k : monthNames['month' + k];
+
+          ul += '<li class="wheel-item ' + itemClass + '" data-index="' + domMndex + '" data-value="' + (k < 10 ? '0' + k : k) + '">' + month + lang.month + '</li>';
           domMndex++;
         }
       } else if (f == 'DD') {
@@ -182,28 +200,28 @@ Rolldate.prototype = {
         for (var l = 1; l <= day; l++) {
           itemClass = l == date.getDate() ? 'active' : '';
 
-          ul += '<li class="wheel-item ' + itemClass + '" data-index="' + domMndex + '">' + (l < 10 ? '0' + l : l) + lang.day + '</li>';
+          ul += '<li class="wheel-item ' + itemClass + '" data-index="' + domMndex + '" data-value="' + (l < 10 ? '0' + l : l) + '">' + (l < 10 ? '0' + l : l) + lang.day + '</li>';
           domMndex++;
         }
       } else if (f == 'hh') {
         for (var m = 0; m <= 23; m++) {
           itemClass = m == date.getHours() ? 'active' : '';
 
-          ul += '<li class="wheel-item ' + itemClass + '" data-index="' + domMndex + '">' + (m < 10 ? '0' + m : m) + lang.hour + '</li>';
+          ul += '<li class="wheel-item ' + itemClass + '" data-index="' + domMndex + '" data-value="' + (m < 10 ? '0' + m : m) + '">' + (m < 10 ? '0' + m : m) + lang.hour + '</li>';
           domMndex++;
         }
       } else if (f == 'mm') {
         for (var n = 0; n <= 59; n += config.minStep) {
           itemClass = n == date.getMinutes() ? 'active' : '';
 
-          ul += '<li class="wheel-item ' + itemClass + '" data-index="' + domMndex + '">' + (n < 10 ? '0' + n : n) + lang.min + '</li>';
+          ul += '<li class="wheel-item ' + itemClass + '" data-index="' + domMndex + '" data-value="' + (n < 10 ? '0' + n : n) + '">' + (n < 10 ? '0' + n : n) + lang.min + '</li>';
           domMndex++;
         }
       } else if (f == 'ss') {
         for (var o = 0; o <= 59; o++) {
           itemClass = o == date.getSeconds() ? 'active' : '';
 
-          ul += '<li class="wheel-item ' + itemClass + '" data-index="' + domMndex + '">' + (o < 10 ? '0' + o : o) + lang.sec + '</li>';
+          ul += '<li class="wheel-item ' + itemClass + '" data-index="' + domMndex + '" data-value="' + (o < 10 ? '0' + o : o) + '">' + (o < 10 ? '0' + o : o) + lang.sec + '</li>';
           domMndex++;
         }
       }
@@ -434,7 +452,7 @@ Rolldate.prototype = {
     }, 300);
   },
   getSelected: function getSelected(scroll) {
-    return $('#' + scroll.wrapper.id + ' li', 1)[scroll.getSelectedIndex()].innerText.replace(/\D/g, '');
+    return $('#' + scroll.wrapper.id + ' li', 1)[scroll.getSelectedIndex()].getAttribute('data-value');
   }
 };
 Rolldate.version = version;
