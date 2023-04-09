@@ -72,7 +72,14 @@ Rolldate.prototype = {
         cancel:null,
         minStep:1,
         trigger:'tap',
-        lang:{title:'选择日期', cancel:'取消', confirm:'确认', year:'年', month:'月', day:'日', hour:'时', min:'分', sec:'秒'}
+        lang:{year:'year', month:'month', day:'day', hour:'hour', min:'min', sec:'sec'},
+        header: `
+          <header>
+              <span class="rolldate-btn rolldate-cancel">Cancel</span>
+              Select date
+              <span class="rolldate-btn rolldate-confirm">Confirm</span>
+          </header>
+        `
       }
     };
   },
@@ -157,11 +164,7 @@ Rolldate.prototype = {
     }
     let $html = `<div class="rolldate-mask"></div>
             <div class="rolldate-panel">
-                <header>
-                    <span class="rolldate-btn rolldate-cancel">${lang.cancel}</span>
-                    ${lang.title}
-                    <span class="rolldate-btn rolldate-confirm">${lang.confirm}</span>
-                </header>
+                ${config.header}
                 <section class="rolldate-content">
                     <div class="rolldate-dim mask-top"></div>
                     <div class="rolldate-dim mask-bottom"></div>
