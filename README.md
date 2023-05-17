@@ -1,5 +1,11 @@
 # rolldate [![npm](https://img.shields.io/npm/v/rolldate.svg)](https://www.npmjs.com/package/rolldate) [![npm](https://img.shields.io/npm/dm/rolldate.svg)](https://www.npmjs.com/package/rolldate)
 此插件为[jquery-date](https://github.com/weijhfly/jqueryDatePlugin "jquery-date")的全新版本，主要为了解决旧版参数设计不够合理、滑动效率不高、依赖jquery、没有可选的主题风格等问题，并增加了回调函数，使插件有更大的灵活性。
+
+## 2023/05/17 3.2.0 版本更新
+1. 新增 `min` `max` 參數設定
+2. 升級 better-scroll v1 -> v2
+3. 支援滑鼠滾輪捲動日期
+
 ## 2019/05/24 3.0版本更新
 上一个版本为2.1.5, 新版本(从3.0.0开始)的改动：
 
@@ -60,6 +66,8 @@ el|否|无|绑定插件的dom元素，插件内部使用document.querySelector�
 format|否|'YYYY-MM-DD'|日期格式，无限制。规则：年-YYYY 月-MM 日-DD 时-hh 分-mm 秒-ss 使用/、-、空格、:之一分隔，可随意组合
 beginYear|否|2000|日期开始年份
 endYear|否|2100|日期结束年份
+min|否|最小值，例如'2023-01-01'
+max|否|最大值，例如'2023-01-01'
 value|否|无|日期初始化的默认值，列如'2018-03-18'
 lang|否|年、月、日...|配置插件语言，默认：title:'选择日期',cancel:'取消',confirm:'确认',<br>year:'年',month:'月',day:'日',hour:'时',min:'分',sec:'秒'
 minStep|否|1|分钟按指定数分隔
@@ -78,6 +86,8 @@ var rd = new Rolldate({
     format: 'YYYY-MM-DD',
     beginYear: 2000,
     endYear: 2100,
+    min: '2023-01-01',
+    max: '2023-12-31',
     minStep:1,
     lang:{title:'自定义标题'},
     trigger:'tap',

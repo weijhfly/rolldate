@@ -7,6 +7,7 @@
 	<title>rolldate demo</title>
 	<!-- bootstrap.css仅作为示例演示使用 -->
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<script src="../dist/rolldate.js"></script>
 	<style type="text/css">
 		h1 {
 			font-size: 30px;
@@ -188,6 +189,22 @@
 			<div class="form-group clearfix">
 				<div class="col-xs-6">
 					<input readonly class="form-control" type="text" id="date-group8-1" placeholder="不能小于当前的日期">
+				</div>
+			</div>
+		</div>
+		<h4><strong>最大時間</strong></h4>
+		<div class="row">
+			<div class="form-group clearfix">
+				<div class="col-xs-6">
+					<input readonly class="form-control" type="text" id="date-group10-1" placeholder="不能大於 2024-01-01">
+				</div>
+			</div>
+		</div>
+		<h4><strong>最小時間</strong></h4>
+		<div class="row">
+			<div class="form-group clearfix">
+				<div class="col-xs-6">
+					<input readonly class="form-control" type="text" id="date-group11-1" placeholder="不能小於 2023-01-01">
 				</div>
 			</div>
 		</div>
@@ -383,6 +400,24 @@
 						return false;
 					}
 				}
+			})
+
+			// 最大時間
+			new Rolldate({
+				el: '#date-group10-1',
+				format: 'YYYY-MM-DD',
+				beginYear: 2000,
+				endYear: 2100,
+				max: '2024-01-01'
+			})
+
+			// 最小時間
+			new Rolldate({
+				el: '#date-group8-1',
+				format: 'YYYY-MM-DD',
+				beginYear: 2000,
+				endYear: 2100,
+				min: '2023-01-01'
 			})
 		}
 	</script>
