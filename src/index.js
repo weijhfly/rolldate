@@ -1,7 +1,13 @@
 import './index.less';
 
-import BScroll from './lib/bscroll.min';
+import BScroll from '@better-scroll/core'
+import Wheel from '@better-scroll/wheel'
+import MouseWheel from '@better-scroll/mouse-wheel'
+
 import {version} from '../package.json';
+
+BScroll.use(Wheel);
+BScroll.use(MouseWheel);
 
 let $ = (selector, flag) => {
   if(typeof selector != 'string' && selector.nodeType){
@@ -39,7 +45,7 @@ function Rolldate(config = {}){
       date = new Date(str);
 
     if(!date || date == 'Invalid Date'){
-      console.error('Invalid Date：'+str);
+      console.error('Invalid Date: '+str);
     }else{
       if(config.el){
         el.bindDate = date;
@@ -66,13 +72,15 @@ Rolldate.prototype = {
         format:'YYYY-MM-DD',
         beginYear:2000,
         endYear:2100,
+        min:null,
+        max:null,
         init:null,
         moveEnd:null,
         confirm:null,
         cancel:null,
         minStep:1,
         trigger:'tap',
-        lang:{title:'选择日期', cancel:'取消', confirm:'确认', year:'年', month:'月', day:'日', hour:'时', min:'分', sec:'秒'}
+        lang:{title:'Select Date', cancel:'Cancel', confirm:'Confirm', year:'Year', month:'Month', day:'Day', hour:'Hour', min:'Minute', sec:'Seconds'}
       }
     };
   },
@@ -182,20 +190,34 @@ Rolldate.prototype = {
       let $id = domId[FormatArr[i]];
 
       _this.scroll[FormatArr[i]] = new BScroll('#'+$id, {
+        disableMouse: false,
+        disableTouch: false,
         wheel: {
           selectedIndex: 0
-        }
+        },
+        mouseWheel: {
+          speed: 20,
+          invert: false,
+          easeTime: 300
+        },
       });
 
       let that = _this.scroll[FormatArr[i]],
         active = $(`#${$id} .active`),
         index = active? active.getAttribute('data-index') : Math.round(date.getMinutes()/config.minStep);
- 
+
       that.wheelTo(index);
       // 滚动结束
       that.on('scrollEnd', () => {
         if(config.moveEnd){
           config.moveEnd.call(_this, that);
+        }
+        const { date } = _this.getSelectedDate();
+        if (_this.config.min && new Date(date) - new Date(_this.config.min) < 0) {
+          _this.scrollToDateTime(_this.config.min);
+        }
+        if (_this.config.max && new Date(date) - new Date(_this.config.max) > 0) {
+          _this.scrollToDateTime(_this.config.max);
         }
         if([domId['YYYY'], domId['MM']].indexOf(that.wrapper.id) != -1 && _this.scroll['YYYY'] && _this.scroll['MM'] && _this.scroll['DD']){
           let day = _this.getMonthlyDay(_this.getSelected(_this.scroll['YYYY']), _this.getSelected(_this.scroll['MM'])),
@@ -214,6 +236,27 @@ Rolldate.prototype = {
 
     }
     $('.rolldate-panel').className = 'rolldate-panel fadeIn';
+  },
+  scrollToDateTime: function(dateTime) {
+    const date = new Date(dateTime);
+    if (this.scroll['YYYY']) {
+      this.scroll['YYYY'].wheelTo(date.getFullYear() - this.config.beginYear);
+    }
+    if (this.scroll['MM']) {
+      this.scroll['MM'].wheelTo(date.getMonth());
+    }
+    if (this.scroll['DD']) {
+      this.scroll['DD'].wheelTo(date.getDate() - 1);
+    }
+    if (this.scroll['hh']) {
+      this.scroll['hh'].wheelTo(date.getHours());
+    }
+    if (this.scroll['mm']) {
+      this.scroll['mm'].wheelTo(date.getMinutes());
+    }
+    if (this.scroll['ss']) {
+      this.scroll['ss'].wheelTo(date.getSeconds());
+    }
   },
   tap:function (el, fn) {
     let _this = this,
@@ -300,28 +343,10 @@ Rolldate.prototype = {
     })
     _this.tap(confirm, function(){
       let config = _this.config,
-        el,
-        date = config.format,
-        newDate = new Date();
+        el;
 
-      for(let f in _this.scroll){
-        let d = _this.getSelected(_this.scroll[f]);
-
-        date = date.replace(f, d);
-        if(f == 'YYYY'){
-          newDate.setFullYear(d);
-        }else if(f == 'MM'){
-          newDate.setMonth(d-1);
-        }else if(f == 'DD'){
-          newDate.setDate(d);
-        }else if(f == 'hh'){
-          newDate.setHours(d);
-        }else if(f == 'mm'){
-          newDate.setMinutes(d);
-        }else if(f == 'ss'){
-          newDate.setSeconds(d);
-        }
-      }
+      let {date, newDate} = _this.getSelectedDate();
+      
       if(config.confirm){
         let flag = config.confirm.call(_this, date);
         if(flag === false){
@@ -344,6 +369,30 @@ Rolldate.prototype = {
       _this.hide();
 
     })
+  },
+  getSelectedDate: function(){
+    let date = this.config.format,
+      newDate = new Date();
+
+    for(let f in this.scroll){
+      let d = this.getSelected(this.scroll[f]);
+
+      date = date.replace(f, d);
+      if(f == 'YYYY'){
+        newDate.setFullYear(d);
+      }else if(f == 'MM'){
+        newDate.setMonth(d-1);
+      }else if(f == 'DD'){
+        newDate.setDate(d);
+      }else if(f == 'hh'){
+        newDate.setHours(d);
+      }else if(f == 'mm'){
+        newDate.setMinutes(d);
+      }else if(f == 'ss'){
+        newDate.setSeconds(d);
+      }
+    }
+    return {date, newDate};
   },
   getMonthlyDay: function(year, month){
     let day;

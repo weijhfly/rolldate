@@ -1,6 +1,6 @@
 {
   "name": "rolldate",
-  "version": "3.1.3",
+  "version": "3.2.0",
   "description": "rolldate 多格式、功能强大的移动端日期选择插件",
   "main": "dist/rolldate.min.js",
   "scripts": {
@@ -16,11 +16,15 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/weijhfly/rolldate"
+    "url": "https://github.com/vantist/rolldate"
   },
-  "author": "雾空",
+  "author": "Vantist Lin",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "@better-scroll/core": "^2.5.1",
+    "@better-scroll/mouse-wheel": "^2.5.1",
+    "@better-scroll/wheel": "^2.5.1"
+  },
   "devDependencies": {
     "autoprefixer": "^9.0.1",
     "babel-core": "^6.26.3",
