@@ -66,8 +66,8 @@ el|否|无|绑定插件的dom元素，插件内部使用document.querySelector�
 format|否|'YYYY-MM-DD'|日期格式，无限制。规则：年-YYYY 月-MM 日-DD 时-hh 分-mm 秒-ss 使用/、-、空格、:之一分隔，可随意组合
 beginYear|否|2000|日期开始年份
 endYear|否|2100|日期结束年份
-min|否|最小值，例如'2023-01-01'
-max|否|最大值，例如'2023-01-01'
+min|否|null|最小值，例如'2023-01-01'
+max|否|nuill|最大值，例如'2023-01-01'
 value|否|无|日期初始化的默认值，列如'2018-03-18'
 lang|否|年、月、日...|配置插件语言，默认：title:'选择日期',cancel:'取消',confirm:'确认',<br>year:'年',month:'月',day:'日',hour:'时',min:'分',sec:'秒'
 minStep|否|1|分钟按指定数分隔
